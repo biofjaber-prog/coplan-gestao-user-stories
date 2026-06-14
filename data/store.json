@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14T19:47:26.056Z",
+  "updatedAt": "2026-06-14T19:49:18.964Z",
   "stories": [
     {
       "id": "6553",
@@ -177,17 +177,6 @@
       "queue": 2,
       "notes": "",
       "order": 2
-    },
-    {
-      "id": "6659",
-      "title": "ENCERRAMENTO DE FISCALIZAÇÃO - SUSPENSÃO AUTOMÁTICA DE CADASTRO",
-      "developer": "DEFINIR DESENVOLVEDOR",
-      "sprint": "Sprint 23",
-      "status": "Apresentar e planejar",
-      "dependency": "",
-      "queue": 1,
-      "notes": "",
-      "order": 20
     },
     {
       "id": "6670",
