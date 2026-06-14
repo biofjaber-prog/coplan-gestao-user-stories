@@ -1517,6 +1517,41 @@
     return btoa(binary);
   }
 
+  function decodeBase64Utf8(content) {
+    const clean = String(content || "").replace(/\s/g, "");
+    const binary = atob(clean);
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+
+  async function fetchCloudPayload(config) {
+    if (config.token) {
+      const response = await fetch(`${githubApiUrl(config)}?ref=${encodeURIComponent(config.branch)}`, {
+        cache: "no-store",
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${config.token}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+      if (!response.ok) throw new Error(cloudErrorMessage(response.status, "carregar"));
+      const file = await response.json();
+      return JSON.parse(decodeBase64Utf8(file.content));
+    }
+
+    const response = await fetch(cloudReadUrl(config), { cache: "no-store" });
+    if (!response.ok) throw new Error(cloudErrorMessage(response.status, "carregar"));
+    return response.json();
+  }
+
+  function cloudErrorMessage(status, action) {
+    if (status === 401) return "Token invalido. Gere um novo token e configure novamente.";
+    if (status === 403) return "Token sem permissao. Libere Contents como Read and write.";
+    if (status === 404) return "Arquivo data/store.json nao encontrado no repositorio. Envie a pasta data para o GitHub.";
+    if (status === 409) return "O arquivo mudou no GitHub. Clique em Carregar Nuvem e tente salvar novamente.";
+    return `GitHub retornou ${status} ao ${action}.`;
+  }
+
   async function loadCloudData(manual) {
     const config = loadCloudConfig();
     if (location.protocol === "file:" && !manual) return;
@@ -1524,12 +1559,8 @@
     state.cloudLoading = true;
     if (manual) setSaveState("Carregando nuvem");
     try {
-      const response = await fetch(cloudReadUrl(config), { cache: "no-store" });
-      if (!response.ok) {
-        if (manual) throw new Error(`GitHub retornou ${response.status}`);
-        return;
-      }
-      applyDataPayload(await response.json(), "Dados carregados da nuvem");
+      applyDataPayload(await fetchCloudPayload(config), "Dados carregados da nuvem");
+      if (manual) alert("Nuvem carregada com sucesso.");
     } catch (error) {
       if (manual) alert(`Nao foi possivel carregar a nuvem: ${error.message}`);
       if (manual) console.warn("Falha ao carregar nuvem.", error);
@@ -1560,7 +1591,7 @@
       if (current.ok) {
         sha = (await current.json()).sha;
       } else if (current.status !== 404) {
-        throw new Error(`GitHub retornou ${current.status} ao consultar o JSON.`);
+        throw new Error(cloudErrorMessage(current.status, "consultar o JSON"));
       }
 
       const body = {
@@ -1581,8 +1612,7 @@
         body: JSON.stringify(body),
       });
       if (!saved.ok) {
-        const detail = await saved.text();
-        throw new Error(`GitHub retornou ${saved.status}. ${detail.slice(0, 180)}`);
+        throw new Error(cloudErrorMessage(saved.status, "salvar"));
       }
       setSaveState("Nuvem sincronizada");
       alert("Dados salvos na nuvem. No celular, atualize a pagina para carregar a nova versao.");

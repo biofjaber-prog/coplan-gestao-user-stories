@@ -40,17 +40,30 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">Pronto para uso</span>
-        <a class="primary-button" id="dashboardLink" href="dashboard.html" target="_blank" rel="noopener">Abrir Dashboard</a>
+      </div>
+    </header>
+
+    <aside class="side-menu" aria-label="Menu principal">
+      <div class="side-menu-head">
+        <span class="eyebrow">Menu</span>
+        <strong>Gestão Coplan</strong>
+      </div>
+      <nav class="side-menu-nav">
+        <a class="primary-button" id="dashboardLink" href="dashboard.html" target="_blank" rel="noopener">Dashboard</a>
         <button class="ghost-button" id="cloudConfigBtn" type="button">Configurar Nuvem</button>
         <button class="ghost-button" id="cloudLoadBtn" type="button">Carregar Nuvem</button>
         <button class="primary-button" id="cloudSaveBtn" type="button">Salvar Nuvem</button>
-          <button class="ghost-button" id="exportJsonBtn" type="button">Backup JSON</button>
+        <button class="ghost-button" id="exportJsonBtn" type="button">Backup JSON</button>
         <button class="ghost-button" id="importJsonBtn" type="button">Importar</button>
         <button class="danger-button" id="resetBtn" type="button">Restaurar</button>
         <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
-        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </nav>
+      <div class="side-menu-foot">
+        <span>GitHub JSON</span>
+        <small>Sincronize para computador e celular usarem a mesma base.</small>
       </div>
-    </header>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </aside>
 
     <main class="workspace">
       <section class="page-hero management-hero">

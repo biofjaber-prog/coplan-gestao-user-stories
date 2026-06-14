@@ -11,6 +11,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 
 - `index.html`: abre a Gestao de User Stories.
 - `Abrir Dashboard`: abre o painel em uma nova aba.
+- O menu lateral concentra Dashboard, Nuvem, Backup, Importar, Restaurar e Sair.
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - `Novo Dev`: cadastra desenvolvedor em popup.

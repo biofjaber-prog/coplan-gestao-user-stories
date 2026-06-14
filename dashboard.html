@@ -40,12 +40,26 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">Dados carregados</span>
-        <a class="ghost-button" href="index.html">Voltar à Gestão</a>
-        <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
-        <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
-        <input id="importFile" type="file" accept="application/json,.json" hidden>
       </div>
     </header>
+
+    <aside class="side-menu" aria-label="Menu do dashboard">
+      <div class="side-menu-head">
+        <span class="eyebrow">Menu</span>
+        <strong>Dashboard</strong>
+      </div>
+      <nav class="side-menu-nav">
+        <a class="primary-button" href="index.html">Voltar à Gestão</a>
+        <button class="ghost-button" id="cloudLoadBtn" type="button">Carregar Nuvem</button>
+        <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
+        <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
+      </nav>
+      <div class="side-menu-foot">
+        <span>Consulta</span>
+        <small>O dashboard carrega o JSON publicado no GitHub.</small>
+      </div>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </aside>
 
     <main class="workspace dashboard-workspace">
       <section class="page-hero dashboard-hero">
@@ -219,7 +233,7 @@
             <h2 id="drawerTitle">Detalhes</h2>
             <p id="drawerSubtitle">Informações da seleção atual</p>
           </div>
-          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">×</button>
+          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">x</button>
         </div>
         <div id="drawerBody" class="drawer-body"></div>
       </section>
