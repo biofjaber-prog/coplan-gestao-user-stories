@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestão de User Stories | Coplan</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="management">
+  <section class="login-screen" id="loginScreen" hidden>
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
+        <div>
+          <strong>Coplan</strong>
+          <span>Gestão de User Stories</span>
+        </div>
+      </div>
+      <h1>Gestão de User Stories</h1>
+      <p>Módulo Fiscalização</p>
+      <form id="loginForm" class="login-form">
+        <label for="loginUser">Login</label>
+        <input id="loginUser" name="login" autocomplete="username" required>
+        <label for="loginPass">Senha</label>
+        <input id="loginPass" name="password" type="password" autocomplete="current-password" required>
+        <div class="login-error" id="loginError" role="alert"></div>
+        <button class="primary-button" type="submit">Acessar</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="app-root" id="appRoot" hidden>
+    <header class="product-header">
+      <div class="brand-block">
+        <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
+        <div>
+          <h1>Gestão de US</h1>
+          <p>Fila operacional, backlog, sprints e prioridades de desenvolvimento</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="save-state" id="saveState">Pronto para uso</span>
+        <a class="primary-button" id="dashboardLink" href="dashboard.html" target="_blank" rel="noopener">Abrir Dashboard</a>
+          <button class="ghost-button" id="exportJsonBtn" type="button">Backup JSON</button>
+        <button class="ghost-button" id="importJsonBtn" type="button">Importar</button>
+        <button class="danger-button" id="resetBtn" type="button">Restaurar</button>
+        <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="page-hero management-hero">
+        <div>
+          <h2>Sistema de Gestão de US</h2>
+          <p>Coplan - Inteligência que transforma a Gestão Pública.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="primary-button" id="newStoryBtnManage" type="button">Nova US</button>
+          <button class="ghost-button" id="newSprintBtn" type="button">Nova Sprint</button>
+          <button class="ghost-button" id="newDeveloperBtn" type="button">Novo Dev</button>
+          <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
+        </div>
+      </section>
+
+      <section class="form-screen" id="formScreen" hidden>
+        <div class="form-screen-head">
+          <div>
+            <span class="eyebrow" id="formEyebrow">Cadastro</span>
+            <h2 id="formTitle">Novo cadastro</h2>
+            <p id="formSubtitle">Preencha as informações para atualizar a gestão.</p>
+          </div>
+          <button class="ghost-button" id="closeFormScreenBtn" type="button">Voltar</button>
+        </div>
+        <div id="formScreenBody"></div>
+      </section>
+
+      <section class="filters" aria-label="Filtros da gestão">
+        <div class="filter-field wide">
+          <label for="filterSearch">Buscar</label>
+          <input id="filterSearch" type="search" placeholder="US, descrição, sprint, responsável ou status">
+        </div>
+        <div class="filter-field">
+          <label for="filterSprint">Sprint</label>
+          <select id="filterSprint"></select>
+        </div>
+        <div class="filter-field">
+          <label for="filterDeveloper">Desenvolvedor</label>
+          <select id="filterDeveloper"></select>
+        </div>
+        <div class="filter-field">
+          <label for="filterStatus">Status</label>
+          <select id="filterStatus"></select>
+        </div>
+        <div class="filter-field compact">
+          <label for="filterQueue">Prioridade</label>
+          <select id="filterQueue"></select>
+        </div>
+        <button class="ghost-button" id="clearFiltersBtn" type="button">Limpar</button>
+      </section>
+
+      <section class="kpi-grid compact-kpis" id="kpiGrid" aria-label="Indicadores de gestão"></section>
+
+      <section class="panel queue-panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Fila de desenvolvimento</span>
+            <h2>Prioridade por Sprint e Desenvolvedor</h2>
+            <p>Edite o número da prioridade diretamente na fila. Ex.: Rafaela na Sprint 24 com P2 será a segunda US dela naquela sprint.</p>
+          </div>
+        </div>
+        <div id="queueBoard" class="queue-board"></div>
+      </section>
+
+      <section class="split-grid">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Planejamento</span>
+              <h2>Gestão de Sprints</h2>
+              <p>Cadastre novas sprints e defina período e objetivo do Roadmap.</p>
+            </div>
+            <button class="ghost-button" id="newSprintBtnPanel" type="button">Nova Sprint</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table sprint-manage-table" id="sprintManageTable">
+              <thead>
+                <tr>
+                  <th>Sprint</th>
+                  <th>Início</th>
+                  <th>Fim</th>
+                  <th>Cor</th>
+                  <th>Objetivo</th>
+                  <th>US</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Atenção</span>
+              <h2>Conflitos e Bloqueios</h2>
+              <p>Prioridades duplicadas e dependências pendentes.</p>
+            </div>
+          </div>
+          <div id="riskPanel" class="risk-list"></div>
+        </section>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Equipe</span>
+            <h2>Gestão de Desenvolvedores</h2>
+            <p>Cadastre novos responsáveis para receber US por arrastar e soltar.</p>
+          </div>
+          <button class="ghost-button" id="newDeveloperBtnPanel" type="button">Novo Dev</button>
+        </div>
+        <div id="developerManageList" class="developer-manage-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Backlog editável</span>
+            <h2>Editor Completo de User Stories</h2>
+            <p>Altere prioridade, sprint, responsável, status, dependências e notas. Tudo alimenta o dashboard.</p>
+          </div>
+        </div>
+        <div class="table-wrap manage-wrap">
+          <table class="data-table manage-table" id="manageTable">
+            <thead>
+              <tr>
+                <th>US</th>
+                <th>Descrição</th>
+                <th>Prioridade</th>
+                <th>Desenvolvedor</th>
+                <th>Sprint</th>
+                <th>Status</th>
+                <th>Dependência</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer-backdrop" id="drawerBackdrop" hidden>
+      <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <div class="drawer-head">
+          <div>
+            <h2 id="drawerTitle">Detalhes</h2>
+            <p id="drawerSubtitle">Informações da seleção atual</p>
+          </div>
+          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">×</button>
+        </div>
+        <div id="drawerBody" class="drawer-body"></div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

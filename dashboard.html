@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard de User Stories | Coplan</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="dashboard">
+  <section class="login-screen" id="loginScreen" hidden>
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
+        <div>
+          <strong>Coplan</strong>
+          <span>Dashboard de User Stories</span>
+        </div>
+      </div>
+      <h1>Entrar no dashboard</h1>
+      <p>Use o mesmo acesso da Gestão para consultar os indicadores.</p>
+      <form id="loginForm" class="login-form">
+        <label for="loginUser">Login</label>
+        <input id="loginUser" name="login" autocomplete="username" required>
+        <label for="loginPass">Senha</label>
+        <input id="loginPass" name="password" type="password" autocomplete="current-password" required>
+        <div class="login-error" id="loginError" role="alert"></div>
+        <button class="primary-button" type="submit">Acessar</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="app-root" id="appRoot" hidden>
+    <header class="product-header dashboard-header">
+      <div class="brand-block">
+        <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
+        <div>
+          <h1>Coplan</h1>
+          <p>Inteligência que Transforma a Gestão Pública</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="save-state" id="saveState">Dados carregados</span>
+        <a class="ghost-button" href="index.html">Voltar à Gestão</a>
+        <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
+        <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+    </header>
+
+    <main class="workspace dashboard-workspace">
+      <section class="page-hero dashboard-hero">
+        <div>
+          <span class="eyebrow">Dashboard</span>
+          <h2>O que está acontecendo no backlog agora</h2>
+        </div>
+      </section>
+
+      <section class="filters" aria-label="Filtros do dashboard">
+        <div class="filter-field wide">
+          <label for="filterSearch">Buscar</label>
+          <input id="filterSearch" type="search" placeholder="US, descrição, sprint, responsável ou status">
+        </div>
+        <div class="filter-field">
+          <label for="filterSprint">Sprint</label>
+          <select id="filterSprint"></select>
+        </div>
+        <div class="filter-field">
+          <label for="filterDeveloper">Desenvolvedor</label>
+          <select id="filterDeveloper"></select>
+        </div>
+        <div class="filter-field">
+          <label for="filterStatus">Status</label>
+          <select id="filterStatus"></select>
+        </div>
+        <div class="filter-field compact">
+          <label for="filterQueue">Prioridade</label>
+          <select id="filterQueue"></select>
+        </div>
+        <button class="ghost-button" id="clearFiltersBtn" type="button">Limpar</button>
+      </section>
+
+      <section class="kpi-grid" id="kpiGrid" aria-label="Indicadores principais"></section>
+
+      <section class="dashboard-grid">
+        <div class="dashboard-main-col">
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Volume</span>
+                <h2>US por Sprint</h2>
+                <p>Mostra todas as sprints existentes na base, com concluídas e abertas.</p>
+              </div>
+            </div>
+            <div id="sprintChart" class="bar-chart"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Planejamento</span>
+                <h2>Roadmap por Sprint</h2>
+                <p>US ordenadas pela prioridade definida na Gestão.</p>
+              </div>
+            </div>
+            <div id="roadmap" class="roadmap roadmap-list"></div>
+          </section>
+        </div>
+
+        <div class="dashboard-side-col">
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Status</span>
+                <h2>Saúde do Backlog</h2>
+                <p>Distribuição por status e percentual concluído.</p>
+              </div>
+            </div>
+            <div id="statusChart" class="donut-layout"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Prioridades</span>
+                <h2>Fila de Execução</h2>
+                <p>Distribuição das US por prioridade.</p>
+              </div>
+            </div>
+            <div id="priorityChart" class="metric-chart"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Dependências</span>
+                <h2>Mapa das Dependências</h2>
+                <p>US que dependem de outras US para avançar.</p>
+              </div>
+            </div>
+            <div id="dependencyMap" class="dependency-map"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="chart-strip">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Responsáveis</span>
+              <h2>Carga por Desenvolvedor</h2>
+            </div>
+          </div>
+          <div id="developerLoadChart" class="metric-chart"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Risco</span>
+              <h2>Bloqueios por Sprint</h2>
+            </div>
+          </div>
+          <div id="blockedSprintChart" class="metric-chart"></div>
+        </section>
+      </section>
+
+      <section class="chart-strip">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Tendência</span>
+              <h2>Evolução Planejada por Sprint</h2>
+            </div>
+          </div>
+          <div id="sprintTrendChart" class="line-chart"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Conclusão</span>
+              <h2>Percentual Concluído por Sprint</h2>
+            </div>
+          </div>
+          <div id="completionChart" class="column-chart"></div>
+        </section>
+      </section>
+
+      <section class="panel" id="backlogSection">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Consulta</span>
+            <h2>Backlog Completo</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="backlogTable">
+            <thead>
+              <tr>
+                <th data-sort="id">US</th>
+                <th data-sort="queue">Prioridade</th>
+                <th data-sort="title">Descrição</th>
+                <th data-sort="developer">Desenvolvedor</th>
+                <th data-sort="sprint">Sprint</th>
+                <th data-sort="status">Status</th>
+                <th>Dependência</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer-backdrop" id="drawerBackdrop" hidden>
+      <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+        <div class="drawer-head">
+          <div>
+            <h2 id="drawerTitle">Detalhes</h2>
+            <p id="drawerSubtitle">Informações da seleção atual</p>
+          </div>
+          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">×</button>
+        </div>
+        <div id="drawerBody" class="drawer-body"></div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
