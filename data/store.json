@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14T19:34:14.546Z",
+  "updatedAt": "2026-06-14T19:47:26.056Z",
   "stories": [
     {
       "id": "6553",
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (EDITAL)",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 23",
-      "status": "Em desenvolvimento",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "notes": "",
@@ -18,7 +18,7 @@
       "title": "ENCERRAMENTO DA ANÁLISE E INSTRUÇÃO DE PROCESSO",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 23",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
       "notes": "",
@@ -31,9 +31,9 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 1,
+      "queue": 3,
       "notes": "",
-      "order": 5
+      "order": 3
     },
     {
       "id": "6552",
@@ -44,7 +44,7 @@
       "dependency": "",
       "queue": 1,
       "notes": "",
-      "order": 6
+      "order": 1
     },
     {
       "id": "6554",
@@ -62,11 +62,11 @@
       "title": "FINALIZAÇÃO DE PLANTÃO FISCAL",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 23",
-      "status": "Em desenvolvimento",
+      "status": "Em testes",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "notes": "",
-      "order": 8
+      "order": 1
     },
     {
       "id": "6547",
@@ -75,9 +75,9 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 3,
+      "queue": 2,
       "notes": "",
-      "order": 9
+      "order": 2
     },
     {
       "id": "6548",
@@ -88,7 +88,7 @@
       "dependency": "",
       "queue": 1,
       "notes": "",
-      "order": 10
+      "order": 1
     },
     {
       "id": "6673",
@@ -99,25 +99,25 @@
       "dependency": "",
       "queue": 1,
       "notes": "",
-      "order": 11
+      "order": 1
     },
     {
       "id": "6674",
       "title": "NOTIFICAÇÃO GESTOR SECFI NO ENCERRAMENTO NÃO LOCALIZAÇÃO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6673",
       "queue": 2,
       "notes": "",
-      "order": 12
+      "order": 2
     },
     {
       "id": "6672",
       "title": "ENVIO DO TERMO DE ENCERRAMENTO E DOCUMENTOS AO PORTAL DO CONTRIBUINTE",
       "developer": "Rafaela Piedade",
       "sprint": "Sprint 23",
-      "status": "Em testes",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "notes": "",
@@ -165,7 +165,7 @@
       "dependency": "6548",
       "queue": 3,
       "notes": "",
-      "order": 18
+      "order": 3
     },
     {
       "id": "6590",
@@ -174,9 +174,9 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6548",
-      "queue": 4,
+      "queue": 2,
       "notes": "",
-      "order": 19
+      "order": 2
     },
     {
       "id": "6659",
@@ -196,20 +196,20 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6669",
-      "queue": 1,
+      "queue": 2,
       "notes": "",
-      "order": 21
+      "order": 2
     },
     {
       "id": "6724",
       "title": "Assinatura Digital — Representação Visual da Assinatura no PDF [TERMO DE ENCERRAMENTO]",
       "developer": "Fábio Satoru",
-      "sprint": "Sprint 24",
-      "status": "Em desenvolvimento",
+      "sprint": "Sprint 23",
+      "status": "Em testes",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "notes": "",
-      "order": 22
+      "order": 1
     },
     {
       "id": "6740",
@@ -335,13 +335,13 @@
     {
       "id": "6822",
       "title": "Roteamento dos envios do TAF definitivo ao contribuinte selecionado e tratamento da Data de Ciência",
-      "developer": "Julierson",
+      "developer": "José Valmir",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6819",
-      "queue": 1,
+      "queue": 4,
       "notes": "",
-      "order": 36
+      "order": 4
     },
     {
       "id": "6821",
@@ -361,9 +361,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6812/6819",
-      "queue": 1,
+      "queue": 3,
       "notes": "",
-      "order": 38
+      "order": 3
     },
     {
       "id": "6819",
@@ -374,7 +374,7 @@
       "dependency": "6812",
       "queue": 2,
       "notes": "",
-      "order": 39
+      "order": 2
     },
     {
       "id": "6812",
@@ -383,9 +383,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 3,
+      "queue": 1,
       "notes": "",
-      "order": 40
+      "order": 1
     },
     {
       "id": "6669",
@@ -394,86 +394,86 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "notes": "",
-      "order": 41
+      "order": 1
     },
     {
       "id": "6826",
       "title": "Demonstrativo Geral de Vigências",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Julierson",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
       "notes": "",
-      "order": 42
+      "order": 1
     },
     {
       "id": "6827",
       "title": "Exportar PDF - Demonstrativo de Vigências",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Julierson",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826",
       "queue": 2,
       "notes": "",
-      "order": 43
+      "order": 2
     },
     {
       "id": "6829",
       "title": "Apresentar Medidas conforme Vigência Selecionada",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Rui Barbosa",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 2,
+      "notes": "",
+      "order": 2
+    },
+    {
+      "id": "6828",
+      "title": "Períodos ao copiar vigência do imóvel para apuração do IPTU/TRSD",
+      "developer": "Rui Barbosa",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 1,
+      "notes": "",
+      "order": 1
+    },
+    {
+      "id": "6830",
+      "title": "Editar data de vigência pela auditoria",
+      "developer": "Rui Barbosa",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
       "notes": "",
-      "order": 44
-    },
-    {
-      "id": "6828",
-      "title": "Períodos ao copiar vigência do imóvel para apuração do IPTU/TRSD",
-      "developer": "DEFINIR DESENVOLVEDOR",
-      "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
-      "dependency": "",
-      "queue": 4,
-      "notes": "",
-      "order": 45
-    },
-    {
-      "id": "6830",
-      "title": "Editar data de vigência pela auditoria",
-      "developer": "DEFINIR DESENVOLVEDOR",
-      "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
-      "dependency": "",
-      "queue": 5,
-      "notes": "",
-      "order": 46
+      "order": 3
     },
     {
       "id": "6831",
       "title": "Filtro \"Condomínio?\"",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Miquéias",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 6,
+      "queue": 1,
       "notes": "",
-      "order": 47
+      "order": 1
     },
     {
       "id": "6832",
       "title": "Acesso ao cadatro de Condominio no Painel de Fiscalização",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Miquéias",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6831",
-      "queue": 7,
+      "queue": 3,
       "notes": "",
-      "order": 48
+      "order": 2
     },
     {
       "id": "6853",
@@ -482,9 +482,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 8,
+      "queue": 1,
       "notes": "",
-      "order": 49
+      "order": 1
     },
     {
       "id": "6852",
@@ -493,9 +493,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 9,
+      "queue": 2,
       "notes": "",
-      "order": 50
+      "order": 2
     },
     {
       "id": "6851",
@@ -504,9 +504,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 10,
+      "queue": 3,
       "notes": "",
-      "order": 51
+      "order": 3
     },
     {
       "id": "6845",
@@ -515,9 +515,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827/6839",
-      "queue": 11,
+      "queue": 4,
       "notes": "",
-      "order": 52
+      "order": 4
     },
     {
       "id": "6844",
@@ -526,9 +526,9 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 12,
+      "queue": 5,
       "notes": "",
-      "order": 53
+      "order": 5
     },
     {
       "id": "6839",
@@ -537,9 +537,31 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827",
-      "queue": 13,
+      "queue": 6,
       "notes": "",
-      "order": 54
+      "order": 6
+    },
+    {
+      "id": "6329",
+      "title": "Carregamento e Edição do Quadro de Apuração no Despacho de Análise e Instrução de Processo",
+      "developer": "Rafaela Piedade",
+      "sprint": "Sprint 23",
+      "status": "Em homologação",
+      "dependency": "",
+      "queue": 1,
+      "notes": "",
+      "order": 50
+    },
+    {
+      "id": "6499",
+      "title": "Registro na Central de Notificação para Deliberação da SEFIS (Fluxo Adicional via EDITAL)",
+      "developer": "Lucas Bonifácio",
+      "sprint": "Sprint 23",
+      "status": "Em homologação",
+      "dependency": "",
+      "queue": 1,
+      "notes": "",
+      "order": 51
     }
   ],
   "sprintMeta": {
@@ -576,6 +598,7 @@
     "Lucas Bonifácio",
     "Miquéias",
     "Rafaela Piedade",
+    "Rui Barbosa",
     "DEFINIR DESENVOLVEDOR"
   ],
   "devColors": {
@@ -590,6 +613,7 @@
     "Fábio Satoru": "#c2410c",
     "José Valmir": "#0e7490",
     "Miquéias": "#4f46e5",
-    "Julierson": "#16a34a"
+    "Julierson": "#16a34a",
+    "Rui Barbosa": "#00610b"
   }
 }
