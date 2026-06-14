@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
+  <link rel="icon" href="assets/coplan-symbol.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-page="dashboard">
@@ -40,26 +41,11 @@
       </div>
       <div class="header-actions">
         <span class="save-state" id="saveState">Dados carregados</span>
-      </div>
-    </header>
-
-    <aside class="side-menu" aria-label="Menu do dashboard">
-      <div class="side-menu-head">
-        <span class="eyebrow">Menu</span>
-        <strong>Dashboard</strong>
-      </div>
-      <nav class="side-menu-nav">
-        <a class="primary-button" href="index.html">Voltar à Gestão</a>
-        <button class="ghost-button" id="cloudLoadBtn" type="button">Carregar Nuvem</button>
         <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
         <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
-      </nav>
-      <div class="side-menu-foot">
-        <span>Consulta</span>
-        <small>O dashboard carrega o JSON publicado no GitHub.</small>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
       </div>
-      <input id="importFile" type="file" accept="application/json,.json" hidden>
-    </aside>
+    </header>
 
     <main class="workspace dashboard-workspace">
       <section class="page-hero dashboard-hero">

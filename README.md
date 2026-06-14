@@ -11,13 +11,12 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 
 - `index.html`: abre a Gestao de User Stories.
 - `Abrir Dashboard`: abre o painel em uma nova aba.
-- O menu lateral concentra Dashboard, Nuvem, Backup, Importar, Restaurar e Sair.
+- O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`.
+- No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - `Novo Dev`: cadastra desenvolvedor em popup.
-- `Configurar Nuvem`: salva no navegador o token do GitHub usado para gravar `data/store.json`.
-- `Salvar Nuvem`: envia a base atual para o GitHub JSON.
-- `Carregar Nuvem`: baixa a base gravada em `data/store.json`.
+- `GitHub / Publicar`: abre a tela para token, teste de conexao, carregar nuvem e publicar alteracoes.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap mostra as sprints lado a lado com rolagem horizontal.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestão de User Stories | Coplan</title>
+  <link rel="icon" href="assets/coplan-symbol.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-page="management">
@@ -44,24 +45,24 @@
     </header>
 
     <aside class="side-menu" aria-label="Menu principal">
-      <div class="side-menu-head">
-        <span class="eyebrow">Menu</span>
-        <strong>Gestão Coplan</strong>
+      <div class="side-menu-brand">
+        <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
+        <div>
+          <strong>Gestão de US</strong>
+          <span>Módulo Fiscalização</span>
+        </div>
       </div>
       <nav class="side-menu-nav">
-        <a class="primary-button" id="dashboardLink" href="dashboard.html" target="_blank" rel="noopener">Dashboard</a>
-        <button class="ghost-button" id="cloudConfigBtn" type="button">Configurar Nuvem</button>
-        <button class="ghost-button" id="cloudLoadBtn" type="button">Carregar Nuvem</button>
-        <button class="primary-button" id="cloudSaveBtn" type="button">Salvar Nuvem</button>
-        <button class="ghost-button" id="exportJsonBtn" type="button">Backup JSON</button>
-        <button class="ghost-button" id="importJsonBtn" type="button">Importar</button>
-        <button class="danger-button" id="resetBtn" type="button">Restaurar</button>
-        <button class="ghost-button" id="logoutBtn" type="button">Sair</button>
+        <span class="side-section">Principal</span>
+        <button class="side-nav-link" type="button" data-scroll-target="queueSection">User Stories <span id="sideStoriesCount">0</span></button>
+        <button class="side-nav-link" type="button" data-scroll-target="sprintSection">Sprints <span id="sideSprintsCount">0</span></button>
+        <button class="side-nav-link" type="button" data-scroll-target="developerSection">Desenvolvedores <span id="sideDevelopersCount">0</span></button>
+        <a class="side-nav-link" id="dashboardLink" href="dashboard.html" target="_blank" rel="noopener">Dashboard</a>
+        <span class="side-section">Configurações</span>
+        <button class="side-nav-link side-nav-active" id="githubPanelBtn" type="button">GitHub / Publicar</button>
+        <span class="side-section">Sessão</span>
+        <button class="side-nav-link" id="logoutBtn" type="button">Sair</button>
       </nav>
-      <div class="side-menu-foot">
-        <span>GitHub JSON</span>
-        <small>Sincronize para computador e celular usarem a mesma base.</small>
-      </div>
       <input id="importFile" type="file" accept="application/json,.json" hidden>
     </aside>
 
@@ -91,6 +92,63 @@
         <div id="formScreenBody"></div>
       </section>
 
+      <section class="panel github-panel" id="githubPanel" hidden>
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Configurações</span>
+            <h2>GitHub / Publicar</h2>
+            <p>Configure o token para carregar e publicar automaticamente no GitHub Pages.</p>
+          </div>
+          <button class="ghost-button" id="githubPanelCloseBtn" type="button">Fechar</button>
+        </div>
+        <div class="publish-grid">
+          <section class="publish-card">
+            <h3>Configuração do GitHub</h3>
+            <form id="cloudInlineForm" class="publish-form">
+              <div class="form-grid">
+                <div class="form-field full">
+                  <label for="cloudToken">Token do GitHub</label>
+                  <input id="cloudToken" name="token" type="password" placeholder="github_pat_..." autocomplete="off">
+                </div>
+                <div class="form-field">
+                  <label for="cloudOwner">Usuário ou organização</label>
+                  <input id="cloudOwner" name="owner" required>
+                </div>
+                <div class="form-field">
+                  <label for="cloudRepo">Nome do repositório</label>
+                  <input id="cloudRepo" name="repo" required>
+                </div>
+                <div class="form-field">
+                  <label for="cloudBranch">Branch</label>
+                  <input id="cloudBranch" name="branch" required>
+                </div>
+                <div class="form-field">
+                  <label for="cloudPath">Arquivo JSON</label>
+                  <input id="cloudPath" name="path" required>
+                </div>
+              </div>
+              <div class="panel-actions">
+                <button class="primary-button" type="submit">Salvar Configuração</button>
+                <button class="ghost-button" id="cloudTestBtn" type="button">Testar Conexão</button>
+              </div>
+            </form>
+          </section>
+          <section class="publish-card">
+            <h3>Publicar Alterações</h3>
+            <p>Use estes comandos depois de alterar US, sprint, desenvolvedor ou prioridade.</p>
+            <div class="publish-actions">
+              <button class="ghost-button" id="cloudLoadBtn" type="button">Carregar Nuvem</button>
+              <button class="primary-button" id="cloudSaveBtn" type="button">Publicar no GitHub</button>
+            </div>
+            <div class="maintenance-actions">
+              <button class="ghost-button" id="exportJsonBtn" type="button">Backup JSON</button>
+              <button class="ghost-button" id="importJsonBtn" type="button">Importar</button>
+              <button class="danger-button" id="resetBtn" type="button">Restaurar</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
       <section class="filters" aria-label="Filtros da gestão">
         <div class="filter-field wide">
           <label for="filterSearch">Buscar</label>
@@ -117,7 +175,7 @@
 
       <section class="kpi-grid compact-kpis" id="kpiGrid" aria-label="Indicadores de gestão"></section>
 
-      <section class="panel queue-panel">
+      <section class="panel queue-panel" id="queueSection">
         <div class="panel-head">
           <div>
             <span class="eyebrow">Fila de desenvolvimento</span>
@@ -129,7 +187,7 @@
       </section>
 
       <section class="split-grid">
-        <section class="panel">
+        <section class="panel" id="sprintSection">
           <div class="panel-head">
             <div>
               <span class="eyebrow">Planejamento</span>
@@ -167,7 +225,7 @@
         </section>
       </section>
 
-      <section class="panel">
+      <section class="panel" id="developerSection">
         <div class="panel-head">
           <div>
             <span class="eyebrow">Equipe</span>
@@ -214,7 +272,7 @@
             <h2 id="drawerTitle">Detalhes</h2>
             <p id="drawerSubtitle">Informações da seleção atual</p>
           </div>
-          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">×</button>
+          <button class="icon-button" id="closeDrawerBtn" type="button" aria-label="Fechar">x</button>
         </div>
         <div id="drawerBody" class="drawer-body"></div>
       </section>

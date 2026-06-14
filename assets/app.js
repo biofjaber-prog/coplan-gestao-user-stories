@@ -379,6 +379,13 @@
     renderDeveloperSummary(filtered);
     renderBacklog(filtered);
     renderRoadmap(filtered);
+    renderSideStats();
+  }
+
+  function renderSideStats() {
+    if ($("sideStoriesCount")) $("sideStoriesCount").textContent = String(state.stories.length);
+    if ($("sideSprintsCount")) $("sideSprintsCount").textContent = String(getAllSprints().length);
+    if ($("sideDevelopersCount")) $("sideDevelopersCount").textContent = String(getAllDevelopers().length);
   }
 
   function fillSelect(id, values, selected, formatter) {
@@ -1493,6 +1500,51 @@
     }));
   }
 
+  function populateCloudForm() {
+    const config = loadCloudConfig();
+    if ($("cloudOwner")) $("cloudOwner").value = config.owner || "";
+    if ($("cloudRepo")) $("cloudRepo").value = config.repo || "";
+    if ($("cloudBranch")) $("cloudBranch").value = config.branch || "main";
+    if ($("cloudPath")) $("cloudPath").value = config.path || "data/store.json";
+    if ($("cloudToken")) $("cloudToken").value = config.token || "";
+  }
+
+  function readCloudForm() {
+    if (!$("cloudInlineForm")) return loadCloudConfig();
+    return {
+      owner: $("cloudOwner")?.value || "",
+      repo: $("cloudRepo")?.value || "",
+      branch: $("cloudBranch")?.value || "main",
+      path: $("cloudPath")?.value || "data/store.json",
+      token: $("cloudToken")?.value || "",
+    };
+  }
+
+  function syncCloudConfigFromForm() {
+    if ($("cloudInlineForm")) saveCloudConfig(readCloudForm());
+  }
+
+  function openGithubPanel() {
+    const panel = $("githubPanel");
+    if (!panel) return;
+    const workspace = document.querySelector(".workspace");
+    if (workspace && workspace.firstElementChild !== panel) workspace.insertBefore(panel, workspace.firstElementChild);
+    populateCloudForm();
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closeGithubPanel() {
+    const panel = $("githubPanel");
+    if (panel) panel.hidden = true;
+  }
+
+  function saveCloudForm() {
+    saveCloudConfig(readCloudForm());
+    setSaveState("Configuração GitHub salva");
+    alert("Configuração salva neste navegador.");
+  }
+
   function githubApiUrl(config) {
     return `https://api.github.com/repos/${encodeURIComponent(config.owner)}/${encodeURIComponent(config.repo)}/contents/${config.path.split("/").map(encodeURIComponent).join("/")}`;
   }
@@ -1544,6 +1596,22 @@
     return response.json();
   }
 
+  async function testCloudConnection() {
+    syncCloudConfigFromForm();
+    const config = loadCloudConfig();
+    setSaveState("Testando GitHub");
+    try {
+      const payload = await fetchCloudPayload(config);
+      const total = Array.isArray(payload?.stories) ? payload.stories.length : 0;
+      setSaveState("Conexão GitHub OK");
+      alert(`Conexão OK. JSON encontrado com ${total} US.`);
+    } catch (error) {
+      setSaveState("Falha na conexão GitHub");
+      alert(`Falha ao testar conexão: ${error.message}`);
+      console.warn("Falha ao testar conexão GitHub.", error);
+    }
+  }
+
   function cloudErrorMessage(status, action) {
     if (status === 401) return "Token invalido. Gere um novo token e configure novamente.";
     if (status === 403) return "Token sem permissao. Libere Contents como Read and write.";
@@ -1553,6 +1621,7 @@
   }
 
   async function loadCloudData(manual) {
+    if (manual) syncCloudConfigFromForm();
     const config = loadCloudConfig();
     if (location.protocol === "file:" && !manual) return;
     if (state.cloudLoading) return;
@@ -1570,9 +1639,10 @@
   }
 
   async function saveCloudData() {
+    syncCloudConfigFromForm();
     const config = loadCloudConfig();
     if (!config.token) {
-      openCloudConfigScreen();
+      openGithubPanel();
       alert("Cole o token do GitHub antes de salvar na nuvem.");
       return;
     }
@@ -1630,47 +1700,7 @@
   }
 
   function openCloudConfigScreen() {
-    const config = loadCloudConfig();
-    showFormScreen(
-      "Nuvem",
-      "Configurar GitHub JSON",
-      "O token fica salvo somente neste navegador e grava o arquivo data/store.json no repositorio.",
-      `
-      <form id="cloudForm">
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="cloudOwner">Owner</label>
-            <input id="cloudOwner" name="owner" value="${escapeHtml(config.owner)}" required>
-          </div>
-          <div class="form-field">
-            <label for="cloudRepo">Repositorio</label>
-            <input id="cloudRepo" name="repo" value="${escapeHtml(config.repo)}" required>
-          </div>
-          <div class="form-field">
-            <label for="cloudBranch">Branch</label>
-            <input id="cloudBranch" name="branch" value="${escapeHtml(config.branch || "main")}" required>
-          </div>
-          <div class="form-field">
-            <label for="cloudPath">Arquivo JSON</label>
-            <input id="cloudPath" name="path" value="${escapeHtml(config.path || "data/store.json")}" required>
-          </div>
-          <div class="form-field full">
-            <label for="cloudToken">Token GitHub</label>
-            <input id="cloudToken" name="token" type="password" value="${escapeHtml(config.token || "")}" placeholder="github_pat_..." autocomplete="off">
-          </div>
-        </div>
-        <div class="form-screen-actions">
-          <button class="ghost-button" type="button" data-close-form>Cancelar</button>
-          <button class="primary-button" type="submit">Salvar Configuracao</button>
-        </div>
-      </form>`
-    );
-    $("cloudForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      saveCloudConfig(Object.fromEntries(new FormData($("cloudForm")).entries()));
-      closeFormScreen();
-      setSaveState("Nuvem configurada");
-    });
+    openGithubPanel();
   }
 
   function exportJson() {
@@ -1912,6 +1942,13 @@
         return;
       }
 
+      const scrollBtn = event.target.closest("[data-scroll-target]");
+      if (scrollBtn) {
+        const target = $(scrollBtn.dataset.scrollTarget);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
       if (event.target.closest("[data-close-form]")) {
         closeFormScreen();
         return;
@@ -1983,6 +2020,13 @@
     bind("filterStatus", "change", (event) => setFilter("status", event.target.value));
     bind("filterQueue", "change", (event) => setFilter("queue", event.target.value));
     bind("clearFiltersBtn", "click", clearFilters);
+    bind("githubPanelBtn", "click", openGithubPanel);
+    bind("githubPanelCloseBtn", "click", closeGithubPanel);
+    bind("cloudInlineForm", "submit", (event) => {
+      event.preventDefault();
+      saveCloudForm();
+    });
+    bind("cloudTestBtn", "click", testCloudConnection);
     bind("cloudConfigBtn", "click", openCloudConfigScreen);
     bind("cloudLoadBtn", "click", () => loadCloudData(true));
     bind("cloudSaveBtn", "click", saveCloudData);
@@ -2048,6 +2092,7 @@
     }
     setSaveState(PAGE === "dashboard" ? "Dashboard carregado" : "Gestão carregada");
     render();
+    populateCloudForm();
     loadCloudData(false);
   }
 
