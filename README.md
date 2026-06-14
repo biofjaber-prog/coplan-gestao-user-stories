@@ -14,6 +14,9 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - `Novo Dev`: cadastra desenvolvedor em popup.
+- `Configurar Nuvem`: salva no navegador o token do GitHub usado para gravar `data/store.json`.
+- `Salvar Nuvem`: envia a base atual para o GitHub JSON.
+- `Carregar Nuvem`: baixa a base gravada em `data/store.json`.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap mostra as sprints lado a lado com rolagem horizontal.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.
@@ -27,3 +30,19 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `assets/data.js`: base inicial.
 - `assets/app.js`: login, dados, gestao, drag-and-drop, paginacao, graficos e exportacao.
 - `assets/styles.css`: layout, identidade visual e fundos modernos.
+
+## Sincronizacao via GitHub JSON
+
+1. No GitHub, crie um Fine-grained personal access token.
+2. Restrinja o token ao repositorio `coplan-gestao-user-stories`.
+3. Em Repository permissions, libere `Contents` como `Read and write`.
+4. No sistema, clique em `Configurar Nuvem`.
+5. Use:
+   - Owner: `biofjaber-prog`
+   - Repositorio: `coplan-gestao-user-stories`
+   - Branch: `main`
+   - Arquivo JSON: `data/store.json`
+6. Cole o token e salve.
+7. Clique em `Salvar Nuvem` depois de alterar dados.
+
+O token nao fica no codigo do site. Ele fica somente no navegador onde foi configurado.

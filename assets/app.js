@@ -4,9 +4,16 @@
   const STORAGE_KEY = "coplan-us-workboard-v2";
   const LEGACY_STORAGE_KEY = "coplan-us-dashboard-unificado-v1";
   const AUTH_KEY = "coplan-us-auth";
+  const CLOUD_KEY = "coplan-us-github-cloud-v1";
   const AUTH_USER = "coplan";
   const AUTH_PASS = "coplan123";
   const PAGE = document.body.dataset.page || "management";
+  const CLOUD_DEFAULT = {
+    owner: "biofjaber-prog",
+    repo: "coplan-gestao-user-stories",
+    branch: "main",
+    path: "data/store.json",
+  };
   const DEFAULT_STATUSES = [
     "Apresentar e planejar",
     "Em desenvolvimento",
@@ -43,6 +50,9 @@
     dragStoryId: null,
     booted: false,
     eventsReady: false,
+    cloudSaveTimer: null,
+    cloudLoading: false,
+    cloudSaving: false,
   };
 
   const $ = (id) => document.getElementById(id);
@@ -1426,6 +1436,213 @@
     render();
   }
 
+  function buildDataPayload() {
+    ensureSprintMeta();
+    ensureDevelopers();
+    return {
+      version: 1,
+      updatedAt: new Date().toISOString(),
+      stories: state.stories,
+      sprintMeta: state.sprintMeta,
+      developers: state.developers,
+      devColors: state.devColors,
+    };
+  }
+
+  function applyDataPayload(payload, label) {
+    const stories = Array.isArray(payload) ? payload : payload?.stories;
+    if (!Array.isArray(stories)) throw new Error("Arquivo de nuvem sem stories.");
+    state.stories = stories.map(normalizeStory).filter((story) => !HIDDEN_SPRINTS.has(story.sprint));
+    state.sprintMeta = { ...(payload.sprintMeta || {}) };
+    HIDDEN_SPRINTS.forEach((sprint) => delete state.sprintMeta[sprint]);
+    state.developers = Array.isArray(payload.developers) ? payload.developers.map((name) => String(name).trim()).filter(Boolean) : [];
+    state.devColors = { ...(payload.devColors || {}) };
+    ensureSprintMeta();
+    ensureDevelopers();
+    assignQueueDefaults();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(buildDataPayload()));
+    setSaveState(label || "Dados da nuvem carregados");
+    render();
+  }
+
+  function inferCloudDefaults() {
+    const defaults = { ...CLOUD_DEFAULT };
+    if (location.hostname.endsWith(".github.io")) {
+      defaults.owner = location.hostname.replace(".github.io", "");
+      defaults.repo = location.pathname.split("/").filter(Boolean)[0] || defaults.repo;
+    }
+    return defaults;
+  }
+
+  function loadCloudConfig() {
+    const defaults = inferCloudDefaults();
+    try {
+      return { ...defaults, ...(JSON.parse(localStorage.getItem(CLOUD_KEY) || "{}") || {}) };
+    } catch (error) {
+      return defaults;
+    }
+  }
+
+  function saveCloudConfig(config) {
+    localStorage.setItem(CLOUD_KEY, JSON.stringify({
+      owner: String(config.owner || "").trim(),
+      repo: String(config.repo || "").trim(),
+      branch: String(config.branch || "main").trim(),
+      path: String(config.path || "data/store.json").trim(),
+      token: String(config.token || "").trim(),
+    }));
+  }
+
+  function githubApiUrl(config) {
+    return `https://api.github.com/repos/${encodeURIComponent(config.owner)}/${encodeURIComponent(config.repo)}/contents/${config.path.split("/").map(encodeURIComponent).join("/")}`;
+  }
+
+  function githubRawUrl(config) {
+    return `https://raw.githubusercontent.com/${encodeURIComponent(config.owner)}/${encodeURIComponent(config.repo)}/${encodeURIComponent(config.branch)}/${config.path.split("/").map(encodeURIComponent).join("/")}?v=${Date.now()}`;
+  }
+
+  function cloudReadUrl(config) {
+    if (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname)) {
+      return `${config.path}?v=${Date.now()}`;
+    }
+    return githubRawUrl(config);
+  }
+
+  function base64Utf8(text) {
+    const bytes = new TextEncoder().encode(text);
+    let binary = "";
+    for (let index = 0; index < bytes.length; index += 0x8000) {
+      binary += String.fromCharCode(...bytes.slice(index, index + 0x8000));
+    }
+    return btoa(binary);
+  }
+
+  async function loadCloudData(manual) {
+    const config = loadCloudConfig();
+    if (location.protocol === "file:" && !manual) return;
+    if (state.cloudLoading) return;
+    state.cloudLoading = true;
+    if (manual) setSaveState("Carregando nuvem");
+    try {
+      const response = await fetch(cloudReadUrl(config), { cache: "no-store" });
+      if (!response.ok) {
+        if (manual) throw new Error(`GitHub retornou ${response.status}`);
+        return;
+      }
+      applyDataPayload(await response.json(), "Dados carregados da nuvem");
+    } catch (error) {
+      if (manual) alert(`Nao foi possivel carregar a nuvem: ${error.message}`);
+      if (manual) console.warn("Falha ao carregar nuvem.", error);
+    } finally {
+      state.cloudLoading = false;
+    }
+  }
+
+  async function saveCloudData() {
+    const config = loadCloudConfig();
+    if (!config.token) {
+      openCloudConfigScreen();
+      alert("Cole o token do GitHub antes de salvar na nuvem.");
+      return;
+    }
+    if (state.cloudSaving) return;
+    state.cloudSaving = true;
+    setSaveState("Salvando nuvem");
+    try {
+      let sha = null;
+      const current = await fetch(`${githubApiUrl(config)}?ref=${encodeURIComponent(config.branch)}`, {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${config.token}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+      if (current.ok) {
+        sha = (await current.json()).sha;
+      } else if (current.status !== 404) {
+        throw new Error(`GitHub retornou ${current.status} ao consultar o JSON.`);
+      }
+
+      const body = {
+        message: `Atualiza backlog Coplan - ${new Date().toLocaleString("pt-BR")}`,
+        content: base64Utf8(JSON.stringify(buildDataPayload(), null, 2)),
+        branch: config.branch,
+      };
+      if (sha) body.sha = sha;
+
+      const saved = await fetch(githubApiUrl(config), {
+        method: "PUT",
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${config.token}`,
+          "Content-Type": "application/json",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+        body: JSON.stringify(body),
+      });
+      if (!saved.ok) {
+        const detail = await saved.text();
+        throw new Error(`GitHub retornou ${saved.status}. ${detail.slice(0, 180)}`);
+      }
+      setSaveState("Nuvem sincronizada");
+      alert("Dados salvos na nuvem. No celular, atualize a pagina para carregar a nova versao.");
+    } catch (error) {
+      alert(`Nao foi possivel salvar na nuvem: ${error.message}`);
+      setSaveState("Falha ao salvar nuvem");
+      console.warn("Falha ao salvar nuvem.", error);
+    } finally {
+      state.cloudSaving = false;
+    }
+  }
+
+  function scheduleCloudSave() {
+    return;
+  }
+
+  function openCloudConfigScreen() {
+    const config = loadCloudConfig();
+    showFormScreen(
+      "Nuvem",
+      "Configurar GitHub JSON",
+      "O token fica salvo somente neste navegador e grava o arquivo data/store.json no repositorio.",
+      `
+      <form id="cloudForm">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="cloudOwner">Owner</label>
+            <input id="cloudOwner" name="owner" value="${escapeHtml(config.owner)}" required>
+          </div>
+          <div class="form-field">
+            <label for="cloudRepo">Repositorio</label>
+            <input id="cloudRepo" name="repo" value="${escapeHtml(config.repo)}" required>
+          </div>
+          <div class="form-field">
+            <label for="cloudBranch">Branch</label>
+            <input id="cloudBranch" name="branch" value="${escapeHtml(config.branch || "main")}" required>
+          </div>
+          <div class="form-field">
+            <label for="cloudPath">Arquivo JSON</label>
+            <input id="cloudPath" name="path" value="${escapeHtml(config.path || "data/store.json")}" required>
+          </div>
+          <div class="form-field full">
+            <label for="cloudToken">Token GitHub</label>
+            <input id="cloudToken" name="token" type="password" value="${escapeHtml(config.token || "")}" placeholder="github_pat_..." autocomplete="off">
+          </div>
+        </div>
+        <div class="form-screen-actions">
+          <button class="ghost-button" type="button" data-close-form>Cancelar</button>
+          <button class="primary-button" type="submit">Salvar Configuracao</button>
+        </div>
+      </form>`
+    );
+    $("cloudForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveCloudConfig(Object.fromEntries(new FormData($("cloudForm")).entries()));
+      closeFormScreen();
+      setSaveState("Nuvem configurada");
+    });
+  }
+
   function exportJson() {
     download(
       "gestao-user-stories.json",
@@ -1736,6 +1953,9 @@
     bind("filterStatus", "change", (event) => setFilter("status", event.target.value));
     bind("filterQueue", "change", (event) => setFilter("queue", event.target.value));
     bind("clearFiltersBtn", "click", clearFilters);
+    bind("cloudConfigBtn", "click", openCloudConfigScreen);
+    bind("cloudLoadBtn", "click", () => loadCloudData(true));
+    bind("cloudSaveBtn", "click", saveCloudData);
     bind("exportCsvBtn", "click", exportCsv);
     bind("exportJsonBtn", "click", exportJson);
     bind("importJsonBtn", "click", () => $("importFile")?.click());
@@ -1798,6 +2018,7 @@
     }
     setSaveState(PAGE === "dashboard" ? "Dashboard carregado" : "Gestão carregada");
     render();
+    loadCloudData(false);
   }
 
   setupAuth();
