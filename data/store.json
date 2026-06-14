@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-14T17:27:17.097Z",
+  "updatedAt": "2026-06-14T19:34:14.546Z",
   "stories": [
     {
       "id": "6553",
@@ -9,7 +9,7 @@
       "sprint": "Sprint 23",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 2
     },
@@ -20,7 +20,7 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 3
     },
@@ -31,7 +31,7 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 5
     },
@@ -42,7 +42,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 6
     },
@@ -53,7 +53,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6552",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 7
     },
@@ -64,7 +64,7 @@
       "sprint": "Sprint 23",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 8
     },
@@ -75,7 +75,7 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 9
     },
@@ -86,7 +86,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 10
     },
@@ -97,7 +97,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 11
     },
@@ -108,7 +108,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6673",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 12
     },
@@ -119,7 +119,7 @@
       "sprint": "Sprint 23",
       "status": "Em testes",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 14
     },
@@ -130,7 +130,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 15
     },
@@ -141,7 +141,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 16
     },
@@ -152,7 +152,7 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "6553",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 17
     },
@@ -163,7 +163,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6548",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 18
     },
@@ -174,7 +174,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6548",
-      "queue": null,
+      "queue": 4,
       "notes": "",
       "order": 19
     },
@@ -185,7 +185,7 @@
       "sprint": "Sprint 23",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 20
     },
@@ -196,7 +196,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6669",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 21
     },
@@ -207,7 +207,7 @@
       "sprint": "Sprint 24",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 22
     },
@@ -218,7 +218,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 23
     },
@@ -229,7 +229,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 24
     },
@@ -240,7 +240,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 25
     },
@@ -251,7 +251,7 @@
       "sprint": "Sprint 23",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 26
     },
@@ -262,7 +262,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6748",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 27
     },
@@ -273,7 +273,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6748",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 28
     },
@@ -284,7 +284,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 29
     },
@@ -295,7 +295,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 30
     },
@@ -306,7 +306,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6795",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 31
     },
@@ -317,7 +317,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 32
     },
@@ -328,7 +328,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796 / 6797",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 33
     },
@@ -339,7 +339,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6819",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 36
     },
@@ -350,7 +350,7 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 37
     },
@@ -361,7 +361,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6812/6819",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 38
     },
@@ -372,7 +372,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6812",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 39
     },
@@ -383,7 +383,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 40
     },
@@ -394,7 +394,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 41
     },
@@ -405,7 +405,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 1,
       "notes": "",
       "order": 42
     },
@@ -416,7 +416,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826",
-      "queue": null,
+      "queue": 2,
       "notes": "",
       "order": 43
     },
@@ -427,7 +427,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 3,
       "notes": "",
       "order": 44
     },
@@ -438,7 +438,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 4,
       "notes": "",
       "order": 45
     },
@@ -449,7 +449,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 5,
       "notes": "",
       "order": 46
     },
@@ -460,7 +460,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 6,
       "notes": "",
       "order": 47
     },
@@ -471,7 +471,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6831",
-      "queue": null,
+      "queue": 7,
       "notes": "",
       "order": 48
     },
@@ -482,7 +482,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 8,
       "notes": "",
       "order": 49
     },
@@ -493,7 +493,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 9,
       "notes": "",
       "order": 50
     },
@@ -504,7 +504,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 10,
       "notes": "",
       "order": 51
     },
@@ -515,7 +515,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827/6839",
-      "queue": null,
+      "queue": 11,
       "notes": "",
       "order": 52
     },
@@ -526,7 +526,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": null,
+      "queue": 12,
       "notes": "",
       "order": 53
     },
@@ -537,7 +537,7 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827",
-      "queue": null,
+      "queue": 13,
       "notes": "",
       "order": 54
     }
@@ -546,25 +546,38 @@
     "Sprint 23": {
       "start": "08/06",
       "end": "19/06",
-      "goal": "Avançar requisições, encerramentos e filas operacionais"
+      "goal": "Avançar requisições, encerramentos e filas operacionais",
+      "color": "#528f8c"
     },
     "Sprint 24": {
       "start": "22/06",
       "end": "03/07",
-      "goal": "Expandir automações e dependências planejadas"
+      "goal": "Expandir automações e dependências planejadas",
+      "color": "#61bb46"
     },
     "Sprint 25": {
       "start": "06/07",
       "end": "17/07",
-      "goal": "Concluir histórias encadeadas e estabilizar integrações"
+      "goal": "Concluir histórias encadeadas e estabilizar integrações",
+      "color": "#3c7b55"
     },
     "Sprint 26": {
       "start": "20/07",
       "end": "31/07",
-      "goal": "Fechar backlog priorizado e preparar próximos ciclos"
+      "goal": "Fechar backlog priorizado e preparar próximos ciclos",
+      "color": "#4b7778"
     }
   },
-  "developers": [],
+  "developers": [
+    "Andrei Falbot",
+    "Fábio Satoru",
+    "José Valmir",
+    "Julierson",
+    "Lucas Bonifácio",
+    "Miquéias",
+    "Rafaela Piedade",
+    "DEFINIR DESENVOLVEDOR"
+  ],
   "devColors": {
     "Rubia Carvalho": "#be185d",
     "Lucas Bonifácio": "#1d4ed8",
