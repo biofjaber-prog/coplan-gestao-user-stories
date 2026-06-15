@@ -575,14 +575,27 @@
           const open = state.stories.filter((story) => story.developer === developer && !isDone(story.status)).length;
           return `
             <article class="developer-manage-card">
-              <div class="dev-link">
+              <div class="developer-manage-head">
                 <span class="avatar" style="background:${getDevColor(developer)}">${escapeHtml(initials(developer))}</span>
                 <div>
                   <strong>${escapeHtml(developer)}</strong>
                   <span>${total} US - ${open} abertas</span>
                 </div>
               </div>
-              <button class="mini-button" type="button" data-open-dev="${escapeHtml(developer)}">Ver</button>
+              <div class="developer-edit-grid">
+                <label>
+                  <span>Nome</span>
+                  <input data-dev-name-input value="${escapeHtml(developer)}" aria-label="Nome do desenvolvedor ${escapeHtml(developer)}">
+                </label>
+                <label>
+                  <span>Cor</span>
+                  <input data-dev-color-input type="color" value="${escapeHtml(getDevColor(developer))}" aria-label="Cor do desenvolvedor ${escapeHtml(developer)}">
+                </label>
+              </div>
+              <div class="developer-card-actions">
+                <button class="mini-button" type="button" data-save-dev="${escapeHtml(developer)}">Salvar</button>
+                <button class="mini-button" type="button" data-open-dev="${escapeHtml(developer)}">Ver US</button>
+              </div>
             </article>`;
         })
         .join("") || '<div class="empty-state">Nenhum desenvolvedor cadastrado.</div>';
@@ -1309,6 +1322,37 @@
     render();
   }
 
+  function updateDeveloperFromCard(button) {
+    const oldName = button.dataset.saveDev;
+    const card = button.closest(".developer-manage-card");
+    const nextName = String(card?.querySelector("[data-dev-name-input]")?.value || "").trim();
+    const nextColor = String(card?.querySelector("[data-dev-color-input]")?.value || getDevColor(oldName)).trim();
+    if (!oldName || !nextName) {
+      alert("Informe o nome do desenvolvedor.");
+      return;
+    }
+
+    const exists = getAllDevelopers().some((developer) => developer !== oldName && developer.toLocaleLowerCase("pt-BR") === nextName.toLocaleLowerCase("pt-BR"));
+    if (exists) {
+      alert("Já existe um desenvolvedor com esse nome.");
+      return;
+    }
+
+    state.stories.forEach((story) => {
+      if (story.developer === oldName) story.developer = nextName;
+    });
+    state.developers = sortDevelopers(state.developers.map((developer) => (developer === oldName ? nextName : developer)));
+
+    const previousColor = state.devColors[oldName] || getDevColor(oldName);
+    if (oldName !== nextName) delete state.devColors[oldName];
+    state.devColors[nextName] = nextColor || previousColor;
+
+    ensureDevelopers();
+    getAllSprints().forEach((sprint) => compactLane(sprint, nextName));
+    persist("Desenvolvedor atualizado");
+    render();
+  }
+
   function openDeveloperDrawer(developer) {
     const items = sortedStories(state.stories.filter((story) => story.developer === developer));
     const map = storyMap();
@@ -1905,6 +1949,12 @@
       const storyBtn = event.target.closest("[data-open-story]");
       if (storyBtn) {
         openStoryDrawer(storyBtn.dataset.openStory);
+        return;
+      }
+
+      const saveDevBtn = event.target.closest("[data-save-dev]");
+      if (saveDevBtn) {
+        updateDeveloperFromCard(saveDevBtn);
         return;
       }
 
