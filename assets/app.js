@@ -574,7 +574,7 @@
           const total = state.stories.filter((story) => story.developer === developer).length;
           const open = state.stories.filter((story) => story.developer === developer && !isDone(story.status)).length;
           return `
-            <article class="developer-manage-card">
+            <article class="developer-manage-card developer-card-click" data-edit-dev="${escapeHtml(developer)}">
               <div class="developer-manage-head">
                 <span class="avatar" style="background:${getDevColor(developer)}">${escapeHtml(initials(developer))}</span>
                 <div>
@@ -582,18 +582,8 @@
                   <span>${total} US - ${open} abertas</span>
                 </div>
               </div>
-              <div class="developer-edit-grid">
-                <label>
-                  <span>Nome</span>
-                  <input data-dev-name-input value="${escapeHtml(developer)}" aria-label="Nome do desenvolvedor ${escapeHtml(developer)}">
-                </label>
-                <label>
-                  <span>Cor</span>
-                  <input data-dev-color-input type="color" value="${escapeHtml(getDevColor(developer))}" aria-label="Cor do desenvolvedor ${escapeHtml(developer)}">
-                </label>
-              </div>
               <div class="developer-card-actions">
-                <button class="mini-button" type="button" data-save-dev="${escapeHtml(developer)}">Salvar</button>
+                <button class="mini-button" type="button" data-edit-dev="${escapeHtml(developer)}">Editar</button>
                 <button class="mini-button" type="button" data-open-dev="${escapeHtml(developer)}">Ver US</button>
               </div>
             </article>`;
@@ -1277,6 +1267,40 @@
     });
   }
 
+  function openDeveloperEditScreen(developer) {
+    const total = state.stories.filter((story) => story.developer === developer).length;
+    const open = state.stories.filter((story) => story.developer === developer && !isDone(story.status)).length;
+    showFormScreen(
+      "Desenvolvedor",
+      "Editar Desenvolvedor",
+      `${total} US atribuídas, ${open} abertas. Ao renomear, todas as US deste desenvolvedor serão atualizadas.`,
+      `
+      <form id="developerEditForm" data-original-dev="${escapeHtml(developer)}">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="developerEditName">Nome</label>
+            <input id="developerEditName" name="name" value="${escapeHtml(developer)}" required>
+          </div>
+          <div class="form-field">
+            <label for="developerEditColor">Cor</label>
+            <input id="developerEditColor" name="color" type="color" value="${escapeHtml(getDevColor(developer))}">
+          </div>
+        </div>
+        <div class="form-screen-actions">
+          ${developer === "DEFINIR DESENVOLVEDOR" ? "" : '<button class="danger-button" id="deleteDeveloperBtn" type="button">Excluir Desenvolvedor</button>'}
+          <button class="ghost-button" type="button" data-close-form>Cancelar</button>
+          <button class="primary-button" type="submit">Salvar Desenvolvedor</button>
+        </div>
+      </form>`
+    );
+    $("developerEditForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveDeveloperEdit(developer);
+    });
+    const deleteBtn = $("deleteDeveloperBtn");
+    if (deleteBtn) deleteBtn.addEventListener("click", () => deleteDeveloper(developer));
+  }
+
   function saveStoryFromForm(originalId, isNew) {
     const formData = new FormData($("storyForm"));
     const next = normalizeStory({
@@ -1322,11 +1346,11 @@
     render();
   }
 
-  function updateDeveloperFromCard(button) {
-    const oldName = button.dataset.saveDev;
-    const card = button.closest(".developer-manage-card");
-    const nextName = String(card?.querySelector("[data-dev-name-input]")?.value || "").trim();
-    const nextColor = String(card?.querySelector("[data-dev-color-input]")?.value || getDevColor(oldName)).trim();
+  function saveDeveloperEdit(oldName) {
+    const form = $("developerEditForm");
+    const formData = new FormData(form);
+    const nextName = String(formData.get("name") || "").trim();
+    const nextColor = String(formData.get("color") || getDevColor(oldName)).trim();
     if (!oldName || !nextName) {
       alert("Informe o nome do desenvolvedor.");
       return;
@@ -1350,6 +1374,27 @@
     ensureDevelopers();
     getAllSprints().forEach((sprint) => compactLane(sprint, nextName));
     persist("Desenvolvedor atualizado");
+    closeFormScreen();
+    render();
+  }
+
+  function deleteDeveloper(developer) {
+    if (developer === "DEFINIR DESENVOLVEDOR") {
+      alert("Este responsável padrão não pode ser excluído.");
+      return;
+    }
+    const total = state.stories.filter((story) => story.developer === developer).length;
+    if (!confirm(`Excluir ${developer}? ${total} US serão movidas para DEFINIR DESENVOLVEDOR.`)) return;
+
+    state.stories.forEach((story) => {
+      if (story.developer === developer) story.developer = "DEFINIR DESENVOLVEDOR";
+    });
+    state.developers = state.developers.filter((name) => name !== developer);
+    delete state.devColors[developer];
+    ensureDevelopers();
+    getAllSprints().forEach((sprint) => compactLane(sprint, "DEFINIR DESENVOLVEDOR"));
+    persist("Desenvolvedor excluído");
+    closeFormScreen();
     render();
   }
 
@@ -1952,15 +1997,15 @@
         return;
       }
 
-      const saveDevBtn = event.target.closest("[data-save-dev]");
-      if (saveDevBtn) {
-        updateDeveloperFromCard(saveDevBtn);
-        return;
-      }
-
       const devBtn = event.target.closest("[data-open-dev]");
       if (devBtn) {
         openDeveloperDrawer(devBtn.dataset.openDev);
+        return;
+      }
+
+      const editDevTarget = event.target.closest("[data-edit-dev]");
+      if (editDevTarget) {
+        openDeveloperEditScreen(editDevTarget.dataset.editDev);
         return;
       }
 

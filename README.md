@@ -16,7 +16,8 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - `Novo Dev`: cadastra desenvolvedor em popup.
-- Em `Gestao de Desenvolvedores`, edite nome e cor do desenvolvedor; o novo nome atualiza todas as US vinculadas.
+- Em `Gestao de Desenvolvedores`, clique no card do desenvolvedor para editar nome/cor ou excluir.
+- Ao excluir um desenvolvedor, as US dele nao sao apagadas; elas sao movidas para `DEFINIR DESENVOLVEDOR`.
 - `GitHub / Publicar`: abre a tela para token, teste de conexao, carregar nuvem e publicar alteracoes.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap mostra as sprints lado a lado com rolagem horizontal.

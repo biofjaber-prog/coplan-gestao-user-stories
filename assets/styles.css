@@ -1164,6 +1164,17 @@ body[data-page="dashboard"] .dashboard-workspace {
   border: 1px solid var(--line-soft);
   border-radius: 12px;
   background: #fff;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.developer-card-click {
+  cursor: pointer;
+}
+
+.developer-card-click:hover {
+  border-color: rgba(0, 166, 200, 0.45);
+  box-shadow: 0 12px 28px rgba(4, 28, 57, 0.08);
+  transform: translateY(-1px);
 }
 
 .developer-manage-head {
@@ -1180,39 +1191,6 @@ body[data-page="dashboard"] .dashboard-workspace {
 .developer-manage-card span {
   color: var(--muted);
   font-size: 0.72rem;
-}
-
-.developer-edit-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 58px;
-  gap: 8px;
-}
-
-.developer-edit-grid label {
-  display: grid;
-  gap: 4px;
-}
-
-.developer-edit-grid label span {
-  color: #31516d;
-  font-size: 0.64rem;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
-.developer-edit-grid input {
-  width: 100%;
-  min-height: 34px;
-  border: 1px solid #c9d7e5;
-  border-radius: 9px;
-  padding: 6px 8px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 0.82rem;
-}
-
-.developer-edit-grid input[type="color"] {
-  padding: 4px;
 }
 
 .developer-card-actions {
