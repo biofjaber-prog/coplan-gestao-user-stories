@@ -11,7 +11,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 
 - `index.html`: abre a Gestao de User Stories.
 - `Abrir Dashboard`: abre o painel em uma nova aba.
-- O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`.
+- O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`, que abre em popup.
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.

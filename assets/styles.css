@@ -393,7 +393,51 @@ a {
 }
 
 .github-panel {
-  margin-bottom: 16px;
+  position: fixed;
+  inset: 0;
+  z-index: 58;
+  display: grid;
+  align-content: start;
+  margin: 0;
+  padding: 8vh 18px 28px;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(97, 187, 70, 0.2), transparent 28%),
+    radial-gradient(circle at 78% 22%, rgba(0, 166, 200, 0.17), transparent 28%),
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    rgba(0, 40, 71, 0.5);
+  background-size: auto, auto, 46px 46px, 46px 46px, auto;
+  box-shadow: none;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+}
+
+body.github-modal-open {
+  overflow: hidden;
+}
+
+.github-panel > .panel-head {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 15px 16px;
+  border: 1px solid rgba(201, 215, 229, 0.9);
+  border-bottom: 1px solid var(--line-soft);
+  border-radius: 18px 18px 0 0;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--coplan-green) 18%, transparent), transparent 28%),
+    linear-gradient(135deg, rgba(246, 251, 244, 0.98), rgba(248, 251, 253, 0.98));
+}
+
+.github-panel > .publish-grid {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  border: 1px solid rgba(201, 215, 229, 0.9);
+  border-top: 0;
+  border-radius: 0 0 18px 18px;
+  background: #fff;
+  box-shadow: var(--shadow);
 }
 
 .publish-grid {

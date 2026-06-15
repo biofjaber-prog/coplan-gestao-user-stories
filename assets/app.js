@@ -1616,16 +1616,18 @@
   function openGithubPanel() {
     const panel = $("githubPanel");
     if (!panel) return;
-    const workspace = document.querySelector(".workspace");
-    if (workspace && workspace.firstElementChild !== panel) workspace.insertBefore(panel, workspace.firstElementChild);
     populateCloudForm();
     panel.hidden = false;
-    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.body.classList.add("github-modal-open");
+    $("githubPanelBtn")?.classList.add("side-nav-active");
+    setTimeout(() => $("cloudToken")?.focus(), 0);
   }
 
   function closeGithubPanel() {
     const panel = $("githubPanel");
     if (panel) panel.hidden = true;
+    document.body.classList.remove("github-modal-open");
+    $("githubPanelBtn")?.classList.remove("side-nav-active");
   }
 
   function saveCloudForm() {
@@ -2117,6 +2119,9 @@
     bind("clearFiltersBtn", "click", clearFilters);
     bind("githubPanelBtn", "click", openGithubPanel);
     bind("githubPanelCloseBtn", "click", closeGithubPanel);
+    bind("githubPanel", "click", (event) => {
+      if (event.target === $("githubPanel")) closeGithubPanel();
+    });
     bind("cloudInlineForm", "submit", (event) => {
       event.preventDefault();
       saveCloudForm();
@@ -2143,7 +2148,10 @@
       if (event.target === $("drawerBackdrop")) closeDrawer();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeDrawer();
+      if (event.key === "Escape") {
+        closeDrawer();
+        closeGithubPanel();
+      }
     });
   }
 
