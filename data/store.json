@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-15T01:36:03.203Z",
+  "updatedAt": "2026-06-15T23:50:10.039Z",
   "stories": [
     {
       "id": "6553",
@@ -194,7 +194,7 @@
       "title": "Assinatura Digital — Representação Visual da Assinatura no PDF [TERMO DE ENCERRAMENTO]",
       "developer": "Fábio Satoru",
       "sprint": "Sprint 23",
-      "status": "Em testes",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "notes": "",
