@@ -5,9 +5,12 @@
   const LEGACY_STORAGE_KEY = "coplan-us-dashboard-unificado-v1";
   const AUTH_KEY = "coplan-us-auth";
   const CLOUD_KEY = "coplan-us-github-cloud-v1";
+  const LOCAL_BACKUP_KEY = "coplan-us-local-backups-v1";
   const AUTH_USER = "coplan";
   const AUTH_PASS = "coplan123";
   const PAGE = document.body.dataset.page || "management";
+  const SCHEMA_VERSION = 2;
+  const MAX_LOCAL_BACKUPS = 12;
   const CLOUD_DEFAULT = {
     owner: "biofjaber-prog",
     repo: "coplan-gestao-user-stories",
@@ -1340,6 +1343,7 @@
 
   function deleteStory(id) {
     if (!confirm(`Excluir a US ${id}?`)) return;
+    createLocalBackup(`Antes de excluir US ${id}`);
     state.stories = state.stories.filter((story) => story.id !== id);
     persist("US excluída");
     closeDrawer();
@@ -1385,6 +1389,7 @@
     }
     const total = state.stories.filter((story) => story.developer === developer).length;
     if (!confirm(`Excluir ${developer}? ${total} US serão movidas para DEFINIR DESENVOLVEDOR.`)) return;
+    createLocalBackup(`Antes de excluir desenvolvedor ${developer}`);
 
     state.stories.forEach((story) => {
       if (story.developer === developer) story.developer = "DEFINIR DESENVOLVEDOR";
@@ -1536,13 +1541,91 @@
     ensureSprintMeta();
     ensureDevelopers();
     return {
-      version: 1,
+      version: SCHEMA_VERSION,
       updatedAt: new Date().toISOString(),
       stories: state.stories,
       sprintMeta: state.sprintMeta,
       developers: state.developers,
       devColors: state.devColors,
     };
+  }
+
+  function getLocalBackups() {
+    try {
+      const backups = JSON.parse(localStorage.getItem(LOCAL_BACKUP_KEY) || "[]");
+      return Array.isArray(backups)
+        ? backups.filter((backup) => backup && backup.payload && Array.isArray(backup.payload.stories))
+        : [];
+    } catch (error) {
+      console.warn("Nao foi possivel ler backups locais.", error);
+      return [];
+    }
+  }
+
+  function createLocalBackup(reason) {
+    try {
+      const backup = {
+        id: `backup-${Date.now()}`,
+        reason: reason || "Backup automatico",
+        createdAt: new Date().toISOString(),
+        storyCount: state.stories.length,
+        payload: buildDataPayload(),
+      };
+      const backups = [backup, ...getLocalBackups()].slice(0, MAX_LOCAL_BACKUPS);
+      localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(backups));
+      return backup;
+    } catch (error) {
+      console.warn("Nao foi possivel criar backup local.", error);
+      return null;
+    }
+  }
+
+  function formatBackupDate(value) {
+    try {
+      return new Date(value).toLocaleString("pt-BR");
+    } catch (error) {
+      return "Data indisponivel";
+    }
+  }
+
+  function openLocalBackupsScreen() {
+    closeGithubPanel();
+    const backups = getLocalBackups();
+    const list = backups.length
+      ? backups
+          .map((backup) => `
+            <article class="backup-card">
+              <div>
+                <strong>${escapeHtml(backup.reason || "Backup local")}</strong>
+                <span>${escapeHtml(formatBackupDate(backup.createdAt))} - ${escapeHtml(backup.storyCount ?? backup.payload.stories.length)} US</span>
+              </div>
+              <button class="ghost-button" type="button" data-restore-backup="${escapeHtml(backup.id)}">Restaurar</button>
+            </article>`)
+          .join("")
+      : '<div class="empty-state">Nenhum backup local foi criado ainda. O sistema cria backups antes de publicar, carregar nuvem, importar ou restaurar.</div>';
+
+    showFormScreen(
+      "Seguranca",
+      "Backups Locais",
+      "Recupere um ponto salvo automaticamente antes de operacoes criticas.",
+      `
+      <div class="backup-list">${list}</div>
+      <div class="form-screen-actions">
+        <button class="ghost-button" type="button" data-close-form>Fechar</button>
+      </div>`
+    );
+  }
+
+  function restoreLocalBackup(id) {
+    const backup = getLocalBackups().find((item) => item.id === id);
+    if (!backup) {
+      alert("Backup local nao encontrado.");
+      return;
+    }
+    if (!confirm(`Restaurar o backup de ${formatBackupDate(backup.createdAt)}? O estado atual tambem sera salvo antes da restauracao.`)) return;
+    createLocalBackup("Antes de restaurar backup local");
+    applyDataPayload(backup.payload, "Backup local restaurado");
+    closeFormScreen();
   }
 
   function applyDataPayload(payload, label) {
@@ -1719,7 +1802,9 @@
     state.cloudLoading = true;
     if (manual) setSaveState("Carregando nuvem");
     try {
-      applyDataPayload(await fetchCloudPayload(config), "Dados carregados da nuvem");
+      const payload = await fetchCloudPayload(config);
+      if (manual) createLocalBackup("Antes de carregar nuvem");
+      applyDataPayload(payload, "Dados carregados da nuvem");
       if (manual) alert("Nuvem carregada com sucesso.");
     } catch (error) {
       if (manual) alert(`Nao foi possivel carregar a nuvem: ${error.message}`);
@@ -1741,6 +1826,7 @@
     state.cloudSaving = true;
     setSaveState("Salvando nuvem");
     try {
+      createLocalBackup("Antes de publicar no GitHub");
       let sha = null;
       const current = await fetch(`${githubApiUrl(config)}?ref=${encodeURIComponent(config.branch)}`, {
         headers: {
@@ -1797,17 +1883,7 @@
   function exportJson() {
     download(
       "gestao-user-stories.json",
-      JSON.stringify(
-        {
-          exportedAt: new Date().toISOString(),
-          stories: state.stories,
-          sprintMeta: state.sprintMeta,
-          developers: state.developers,
-          devColors: state.devColors,
-        },
-        null,
-        2
-      ),
+      JSON.stringify({ ...buildDataPayload(), exportedAt: new Date().toISOString() }, null, 2),
       "application/json;charset=utf-8"
     );
   }
@@ -1832,6 +1908,7 @@
         const payload = JSON.parse(String(reader.result));
         const stories = Array.isArray(payload) ? payload : payload.stories;
         if (!Array.isArray(stories)) throw new Error("Arquivo sem lista de stories.");
+        createLocalBackup("Antes de importar JSON");
         state.stories = stories.map(normalizeStory).filter((story) => !HIDDEN_SPRINTS.has(story.sprint));
         state.sprintMeta = { ...state.sprintMeta, ...(payload.sprintMeta || {}) };
         HIDDEN_SPRINTS.forEach((sprint) => delete state.sprintMeta[sprint]);
@@ -1853,6 +1930,7 @@
 
   function resetBase() {
     if (!confirm("Restaurar a base inicial e apagar alterações locais deste navegador?")) return;
+    createLocalBackup("Antes de restaurar base inicial");
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(LEGACY_STORAGE_KEY);
     loadState();
@@ -2046,6 +2124,12 @@
         return;
       }
 
+      const restoreBackup = event.target.closest("[data-restore-backup]");
+      if (restoreBackup) {
+        restoreLocalBackup(restoreBackup.dataset.restoreBackup);
+        return;
+      }
+
       if (event.target.closest("[data-close-form]")) {
         closeFormScreen();
         return;
@@ -2130,6 +2214,7 @@
     bind("cloudConfigBtn", "click", openCloudConfigScreen);
     bind("cloudLoadBtn", "click", () => loadCloudData(true));
     bind("cloudSaveBtn", "click", saveCloudData);
+    bind("localBackupsBtn", "click", openLocalBackupsScreen);
     bind("exportCsvBtn", "click", exportCsv);
     bind("exportJsonBtn", "click", exportJson);
     bind("importJsonBtn", "click", () => $("importFile")?.click());

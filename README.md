@@ -19,6 +19,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - Em `Gestao de Desenvolvedores`, clique no card do desenvolvedor para editar nome/cor ou excluir.
 - Ao excluir um desenvolvedor, as US dele nao sao apagadas; elas sao movidas para `DEFINIR DESENVOLVEDOR`.
 - `GitHub / Publicar`: abre a tela para token, teste de conexao, carregar nuvem e publicar alteracoes.
+- `Backups Locais`: lista pontos salvos automaticamente antes de publicar, carregar nuvem, importar JSON, restaurar base ou excluir itens.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap mostra as sprints lado a lado com rolagem horizontal.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.
@@ -48,3 +49,9 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 7. Clique em `Salvar Nuvem` depois de alterar dados.
 
 O token nao fica no codigo do site. Ele fica somente no navegador onde foi configurado.
+
+## Protecao contra perda de dados
+
+Esta versao continua funcionando em GitHub Pages com `data/store.json`. Nenhum banco ou hospedagem nova foi adicionada.
+
+Antes de operacoes criticas, o sistema cria backup local automatico no navegador. Para recuperar, abra `GitHub / Publicar` e clique em `Backups Locais`.
