@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260616-roadmap-top">
+  <link rel="stylesheet" href="assets/styles.css?v=20260616-dashboard-fill">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -103,6 +103,28 @@
               </div>
             </div>
             <div id="sprintChart" class="bar-chart"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Operação</span>
+                <h2>Saúde por Sprint</h2>
+                <p>Abertas, em andamento, bloqueadas e prioridades críticas por ciclo.</p>
+              </div>
+            </div>
+            <div id="sprintHealthPanel" class="sprint-health-grid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Capacidade</span>
+                <h2>Sprint x Desenvolvedor</h2>
+                <p>Distribuição das US por responsável em cada sprint.</p>
+              </div>
+            </div>
+            <div id="sprintDeveloperMatrix" class="sprint-dev-matrix"></div>
           </section>
 
         </div>
@@ -227,7 +249,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260616-roadmap-top"></script>
-  <script src="assets/app.js?v=20260616-roadmap-top"></script>
+  <script src="assets/data.js?v=20260616-dashboard-fill"></script>
+  <script src="assets/app.js?v=20260616-dashboard-fill"></script>
 </body>
 </html>

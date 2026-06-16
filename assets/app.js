@@ -371,6 +371,8 @@
     renderDeveloperManageList();
     renderManageTable(filtered);
     renderSprintChart(filtered);
+    renderSprintHealthPanel(filtered);
+    renderSprintDeveloperMatrix(filtered);
     renderStatusChart(filtered);
     renderPriorityChart(filtered);
     renderDeveloperLoadChart(filtered);
@@ -647,6 +649,71 @@
           </div>`;
       })
       .join("");
+  }
+
+  function renderSprintHealthPanel(stories) {
+    const el = $("sprintHealthPanel");
+    if (!el) return;
+    const map = storyMap();
+    const cards = getAllSprints().map((sprint) => {
+      const items = stories.filter((story) => story.sprint === sprint);
+      const done = items.filter((story) => isDone(story.status)).length;
+      const open = items.length - done;
+      const progress = items.filter((story) => isInProgress(story.status)).length;
+      const blocked = items.filter((story) => dependencyInfo(story, map).blocked).length;
+      const top = items.filter((story) => story.queue <= 3 && !isDone(story.status)).length;
+      const conflicts = queueConflicts(items).length;
+      const pct = items.length ? Math.round((done / items.length) * 100) : 0;
+      const color = state.sprintMeta[sprint]?.color || sprintColor(sprint);
+      return `
+        <article class="sprint-health-card" style="--sprint-color:${color}">
+          <div class="sprint-health-head">
+            <button class="bar-label" type="button" data-filter-sprint="${escapeHtml(sprint)}">${escapeHtml(sprint)}</button>
+            <strong>${pct}%</strong>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
+          <div class="sprint-health-metrics">
+            <span><b>${open}</b>Abertas</span>
+            <span><b>${progress}</b>Andamento</span>
+            <span><b>${blocked}</b>Bloq.</span>
+            <span><b>${top}</b>P1-P3</span>
+          </div>
+          <div class="sprint-health-foot">${conflicts ? `${conflicts} conflito(s) de prioridade` : "Fila sem conflito"}</div>
+        </article>`;
+    });
+    el.innerHTML = cards.join("") || '<div class="empty-state">Nenhuma sprint no filtro atual.</div>';
+  }
+
+  function renderSprintDeveloperMatrix(stories) {
+    const el = $("sprintDeveloperMatrix");
+    if (!el) return;
+    const sprints = getAllSprints();
+    const developers = getAllDevelopers().filter((developer) => stories.some((story) => story.developer === developer));
+    const max = Math.max(1, ...developers.flatMap((developer) => sprints.map((sprint) => stories.filter((story) => story.developer === developer && story.sprint === sprint).length)));
+    const columns = sprints.length + 1;
+    el.style.setProperty("--matrix-cols", columns);
+    el.innerHTML = developers.length
+      ? `
+        <div class="matrix-row matrix-head" style="grid-template-columns:minmax(150px,1.3fr) repeat(${sprints.length}, minmax(70px,1fr))">
+          <span>Desenvolvedor</span>
+          ${sprints.map((sprint) => `<span>${escapeHtml(sprint.replace("Sprint ", "S"))}</span>`).join("")}
+        </div>
+        ${developers
+          .map((developer) => `
+          <div class="matrix-row" style="grid-template-columns:minmax(150px,1.3fr) repeat(${sprints.length}, minmax(70px,1fr))">
+            <span class="matrix-dev">${devChip(developer)}</span>
+            ${sprints
+              .map((sprint) => {
+                const count = stories.filter((story) => story.developer === developer && story.sprint === sprint).length;
+                const pct = (count / max) * 100;
+                return `<button class="matrix-cell" type="button" data-filter-sprint="${escapeHtml(sprint)}" title="${escapeHtml(`${developer} - ${sprint}: ${count} US`)}">
+                  <span style="width:${pct}%"></span><b>${count}</b>
+                </button>`;
+              })
+              .join("")}
+          </div>`)
+          .join("")}`
+      : '<div class="empty-state">Nenhum desenvolvedor com US no filtro atual.</div>';
   }
 
   function renderStatusChart(stories) {

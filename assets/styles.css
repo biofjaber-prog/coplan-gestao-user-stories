@@ -1414,6 +1414,117 @@ body[data-page="dashboard"] .dashboard-workspace {
   text-align: right;
 }
 
+.sprint-health-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.sprint-health-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line-soft);
+  border-top: 4px solid var(--sprint-color, var(--coplan-green));
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--sprint-color, var(--coplan-green)) 9%, white), #fff 44%);
+}
+
+.sprint-health-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sprint-health-head strong {
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.sprint-health-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.sprint-health-metrics span {
+  min-height: 44px;
+  padding: 7px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.sprint-health-metrics b {
+  display: block;
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.sprint-health-foot {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 850;
+}
+
+.sprint-dev-matrix {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  overflow-x: hidden;
+}
+
+.matrix-row {
+  display: grid;
+  gap: 8px;
+  align-items: center;
+}
+
+.matrix-head {
+  color: #45627d;
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.matrix-dev {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.matrix-cell {
+  position: relative;
+  min-height: 32px;
+  overflow: hidden;
+  border: 1px solid #dce8f2;
+  border-radius: 10px;
+  background: #edf4fa;
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 950;
+}
+
+.matrix-cell span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  min-width: 4px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--coplan-green), var(--coplan-blue));
+  opacity: 0.72;
+}
+
+.matrix-cell b {
+  position: relative;
+  z-index: 1;
+}
+
 .donut-layout {
   display: grid;
   grid-template-columns: 142px minmax(0, 1fr);
@@ -2068,6 +2179,10 @@ body[data-page="dashboard"] .dashboard-workspace {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .sprint-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .split-grid,
   .insight-grid,
   .dashboard-grid,
@@ -2107,8 +2222,14 @@ body[data-page="dashboard"] .dashboard-workspace {
   .developer-lanes,
   .execution-board,
   .developer-grid,
+  .sprint-health-grid,
   .roadmap {
     grid-template-columns: 1fr;
+  }
+
+  .matrix-row,
+  .matrix-head {
+    grid-template-columns: minmax(120px, 1.1fr) repeat(4, minmax(48px, 1fr)) !important;
   }
 
   .filter-field.wide {
