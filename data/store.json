@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-16T19:55:04.228Z",
+  "updatedAt": "2026-06-16T20:01:09.797Z",
   "stories": [
     {
       "id": "6553",
@@ -612,7 +612,7 @@
     "Sprint 23": {
       "start": "08/06",
       "end": "19/06",
-      "goal": "Avançar requisições, encerramentos e filas operacionais",
+      "goal": "",
       "color": "#0c006b",
       "closed": false,
       "closedAt": ""
@@ -620,7 +620,7 @@
     "Sprint 24": {
       "start": "22/06",
       "end": "03/07",
-      "goal": "Expandir automações e dependências planejadas",
+      "goal": "",
       "color": "#7e6e01",
       "closed": false,
       "closedAt": ""
@@ -628,7 +628,7 @@
     "Sprint 25": {
       "start": "06/07",
       "end": "17/07",
-      "goal": "Concluir histórias encadeadas e estabilizar integrações",
+      "goal": "",
       "color": "#006652",
       "closed": false,
       "closedAt": ""
@@ -636,7 +636,7 @@
     "Sprint 26": {
       "start": "20/07",
       "end": "31/07",
-      "goal": "Fechar backlog priorizado e preparar próximos ciclos",
+      "goal": "",
       "color": "#d10000",
       "closed": false,
       "closedAt": ""
