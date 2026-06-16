@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260616-sprint-alerts">
+  <link rel="stylesheet" href="assets/styles.css?v=20260616-dashboard-fill">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -127,6 +127,50 @@
             <div id="sprintDeveloperMatrix" class="sprint-dev-matrix"></div>
           </section>
 
+          <section class="chart-strip dashboard-chart-strip">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Responsáveis</span>
+                  <h2>Carga por Desenvolvedor</h2>
+                </div>
+              </div>
+              <div id="developerLoadChart" class="metric-chart"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Risco</span>
+                  <h2>Bloqueios por Sprint</h2>
+                </div>
+              </div>
+              <div id="blockedSprintChart" class="metric-chart"></div>
+            </section>
+          </section>
+
+          <section class="chart-strip dashboard-chart-strip">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Tendência</span>
+                  <h2>Evolução Planejada por Sprint</h2>
+                </div>
+              </div>
+              <div id="sprintTrendChart" class="line-chart"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Conclusão</span>
+                  <h2>Percentual Concluído por Sprint</h2>
+                </div>
+              </div>
+              <div id="completionChart" class="column-chart"></div>
+            </section>
+          </section>
+
         </div>
 
         <div class="dashboard-side-col">
@@ -176,50 +220,6 @@
         </div>
       </section>
 
-      <section class="chart-strip">
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow">Responsáveis</span>
-              <h2>Carga por Desenvolvedor</h2>
-            </div>
-          </div>
-          <div id="developerLoadChart" class="metric-chart"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow">Risco</span>
-              <h2>Bloqueios por Sprint</h2>
-            </div>
-          </div>
-          <div id="blockedSprintChart" class="metric-chart"></div>
-        </section>
-      </section>
-
-      <section class="chart-strip">
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow">Tendência</span>
-              <h2>Evolução Planejada por Sprint</h2>
-            </div>
-          </div>
-          <div id="sprintTrendChart" class="line-chart"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head">
-            <div>
-              <span class="eyebrow">Conclusão</span>
-              <h2>Percentual Concluído por Sprint</h2>
-            </div>
-          </div>
-          <div id="completionChart" class="column-chart"></div>
-        </section>
-      </section>
-
       <section class="panel" id="backlogSection">
         <div class="panel-head">
           <div>
@@ -260,7 +260,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260616-sprint-alerts"></script>
-  <script src="assets/app.js?v=20260616-sprint-alerts"></script>
+  <script src="assets/data.js?v=20260616-dashboard-fill"></script>
+  <script src="assets/app.js?v=20260616-dashboard-fill"></script>
 </body>
 </html>
