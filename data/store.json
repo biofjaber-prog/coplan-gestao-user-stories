@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-16T00:39:04.829Z",
+  "updatedAt": "2026-06-16T00:49:07.858Z",
   "stories": [
     {
       "id": "6553",
@@ -467,7 +467,7 @@
     {
       "id": "6853",
       "title": "Implementação de Regras para CIB na Programação Fiscal Imobiliária e P.A NSAT",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Definir Desenvolvedor",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
@@ -478,18 +478,7 @@
     {
       "id": "6852",
       "title": "Vínculos Judiciais do Imóvel na Fiscalização Imobiliária",
-      "developer": "DEFINIR DESENVOLVEDOR",
-      "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
-      "dependency": "",
-      "queue": 2,
-      "notes": "",
-      "order": 2
-    },
-    {
-      "id": "6851",
-      "title": "Vinculo de Informações do Cadastro do Imóvel x Fiscalização Imobiliária",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Definir Desenvolvedor",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
@@ -498,20 +487,9 @@
       "order": 3
     },
     {
-      "id": "6845",
-      "title": "Demarcação de Campos com Fórmula e Campos Não Editáveis no Demonstrativo de Vigência",
-      "developer": "DEFINIR DESENVOLVEDOR",
-      "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
-      "dependency": "6826/6827/6839",
-      "queue": 4,
-      "notes": "",
-      "order": 4
-    },
-    {
-      "id": "6844",
-      "title": "Exibir e Gerenciar Benefícios Fiscais na Fiscalização Imobiliária por Vigência",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "id": "6851",
+      "title": "Vinculo de Informações do Cadastro do Imóvel x Fiscalização Imobiliária",
+      "developer": "Definir Desenvolvedor",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
@@ -520,15 +498,37 @@
       "order": 5
     },
     {
+      "id": "6845",
+      "title": "Demarcação de Campos com Fórmula e Campos Não Editáveis no Demonstrativo de Vigência",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6826/6827/6839",
+      "queue": 7,
+      "notes": "",
+      "order": 7
+    },
+    {
+      "id": "6844",
+      "title": "Exibir e Gerenciar Benefícios Fiscais na Fiscalização Imobiliária por Vigência",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 10,
+      "notes": "",
+      "order": 10
+    },
+    {
       "id": "6839",
       "title": "Configurar Painel do Demonstrativo de Vigência",
-      "developer": "DEFINIR DESENVOLVEDOR",
+      "developer": "Definir Desenvolvedor",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827",
-      "queue": 6,
+      "queue": 11,
       "notes": "",
-      "order": 6
+      "order": 11
     },
     {
       "id": "6329",
@@ -551,6 +551,61 @@
       "queue": 1,
       "notes": "",
       "order": 51
+    },
+    {
+      "id": "6885",
+      "title": "[CONDOMINIO] Distribuição Aleatória de Unidades Imobiliárias do Mesmo Proprietário para o Mesmo Auditor",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6831",
+      "queue": 2,
+      "notes": "6831 - Filtro \"Condomínio?\" no Cadastro de Programação Fiscal",
+      "order": 2
+    },
+    {
+      "id": "6886",
+      "title": "Reprocessar Resultado do Cálculo do IPTU por meio do botão “Calcular”",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 4,
+      "notes": "",
+      "order": 4
+    },
+    {
+      "id": "6887",
+      "title": "Organizar Exibição dos Componentes e Exercícios na aba Resultado do Cálculo do IPTU para NFL",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 6,
+      "notes": "",
+      "order": 6
+    },
+    {
+      "id": "6888",
+      "title": "Demarcação em vermelho das diferenças identificadas após cálculo do IPTU",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6887",
+      "queue": 8,
+      "notes": "",
+      "order": 8
+    },
+    {
+      "id": "6889",
+      "title": "“Imprimir Demonstrativo” para emissão do Demonstrativo de Cálculo para Apuração",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6887, 6888",
+      "queue": 9,
+      "notes": "",
+      "order": 9
     }
   ],
   "sprintMeta": {
@@ -581,14 +636,14 @@
   },
   "developers": [
     "Andrei Falbot",
+    "Definir Desenvolvedor",
     "Fábio Satoru",
     "José Valmir",
     "Julierson",
     "Lucas Bonifácio",
     "Miquéias",
     "Rafaela Piedade",
-    "Rui Barbosa",
-    "DEFINIR DESENVOLVEDOR"
+    "Rui Barbosa"
   ],
   "devColors": {
     "Rubia Carvalho": "#be185d",
@@ -598,11 +653,11 @@
     "Andrei Falbot": "#0f766e",
     "Alexandre Xavier": "#b91c1c",
     "Rubens Kawahara": "#15803d",
-    "DEFINIR DESENVOLVEDOR": "#64748b",
     "Fábio Satoru": "#c2410c",
     "José Valmir": "#0e7490",
     "Miquéias": "#4f46e5",
     "Julierson": "#16a34a",
-    "Rui Barbosa": "#00610b"
+    "Rui Barbosa": "#00610b",
+    "Definir Desenvolvedor": "#ff0000"
   }
 }
