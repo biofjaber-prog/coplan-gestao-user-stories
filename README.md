@@ -15,6 +15,8 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
 - `Nova US`: cadastra uma User Story em popup.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
+- Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: ela continua consultavel nos filtros e no backlog, mas sai do Roadmap operacional.
+- Use `Reabrir` para devolver uma sprint fechada ao Roadmap.
 - `Novo Dev`: cadastra desenvolvedor em popup.
 - Em `Gestao de Desenvolvedores`, clique no card do desenvolvedor para editar nome/cor ou excluir.
 - Ao excluir um desenvolvedor, as US dele nao sao apagadas; elas sao movidas para `DEFINIR DESENVOLVEDOR`.

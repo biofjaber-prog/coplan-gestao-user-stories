@@ -1179,11 +1179,32 @@ body[data-page="dashboard"] .dashboard-workspace {
 }
 
 .sprint-manage-table {
-  min-width: 860px;
+  min-width: 1080px;
 }
 
 .sprint-manage-table input[data-sprint-field="goal"] {
   min-width: 360px;
+}
+
+.sprint-row-closed {
+  background: #f8fbfd;
+}
+
+.sprint-row-closed strong {
+  color: #64748b;
+}
+
+.sprint-closed-date {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.mini-action {
+  min-height: 34px;
+  padding: 7px 10px;
+  white-space: nowrap;
 }
 
 .us-link,

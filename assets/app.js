@@ -126,16 +126,9 @@
   function persist(label) {
     ensureSprintMeta();
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          stories: state.stories,
-          sprintMeta: state.sprintMeta,
-          developers: state.developers,
-          devColors: state.devColors,
-          savedAt: new Date().toISOString(),
-        })
-      );
+      const payload = buildDataPayload();
+      payload.savedAt = payload.updatedAt;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       setSaveState(label || "Alterações salvas");
     } catch (error) {
       setSaveState("Não foi possível salvar localmente");
@@ -178,6 +171,23 @@
     return sortSprints([...Object.keys(state.sprintMeta), ...state.stories.map((story) => story.sprint)]).filter((sprint) => !HIDDEN_SPRINTS.has(sprint));
   }
 
+  function isSprintClosed(sprint) {
+    return Boolean(state.sprintMeta[sprint]?.closed);
+  }
+
+  function getOpenSprints() {
+    return getAllSprints().filter((sprint) => !isSprintClosed(sprint));
+  }
+
+  function sprintOptionLabel(sprint) {
+    return isSprintClosed(sprint) ? `${sprint} (fechada)` : sprint;
+  }
+
+  function editableSprintOptions(selected) {
+    const open = getOpenSprints();
+    return unique([...(open.length ? open : getAllSprints()), selected].filter(Boolean));
+  }
+
   function getAllDevelopers() {
     return sortDevelopers([...state.developers, ...state.stories.map((story) => story.developer)]);
   }
@@ -199,9 +209,11 @@
   function ensureSprintMeta() {
     getAllSprints().forEach((sprint) => {
       if (!state.sprintMeta[sprint]) {
-        state.sprintMeta[sprint] = { start: "", end: "", goal: "Planejamento a definir", color: sprintColor(sprint) };
-      } else if (!state.sprintMeta[sprint].color) {
-        state.sprintMeta[sprint].color = sprintColor(sprint);
+        state.sprintMeta[sprint] = { start: "", end: "", goal: "Planejamento a definir", color: sprintColor(sprint), closed: false, closedAt: "" };
+      } else {
+        if (!state.sprintMeta[sprint].color) state.sprintMeta[sprint].color = sprintColor(sprint);
+        state.sprintMeta[sprint].closed = Boolean(state.sprintMeta[sprint].closed);
+        state.sprintMeta[sprint].closedAt = state.sprintMeta[sprint].closedAt || "";
       }
     });
   }
@@ -408,7 +420,7 @@
   function renderFilterOptions() {
     const search = $("filterSearch");
     if (search) search.value = state.filters.search;
-    fillSelect("filterSprint", getAllSprints(), state.filters.sprint);
+    fillSelect("filterSprint", getAllSprints(), state.filters.sprint, sprintOptionLabel);
     fillSelect("filterDeveloper", getAllDevelopers(), state.filters.developer);
     fillSelect("filterStatus", unique(state.stories.map((story) => story.status)).sort(), state.filters.status);
     fillSelect("filterQueue", unique(state.stories.map((story) => story.queue)).sort((a, b) => a - b), state.filters.queue, (value) => `P${value}`);
@@ -464,7 +476,8 @@
     const el = $("queueBoard");
     if (!el) return;
     const map = storyMap();
-    const sprints = state.filters.sprint === "Todos" ? getAllSprints() : [state.filters.sprint].filter((sprint) => sprint !== "Todos");
+    const openSprints = getOpenSprints();
+    const sprints = state.filters.sprint === "Todos" ? (openSprints.length ? openSprints : getAllSprints()) : [state.filters.sprint].filter((sprint) => sprint !== "Todos");
     el.innerHTML =
       sprints
         .map((sprint) => {
@@ -475,7 +488,7 @@
             <section class="sprint-group">
               <div class="sprint-group-head">
                 <div>
-                  <h3>${escapeHtml(sprint)}</h3>
+                  <h3>${escapeHtml(sprint)} ${isSprintClosed(sprint) ? '<span class="badge neutral">Fechada</span>' : ""}</h3>
                   <p>${sprintItems.length} US na sprint${conflicts ? ` - ${conflicts} conflito(s) de prioridade` : ""}</p>
                 </div>
                 <button class="mini-button" type="button" data-filter-sprint="${escapeHtml(sprint)}">Filtrar sprint</button>
@@ -555,18 +568,29 @@
       .map((sprint) => {
         const meta = state.sprintMeta[sprint] || { start: "", end: "", goal: "" };
         const count = state.stories.filter((story) => story.sprint === sprint).length;
+        const closed = isSprintClosed(sprint);
+        const closedDate = meta.closedAt ? new Date(meta.closedAt).toLocaleDateString("pt-BR") : "";
         return `
-          <tr>
+          <tr class="${closed ? "sprint-row-closed" : ""}">
             <td><strong>${escapeHtml(sprint)}</strong></td>
             <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="start" value="${escapeHtml(meta.start || "")}" placeholder="08/06"></td>
             <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="end" value="${escapeHtml(meta.end || "")}" placeholder="19/06"></td>
             <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="color" type="color" value="${escapeHtml(meta.color || sprintColor(sprint))}"></td>
             <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="goal" value="${escapeHtml(meta.goal || "")}" placeholder="Objetivo da sprint"></td>
+            <td>
+              <span class="badge ${closed ? "neutral" : "done"}">${closed ? "Fechada" : "Aberta"}</span>
+              ${closedDate ? `<div class="sprint-closed-date">${escapeHtml(closedDate)}</div>` : ""}
+            </td>
             <td>${count}</td>
+            <td>
+              <button class="${closed ? "ghost-button" : "primary-button"} mini-action" type="button" data-toggle-sprint="${escapeHtml(sprint)}">
+                ${closed ? "Reabrir" : "Fechar"}
+              </button>
+            </td>
           </tr>`;
       })
       .join("");
-    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="5"><div class="empty-state">Nenhuma sprint cadastrada.</div></td></tr>';
+    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="8"><div class="empty-state">Nenhuma sprint cadastrada.</div></td></tr>';
   }
 
   function renderDeveloperManageList() {
@@ -1015,7 +1039,12 @@
   function renderRoadmap(stories) {
     const el = $("roadmap");
     if (!el) return;
-    const sprints = getAllSprints();
+    const openSprints = getOpenSprints();
+    const sprints = state.filters.sprint === "Todos" ? openSprints : openSprints.filter((sprint) => sprint === state.filters.sprint);
+    if (!sprints.length) {
+      el.innerHTML = '<div class="empty-state">A sprint selecionada está fechada ou não há sprint aberta. Consulte o histórico no Backlog Completo e abra uma nova sprint para montar o Roadmap operacional.</div>';
+      return;
+    }
     el.innerHTML = sprints
       .map((sprint) => {
         const items = [...stories.filter((story) => story.sprint === sprint)].sort(
@@ -1164,7 +1193,7 @@
   }
 
   function firstSprintName() {
-    return getAllSprints()[0] || "Sprint 1";
+    return getOpenSprints()[0] || getAllSprints()[0] || "Sprint 1";
   }
 
   function nextQueueFor(sprint, developer) {
@@ -1220,7 +1249,7 @@
           </div>
           <div class="form-field">
             <label for="storySprint">Sprint</label>
-            <select id="storySprint" name="sprint">${optionsMarkup(getAllSprints(), sprint)}</select>
+            <select id="storySprint" name="sprint">${optionsMarkup(editableSprintOptions(sprint), sprint)}</select>
           </div>
           <div class="form-field">
             <label for="storyStatus">Status</label>
@@ -1294,11 +1323,42 @@
         end: String(formData.get("end") || "").trim(),
         goal: String(formData.get("goal") || "").trim() || "Objetivo a definir",
         color: String(formData.get("color") || sprintColor(name)),
+        closed: false,
+        closedAt: "",
       };
       persist("Sprint criada");
       closeFormScreen();
       render();
     });
+  }
+
+  function toggleSprintClosed(sprint) {
+    if (!state.sprintMeta[sprint]) ensureSprintMeta();
+    const meta = state.sprintMeta[sprint] || {};
+    const total = state.stories.filter((story) => story.sprint === sprint).length;
+    if (isSprintClosed(sprint)) {
+      if (!confirm(`Reabrir ${sprint}? Ela voltará para a fila operacional e para o Roadmap.`)) return;
+      createLocalBackup(`Antes de reabrir ${sprint}`);
+      state.sprintMeta[sprint] = { ...meta, closed: false, closedAt: "" };
+      persist("Sprint reaberta");
+      render();
+      return;
+    }
+
+    if (!confirm(`Fechar ${sprint}? As ${total} US continuarão consultáveis, mas a sprint sairá do Roadmap operacional.`)) return;
+    createLocalBackup(`Antes de fechar ${sprint}`);
+    const today = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+    state.sprintMeta[sprint] = {
+      ...meta,
+      end: meta.end || today,
+      closed: true,
+      closedAt: new Date().toISOString(),
+    };
+    persist("Sprint fechada");
+    render();
+    if (PAGE === "management" && confirm(`${sprint} foi fechada. Deseja cadastrar a próxima sprint agora?`)) {
+      openNewSprintScreen();
+    }
   }
 
   function openNewDeveloperScreen() {
@@ -1617,6 +1677,23 @@
     };
   }
 
+  function localDataTime() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY) || "null");
+      return saved ? Date.parse(saved.updatedAt || saved.savedAt || "") || 0 : 0;
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  function shouldApplyCloudPayload(payload, manual) {
+    if (manual) return true;
+    const localTime = localDataTime();
+    if (!localTime) return true;
+    const cloudTime = Date.parse(payload?.updatedAt || payload?.savedAt || "") || 0;
+    return cloudTime > localTime;
+  }
+
   function getLocalBackups() {
     try {
       const backups = JSON.parse(localStorage.getItem(LOCAL_BACKUP_KEY) || "[]");
@@ -1870,6 +1947,10 @@
     if (manual) setSaveState("Carregando nuvem");
     try {
       const payload = await fetchCloudPayload(config);
+      if (!shouldApplyCloudPayload(payload, manual)) {
+        setSaveState("Dados locais mantidos");
+        return;
+      }
       if (manual) createLocalBackup("Antes de carregar nuvem");
       applyDataPayload(payload, "Dados carregados da nuvem");
       if (manual) alert("Nuvem carregada com sucesso.");
@@ -2161,6 +2242,12 @@
         state.filters.sprint = sprintBtn.dataset.filterSprint;
         state.pagination.backlogPage = 1;
         render();
+        return;
+      }
+
+      const toggleSprintBtn = event.target.closest("[data-toggle-sprint]");
+      if (toggleSprintBtn) {
+        toggleSprintClosed(toggleSprintBtn.dataset.toggleSprint);
         return;
       }
 
