@@ -21,7 +21,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `GitHub / Publicar`: abre a tela para token, teste de conexao, carregar nuvem e publicar alteracoes.
 - `Backups Locais`: lista pontos salvos automaticamente antes de publicar, carregar nuvem, importar JSON, restaurar base ou excluir itens.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
-- No Dashboard, o roadmap mostra as sprints lado a lado com rolagem horizontal.
+- No Dashboard, o roadmap fica logo abaixo dos indicadores e organiza as sprints em grade sem rolagem horizontal.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.
 - No Dashboard, clicar em uma US abre apenas consulta em modo leitura.
 - `Exportar XLSX`: baixa o backlog filtrado com colunas estruturadas.

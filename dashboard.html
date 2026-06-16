@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260615-safe-refactor">
+  <link rel="stylesheet" href="assets/styles.css?v=20260616-roadmap-top">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -81,6 +81,17 @@
 
       <section class="kpi-grid" id="kpiGrid" aria-label="Indicadores principais"></section>
 
+      <section class="panel roadmap-panel-top">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Planejamento</span>
+            <h2>Roadmap por Sprint</h2>
+            <p>US ordenadas pela prioridade definida na Gestão.</p>
+          </div>
+        </div>
+        <div id="roadmap" class="roadmap roadmap-list"></div>
+      </section>
+
       <section class="dashboard-grid">
         <div class="dashboard-main-col">
           <section class="panel">
@@ -94,16 +105,6 @@
             <div id="sprintChart" class="bar-chart"></div>
           </section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Planejamento</span>
-                <h2>Roadmap por Sprint</h2>
-                <p>US ordenadas pela prioridade definida na Gestão.</p>
-              </div>
-            </div>
-            <div id="roadmap" class="roadmap roadmap-list"></div>
-          </section>
         </div>
 
         <div class="dashboard-side-col">
@@ -226,7 +227,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260615-safe-refactor"></script>
-  <script src="assets/app.js?v=20260615-safe-refactor"></script>
+  <script src="assets/data.js?v=20260616-roadmap-top"></script>
+  <script src="assets/app.js?v=20260616-roadmap-top"></script>
 </body>
 </html>
