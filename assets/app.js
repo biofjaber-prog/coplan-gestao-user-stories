@@ -253,6 +253,82 @@
       .toLowerCase();
   }
 
+  function startOfDay(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  function parseSprintDate(value, reference = new Date()) {
+    const text = String(value || "").trim();
+    if (!text) return null;
+    let match = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (match) return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    match = text.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
+    if (!match) return null;
+    const day = Number(match[1]);
+    const month = Number(match[2]) - 1;
+    const yearRaw = match[3] ? Number(match[3]) : reference.getFullYear();
+    const year = yearRaw < 100 ? 2000 + yearRaw : yearRaw;
+    const date = new Date(year, month, day);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function daysUntil(date, reference = new Date()) {
+    const target = startOfDay(date);
+    const today = startOfDay(reference);
+    return Math.round((target - today) / 86400000);
+  }
+
+  function currentSprintContext(reference = new Date()) {
+    const today = startOfDay(reference);
+    const open = getOpenSprints()
+      .map((sprint) => {
+        const meta = state.sprintMeta[sprint] || {};
+        const start = parseSprintDate(meta.start, today);
+        const end = parseSprintDate(meta.end, today);
+        return { sprint, start, end, daysLeft: end ? daysUntil(end, today) : null };
+      })
+      .filter((item) => item.end);
+    if (!open.length) return null;
+    const active = open
+      .filter((item) => (!item.start || item.start <= today) && item.end >= today)
+      .sort((a, b) => a.end - b.end)[0];
+    if (active) return active;
+    const overdue = open.filter((item) => item.end < today).sort((a, b) => b.end - a.end)[0];
+    if (overdue) return overdue;
+    return open.filter((item) => item.end >= today).sort((a, b) => a.end - b.end)[0] || open.sort((a, b) => b.end - a.end)[0];
+  }
+
+  function deadlineAlert(story) {
+    if (PAGE !== "dashboard" || isDone(story.status)) return null;
+    const context = currentSprintContext();
+    if (!context || story.sprint !== context.sprint || context.daysLeft === null) return null;
+    const status = normalizedStatus(story.status);
+    const lateStage = status.includes("homologacao");
+    const needsEarlierAction = status.includes("em teste") || status.includes("apresentar") || status.includes("planejar");
+    if (context.daysLeft <= 0 && lateStage) {
+      return {
+        level: "critical",
+        label: "Último dia",
+        title: `Último dia da ${context.sprint}: US em homologação precisa concluir.`,
+      };
+    }
+    if (context.daysLeft <= 4 && needsEarlierAction) {
+      const label = context.daysLeft <= 0 ? "Vence hoje" : `Faltam ${context.daysLeft}d`;
+      return {
+        level: context.daysLeft <= 1 ? "critical" : "warning",
+        label,
+        title: `${context.sprint} encerra em ${context.daysLeft <= 0 ? "hoje" : `${context.daysLeft} dia(s)`}: US ainda não chegou em homologação.`,
+      };
+    }
+    return null;
+  }
+
+  function deadlineAlertMarkup(story) {
+    const alert = deadlineAlert(story);
+    if (!alert) return "";
+    return `<span class="deadline-alert ${alert.level}" title="${escapeHtml(alert.title)}"><span class="deadline-pulse"></span>${escapeHtml(alert.label)}</span>`;
+  }
+
   function isDone(status) {
     const value = normalizedStatus(status);
     return value.includes("testes concluidos") || value.includes("concluido homologacao");
@@ -396,6 +472,7 @@
     renderDeveloperSummary(filtered);
     renderBacklog(filtered);
     renderRoadmap(filtered);
+    renderDeadlineAlertsPanel(filtered);
     renderSideStats();
   }
 
@@ -860,6 +937,35 @@
         : '<div class="empty-state">Nenhuma US com dependência no filtro atual.</div>';
   }
 
+  function renderDeadlineAlertsPanel(stories) {
+    const el = $("deadlineAlerts");
+    if (!el) return;
+    const context = currentSprintContext();
+    if (!context) {
+      el.innerHTML = '<div class="empty-state">Nenhuma sprint aberta com data final definida.</div>';
+      return;
+    }
+    const alerts = sortedStories(stories.filter((story) => deadlineAlert(story))).slice(0, 12);
+    const endLabel = context.end ? context.end.toLocaleDateString("pt-BR") : "sem data";
+    el.innerHTML = `
+      <div class="deadline-summary">
+        <strong>${escapeHtml(context.sprint)}</strong>
+        <span>Fim em ${escapeHtml(endLabel)} - ${context.daysLeft <= 0 ? "último dia" : `${context.daysLeft} dia(s) restantes`}</span>
+      </div>
+      ${
+        alerts.length
+          ? alerts
+              .map((story) => `
+        <button class="deadline-item" type="button" data-open-story="${escapeHtml(story.id)}">
+          <span>${deadlineAlertMarkup(story)} ${priorityBadge(story)} US ${escapeHtml(story.id)}</span>
+          <strong>${escapeHtml(story.title)}</strong>
+          <small>${escapeHtml(story.developer)} - ${escapeHtml(story.status)}</small>
+        </button>`)
+              .join("")
+          : '<div class="empty-state">Nenhuma US em alerta para a sprint atual.</div>'
+      }`;
+  }
+
   function renderSprintTrendChart(stories) {
     const el = $("sprintTrendChart");
     if (!el) return;
@@ -1003,7 +1109,7 @@
         <tr>
           <td><button class="us-link" type="button" data-open-story="${escapeHtml(story.id)}">${escapeHtml(story.id)}</button></td>
           <td>${priorityBadge(story)}</td>
-          <td class="title-cell">${escapeHtml(story.title)}</td>
+          <td class="title-cell">${deadlineAlertMarkup(story)}${escapeHtml(story.title)}</td>
           <td><button class="dev-link" type="button" data-open-dev="${escapeHtml(story.developer)}">${devChip(story.developer)}</button></td>
           <td>${escapeHtml(story.sprint)}</td>
           <td>${statusBadge(story.status)}</td>
@@ -1075,7 +1181,7 @@
                     <strong>${escapeHtml(story.developer)}</strong>
                   </div>
                   <div class="roadmap-us-main">
-                    <div>${priorityBadge(story)} <button class="us-link" type="button" data-open-story="${escapeHtml(story.id)}">${escapeHtml(story.id)}</button> ${escapeHtml(story.title)}</div>
+                    <div class="roadmap-us-title-line">${deadlineAlertMarkup(story)}${priorityBadge(story)} <button class="us-link" type="button" data-open-story="${escapeHtml(story.id)}">${escapeHtml(story.id)}</button> ${escapeHtml(story.title)}</div>
                     <div class="roadmap-us-meta">${statusBadge(story.status)} ${dependencyBadge(story)}</div>
                   </div>
                 </article>`

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260616-close-sprint">
+  <link rel="stylesheet" href="assets/styles.css?v=20260616-sprint-alerts">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -133,6 +133,17 @@
           <section class="panel">
             <div class="panel-head">
               <div>
+                <span class="eyebrow">Prazo da Sprint</span>
+                <h2>Alertas da Sprint Atual</h2>
+                <p>US que precisam avançar antes do encerramento da sprint.</p>
+              </div>
+            </div>
+            <div id="deadlineAlerts" class="deadline-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
                 <span class="eyebrow">Status</span>
                 <h2>Saúde do Backlog</h2>
                 <p>Distribuição por status e percentual concluído.</p>
@@ -249,7 +260,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260616-close-sprint"></script>
-  <script src="assets/app.js?v=20260616-close-sprint"></script>
+  <script src="assets/data.js?v=20260616-sprint-alerts"></script>
+  <script src="assets/app.js?v=20260616-sprint-alerts"></script>
 </body>
 </html>

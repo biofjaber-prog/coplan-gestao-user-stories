@@ -24,6 +24,10 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Backups Locais`: lista pontos salvos automaticamente antes de publicar, carregar nuvem, importar JSON, restaurar base ou excluir itens.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap fica logo abaixo dos indicadores e organiza as sprints em grade sem rolagem horizontal.
+- No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
+- Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.
+- No ultimo dia da sprint, US em `Em homologacao` tambem recebem alerta piscante.
+- US em `Concluido Homologacao` nao exibem alerta de prazo.
 - No Dashboard, a area abaixo de `US por Sprint` traz `Saude por Sprint` e `Sprint x Desenvolvedor` para preencher a leitura executiva.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.
 - No Dashboard, clicar em uma US abre apenas consulta em modo leitura.
