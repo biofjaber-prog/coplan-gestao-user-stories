@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-16T02:03:33.275Z",
+  "updatedAt": "2026-06-16T12:26:29.935Z",
   "stories": [
     {
       "id": "6553",
@@ -240,7 +240,7 @@
       "sprint": "Sprint 23",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": 2,
+      "queue": 3,
       "notes": "",
       "order": 26
     },
@@ -537,7 +537,7 @@
       "sprint": "Sprint 23",
       "status": "Em homologação",
       "dependency": "",
-      "queue": 1,
+      "queue": 2,
       "notes": "",
       "order": 50
     },
@@ -629,7 +629,7 @@
       "start": "06/07",
       "end": "17/07",
       "goal": "Concluir histórias encadeadas e estabilizar integrações",
-      "color": "#98067d",
+      "color": "#006652",
       "closed": false,
       "closedAt": ""
     },
@@ -637,7 +637,7 @@
       "start": "20/07",
       "end": "31/07",
       "goal": "Fechar backlog priorizado e preparar próximos ciclos",
-      "color": "#8a0000",
+      "color": "#d10000",
       "closed": false,
       "closedAt": ""
     }
