@@ -58,6 +58,8 @@
     cloudSaveTimer: null,
     cloudLoading: false,
     cloudSaving: false,
+    expandedSprints: new Set(),
+    openSprintActions: "",
   };
 
   const $ = (id) => document.getElementById(id);
@@ -689,14 +691,27 @@
           const sprintItems = stories.filter((story) => story.sprint === sprint);
           const devs = state.filters.developer === "Todos" ? getAllDevelopers() : [state.filters.developer];
           const conflicts = queueConflicts(sprintItems).length;
+          const expanded = state.expandedSprints.has(sprint);
+          const active = sprintItems.filter((story) => !isDone(story.status)).length;
+          const progress = sprintItems.filter((story) => isInProgress(story.status)).length;
+          const responsible = unique(sprintItems.map((story) => story.developer)).length;
           return `
-            <section class="sprint-group">
+            <section class="sprint-group ${expanded ? "is-expanded" : "is-collapsed"}">
               <div class="sprint-group-head">
                 <div>
                   <h3>${escapeHtml(sprint)} ${isSprintClosed(sprint) ? '<span class="badge neutral">Fechada</span>' : ""}</h3>
                   <p>${sprintItems.length} US na sprint${conflicts ? ` - ${conflicts} conflito(s) de prioridade` : ""}</p>
                 </div>
-                <button class="mini-button" type="button" data-filter-sprint="${escapeHtml(sprint)}">Filtrar sprint</button>
+                <div class="sprint-head-actions">
+                  <button class="primary-button mini-action" type="button" data-toggle-sprint-view="${escapeHtml(sprint)}">${expanded ? "Recolher" : "Expandir"}</button>
+                  <button class="mini-button" type="button" data-filter-sprint="${escapeHtml(sprint)}">Filtrar</button>
+                </div>
+              </div>
+              <div class="sprint-collapsed-summary">
+                <span>${active} abertas</span>
+                <span>${progress} em andamento</span>
+                <span>${responsible} responsavel(is)</span>
+                ${conflicts ? `<span class="danger-text">${conflicts} conflito(s)</span>` : "<span>sem conflito</span>"}
               </div>
               <div class="developer-lanes">
                 ${devs
@@ -776,35 +791,37 @@
         const count = state.stories.filter((story) => story.sprint === sprint).length;
         const closed = isSprintClosed(sprint);
         const closedDate = meta.closedAt ? new Date(meta.closedAt).toLocaleDateString("pt-BR") : "";
+        const actionsOpen = state.openSprintActions === sprint;
+        const period = [meta.start, meta.end].filter(Boolean).join(" a ") || "Periodo a definir";
         return `
           <tr class="${closed ? "sprint-row-closed" : ""}">
-            <td><strong>${escapeHtml(sprint)}</strong></td>
-            <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="start" value="${escapeHtml(meta.start || "")}" placeholder="08/06"></td>
-            <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="end" value="${escapeHtml(meta.end || "")}" placeholder="19/06"></td>
-            <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="color" type="color" value="${escapeHtml(meta.color || sprintColor(sprint))}"></td>
-            <td><input data-sprint-update="${escapeHtml(sprint)}" data-sprint-field="goal" value="${escapeHtml(meta.goal || "")}" placeholder="Objetivo da sprint"></td>
+            <td>
+              <div class="sprint-name-cell">
+                <span class="sprint-color-dot" style="background:${escapeHtml(meta.color || sprintColor(sprint))}"></span>
+                <strong>${escapeHtml(sprint)}</strong>
+              </div>
+            </td>
+            <td>${escapeHtml(period)}</td>
+            <td class="title-cell">${escapeHtml(meta.goal || "Objetivo a definir")}</td>
             <td>
               <span class="badge ${closed ? "neutral" : "done"}">${closed ? "Fechada" : "Aberta"}</span>
               ${closedDate ? `<div class="sprint-closed-date">${escapeHtml(closedDate)}</div>` : ""}
             </td>
             <td>${count}</td>
             <td>
-              <div class="sprint-actions">
-                <button class="ghost-button mini-action" type="button" data-edit-sprint="${escapeHtml(sprint)}">
-                  Editar
-                </button>
-                <button class="${closed ? "ghost-button" : "primary-button"} mini-action" type="button" data-toggle-sprint="${escapeHtml(sprint)}">
-                  ${closed ? "Reabrir" : "Fechar"}
-                </button>
-                <button class="danger-button mini-action" type="button" data-delete-sprint="${escapeHtml(sprint)}" title="${escapeHtml(count ? "Sprint com US vinculada" : "Excluir sprint vazia")}">
-                  Excluir
-                </button>
+              <div class="action-menu ${actionsOpen ? "is-open" : ""}">
+                <button class="ghost-button mini-action action-menu-button" type="button" data-sprint-actions="${escapeHtml(sprint)}" aria-expanded="${actionsOpen ? "true" : "false"}">Acoes</button>
+                <div class="action-menu-panel">
+                  <button class="mini-button" type="button" data-edit-sprint="${escapeHtml(sprint)}">Editar</button>
+                  <button class="mini-button" type="button" data-toggle-sprint="${escapeHtml(sprint)}">${closed ? "Reabrir" : "Fechar sprint"}</button>
+                  <button class="danger-button mini-action" type="button" data-delete-sprint="${escapeHtml(sprint)}" title="${escapeHtml(count ? "Sprint com US vinculada" : "Excluir sprint vazia")}">Excluir</button>
+                </div>
               </div>
             </td>
           </tr>`;
       })
       .join("");
-    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="8"><div class="empty-state">Nenhuma sprint cadastrada.</div></td></tr>';
+    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="6"><div class="empty-state">Nenhuma sprint cadastrada.</div></td></tr>';
   }
 
   function renderDeveloperManageList() {
@@ -2652,20 +2669,40 @@
         return;
       }
 
+      const toggleSprintViewBtn = event.target.closest("[data-toggle-sprint-view]");
+      if (toggleSprintViewBtn) {
+        const sprint = toggleSprintViewBtn.dataset.toggleSprintView;
+        if (state.expandedSprints.has(sprint)) state.expandedSprints.delete(sprint);
+        else state.expandedSprints.add(sprint);
+        render();
+        return;
+      }
+
+      const sprintActionsBtn = event.target.closest("[data-sprint-actions]");
+      if (sprintActionsBtn) {
+        const sprint = sprintActionsBtn.dataset.sprintActions;
+        state.openSprintActions = state.openSprintActions === sprint ? "" : sprint;
+        render();
+        return;
+      }
+
       const editSprintBtn = event.target.closest("[data-edit-sprint]");
       if (editSprintBtn) {
+        state.openSprintActions = "";
         openSprintEditScreen(editSprintBtn.dataset.editSprint);
         return;
       }
 
       const toggleSprintBtn = event.target.closest("[data-toggle-sprint]");
       if (toggleSprintBtn) {
+        state.openSprintActions = "";
         toggleSprintClosed(toggleSprintBtn.dataset.toggleSprint);
         return;
       }
 
       const deleteSprintBtn = event.target.closest("[data-delete-sprint]");
       if (deleteSprintBtn) {
+        state.openSprintActions = "";
         deleteSprint(deleteSprintBtn.dataset.deleteSprint);
         return;
       }
