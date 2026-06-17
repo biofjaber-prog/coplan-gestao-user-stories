@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-side-fill">
+  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-no-backlog">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -224,7 +224,7 @@
             <div id="completionChart" class="column-chart compact-column-chart"></div>
           </section>
 
-          <section class="panel">
+          <section class="panel side-fill-panel">
             <div class="panel-head">
               <div>
                 <span class="eyebrow">Dependências</span>
@@ -234,32 +234,6 @@
             </div>
             <div id="dependencyInsights" class="dependency-insights"></div>
           </section>
-        </div>
-      </section>
-
-      <section class="panel" id="backlogSection">
-        <div class="panel-head">
-          <div>
-            <span class="eyebrow">Consulta</span>
-            <h2>Backlog Completo</h2>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table" id="backlogTable">
-            <thead>
-              <tr>
-                <th data-sort="id">US</th>
-                <th data-sort="queue">Prioridade</th>
-                <th data-sort="title">Descrição</th>
-                <th data-sort="developer">Desenvolvedor</th>
-                <th data-sort="sprint">Sprint</th>
-                <th data-sort="status">Status</th>
-                <th>Planejamento</th>
-                <th>Dependência</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
         </div>
       </section>
     </main>
@@ -278,7 +252,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260617-dashboard-side-fill"></script>
-  <script src="assets/app.js?v=20260617-dashboard-side-fill"></script>
+  <script src="assets/data.js?v=20260617-dashboard-no-backlog"></script>
+  <script src="assets/app.js?v=20260617-dashboard-no-backlog"></script>
 </body>
 </html>

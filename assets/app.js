@@ -1138,7 +1138,15 @@
       .map(([developer, items]) => ({ developer, count: items.length }))
       .sort((a, b) => b.count - a.count || a.developer.localeCompare(b.developer, "pt-BR"))
       .slice(0, 5);
-    const critical = blocked.slice(0, 6);
+    const sprintBlocks = [...groupBy(blocked, (item) => item.story.sprint).entries()]
+      .map(([sprint, items]) => ({ sprint, count: items.length }))
+      .sort((a, b) => b.count - a.count || sprintNumber(a.sprint) - sprintNumber(b.sprint))
+      .slice(0, 5);
+    const blockerStories = [...groupBy(blocked, (item) => item.linked ? item.linked.id : item.dependencyId).entries()]
+      .map(([id, items]) => ({ id, count: items.length, linked: items[0]?.linked }))
+      .sort((a, b) => b.count - a.count || Number(a.id) - Number(b.id))
+      .slice(0, 5);
+    const critical = blocked.slice(0, 12);
     el.innerHTML = `
       <div class="dependency-insight-grid">
         <div><strong>${relations.length}</strong><span>relações</span></div>
@@ -1160,6 +1168,38 @@
                 )
                 .join("")
             : '<div class="empty-state">Nenhum responsável bloqueado no filtro.</div>'
+        }
+      </div>
+      <div class="dependency-insight-section">
+        <h3>Sprints com mais bloqueios</h3>
+        ${
+          sprintBlocks.length
+            ? sprintBlocks
+                .map(
+                  (item) => `
+          <div class="dependency-mini-row">
+            <span>${escapeHtml(item.sprint)}</span>
+            <strong>${item.count}</strong>
+          </div>`
+                )
+                .join("")
+            : '<div class="empty-state">Nenhuma sprint bloqueada no filtro.</div>'
+        }
+      </div>
+      <div class="dependency-insight-section">
+        <h3>US que mais travam outras</h3>
+        ${
+          blockerStories.length
+            ? blockerStories
+                .map(
+                  (item) => `
+          <button class="dependency-action-item compact" type="button" ${item.linked ? `data-open-story="${escapeHtml(item.linked.id)}"` : ""}>
+            <strong>US ${escapeHtml(item.id)} trava ${item.count} relacao(oes)</strong>
+            <span>${escapeHtml(item.linked ? item.linked.title : "US nao cadastrada na base")}</span>
+          </button>`
+                )
+                .join("")
+            : '<div class="empty-state">Nenhuma US travando outras no filtro.</div>'
         }
       </div>
       <div class="dependency-insight-section">
@@ -1399,7 +1439,7 @@
     if (!el) return;
     const sprints = getDashboardOpenSprints(stories);
     if (!sprints.length) {
-      el.innerHTML = '<div class="empty-state">A sprint selecionada está fechada ou não há sprint aberta. Consulte o histórico no Backlog Completo e abra uma nova sprint para montar o Roadmap operacional.</div>';
+      el.innerHTML = '<div class="empty-state">A sprint selecionada está fechada ou não há sprint aberta. Ajuste os filtros ou abra uma nova sprint para montar o Roadmap operacional.</div>';
       return;
     }
     el.innerHTML = sprints

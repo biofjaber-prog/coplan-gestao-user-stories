@@ -39,13 +39,14 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, o Mapa das Dependencias fica em painel amplo na coluna principal e mostra cada relacao como `US origem -> depende de -> US destino`.
 - No Dashboard, Tendencia e Conclusao ficam na coluna lateral para preencher melhor o espaco do painel.
 - No Dashboard, a lateral tambem traz `Leitura das Dependencias`, com total de relacoes, bloqueadas, liberadas, ausentes, responsaveis afetados e bloqueios prioritarios.
+- No Dashboard, o painel `Backlog Completo` foi removido para reduzir altura e evitar espaco vazio desnecessario.
+- No Dashboard, `Leitura das Dependencias` ocupa a lateral restante com sprints bloqueadas, US que mais travam outras e bloqueios prioritarios.
 - No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
 - Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.
 - No ultimo dia da sprint, US em `Em homologacao` tambem recebem alerta piscante.
 - Se a sprint estiver perto do fim e a US ainda estiver em `Em desenvolvimento`, o Dashboard tambem exibe alerta de prazo.
 - US em `Concluido Homologacao` nao exibem alerta de prazo.
 - No Dashboard, a area abaixo de `US por Sprint` traz `Saude por Sprint` e `Sprint x Desenvolvedor` para preencher a leitura executiva.
-- No Dashboard, o Backlog Completo mostra 10 registros por pagina.
 - No Dashboard, clicar em uma US abre apenas consulta em modo leitura.
 - `Exportar XLSX`: baixa o backlog filtrado com colunas estruturadas.
 
