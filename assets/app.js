@@ -175,6 +175,23 @@
     return sortSprints([...Object.keys(state.sprintMeta), ...state.stories.map((story) => story.sprint)]).filter((sprint) => !HIDDEN_SPRINTS.has(sprint));
   }
 
+  function getStorySprints(stories) {
+    return sortSprints((stories || []).map((story) => story.sprint)).filter((sprint) => !HIDDEN_SPRINTS.has(sprint));
+  }
+
+  function getDashboardSprints(stories) {
+    const selected = state.filters.sprint;
+    if (selected && selected !== "Todos" && !HIDDEN_SPRINTS.has(selected)) return [selected];
+    return getStorySprints(stories);
+  }
+
+  function getDashboardOpenSprints(stories) {
+    const selected = state.filters.sprint;
+    if (selected && selected !== "Todos") return !HIDDEN_SPRINTS.has(selected) && !isSprintClosed(selected) ? [selected] : [];
+    const visible = new Set(getStorySprints(stories));
+    return getOpenSprints().filter((sprint) => visible.has(sprint));
+  }
+
   function isSprintClosed(sprint) {
     return Boolean(state.sprintMeta[sprint]?.closed);
   }
@@ -772,9 +789,17 @@
             </td>
             <td>${count}</td>
             <td>
-              <button class="${closed ? "ghost-button" : "primary-button"} mini-action" type="button" data-toggle-sprint="${escapeHtml(sprint)}">
-                ${closed ? "Reabrir" : "Fechar"}
-              </button>
+              <div class="sprint-actions">
+                <button class="ghost-button mini-action" type="button" data-edit-sprint="${escapeHtml(sprint)}">
+                  Editar
+                </button>
+                <button class="${closed ? "ghost-button" : "primary-button"} mini-action" type="button" data-toggle-sprint="${escapeHtml(sprint)}">
+                  ${closed ? "Reabrir" : "Fechar"}
+                </button>
+                <button class="danger-button mini-action" type="button" data-delete-sprint="${escapeHtml(sprint)}" title="${escapeHtml(count ? "Sprint com US vinculada" : "Excluir sprint vazia")}">
+                  Excluir
+                </button>
+              </div>
             </td>
           </tr>`;
       })
@@ -844,7 +869,11 @@
   function renderSprintChart(stories) {
     const el = $("sprintChart");
     if (!el) return;
-    const sprints = getAllSprints();
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    if (!sprints.length) {
+      el.innerHTML = '<div class="empty-state">Nenhuma sprint com US no filtro atual.</div>';
+      return;
+    }
     const max = Math.max(1, ...sprints.map((sprint) => stories.filter((story) => story.sprint === sprint).length));
     el.innerHTML = sprints
       .map((sprint) => {
@@ -870,7 +899,8 @@
     const el = $("sprintHealthPanel");
     if (!el) return;
     const map = storyMap();
-    const cards = getAllSprints().map((sprint) => {
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    const cards = sprints.map((sprint) => {
       const items = stories.filter((story) => story.sprint === sprint);
       const done = items.filter((story) => isDone(story.status)).length;
       const open = items.length - done;
@@ -902,7 +932,11 @@
   function renderSprintDeveloperMatrix(stories) {
     const el = $("sprintDeveloperMatrix");
     if (!el) return;
-    const sprints = getAllSprints();
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    if (!sprints.length) {
+      el.innerHTML = '<div class="empty-state">Nenhuma sprint com US no filtro atual.</div>';
+      return;
+    }
     const developers = getAllDevelopers().filter((developer) => stories.some((story) => story.developer === developer));
     const max = Math.max(1, ...developers.flatMap((developer) => sprints.map((sprint) => stories.filter((story) => story.developer === developer && story.sprint === sprint).length)));
     const columns = sprints.length + 1;
@@ -995,7 +1029,8 @@
     const el = $("blockedSprintChart");
     if (!el) return;
     const map = storyMap();
-    const groups = getAllSprints()
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    const groups = sprints
       .map((sprint) => ({
         label: sprint,
         count: stories.filter((story) => story.sprint === sprint && dependencyInfo(story, map).blocked).length,
@@ -1083,7 +1118,11 @@
   function renderSprintTrendChart(stories) {
     const el = $("sprintTrendChart");
     if (!el) return;
-    const sprints = getAllSprints();
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    if (!sprints.length) {
+      el.innerHTML = '<div class="empty-state">Nenhuma sprint com US no filtro atual.</div>';
+      return;
+    }
     const points = sprints.map((sprint) => stories.filter((story) => story.sprint === sprint).length);
     const max = Math.max(1, ...points);
     const width = 720;
@@ -1107,7 +1146,11 @@
   function renderCompletionChart(stories) {
     const el = $("completionChart");
     if (!el) return;
-    const sprints = getAllSprints();
+    const sprints = PAGE === "dashboard" ? getDashboardSprints(stories) : getAllSprints();
+    if (!sprints.length) {
+      el.innerHTML = '<div class="empty-state">Nenhuma sprint com US no filtro atual.</div>';
+      return;
+    }
     el.innerHTML = sprints
       .map((sprint) => {
         const items = stories.filter((story) => story.sprint === sprint);
@@ -1260,8 +1303,7 @@
   function renderRoadmap(stories) {
     const el = $("roadmap");
     if (!el) return;
-    const openSprints = getOpenSprints();
-    const sprints = state.filters.sprint === "Todos" ? openSprints : openSprints.filter((sprint) => sprint === state.filters.sprint);
+    const sprints = getDashboardOpenSprints(stories);
     if (!sprints.length) {
       el.innerHTML = '<div class="empty-state">A sprint selecionada está fechada ou não há sprint aberta. Consulte o histórico no Backlog Completo e abra uma nova sprint para montar o Roadmap operacional.</div>';
       return;
@@ -1569,6 +1611,88 @@
     });
   }
 
+  function openSprintEditScreen(sprint) {
+    const meta = state.sprintMeta[sprint] || { start: "", end: "", goal: "", color: sprintColor(sprint), closed: false, closedAt: "" };
+    const total = state.stories.filter((story) => story.sprint === sprint).length;
+    showFormScreen(
+      "Sprint",
+      "Editar Sprint",
+      `${total} US vinculada(s). Ao renomear, as US desta sprint acompanham o novo nome.`,
+      `
+      <form id="sprintEditForm">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="sprintEditName">Nome da Sprint</label>
+            <input id="sprintEditName" name="name" value="${escapeHtml(sprint)}" required>
+          </div>
+          <div class="form-field">
+            <label for="sprintEditStart">Inicio</label>
+            <input id="sprintEditStart" name="start" value="${escapeHtml(meta.start || "")}" placeholder="08/06">
+          </div>
+          <div class="form-field">
+            <label for="sprintEditEnd">Fim</label>
+            <input id="sprintEditEnd" name="end" value="${escapeHtml(meta.end || "")}" placeholder="19/06">
+          </div>
+          <div class="form-field">
+            <label for="sprintEditColor">Cor da Sprint</label>
+            <input id="sprintEditColor" name="color" type="color" value="${escapeHtml(meta.color || sprintColor(sprint))}">
+          </div>
+          <div class="form-field full">
+            <label for="sprintEditGoal">Objetivo</label>
+            <textarea id="sprintEditGoal" name="goal" placeholder="Objetivo da sprint">${escapeHtml(meta.goal || "")}</textarea>
+          </div>
+        </div>
+        <div class="form-screen-actions">
+          <button class="ghost-button" type="button" data-close-form>Cancelar</button>
+          <button class="primary-button" type="submit">Salvar Sprint</button>
+        </div>
+      </form>`
+    );
+    $("sprintEditForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveSprintEdit(sprint);
+    });
+  }
+
+  function saveSprintEdit(oldName) {
+    const form = $("sprintEditForm");
+    const formData = new FormData(form);
+    const nextName = String(formData.get("name") || "").trim();
+    if (!nextName) {
+      alert("Informe o nome da sprint.");
+      return;
+    }
+
+    const exists = getAllSprints().some((sprint) => sprint !== oldName && sprint.toLocaleLowerCase("pt-BR") === nextName.toLocaleLowerCase("pt-BR"));
+    if (exists) {
+      alert("Ja existe uma sprint com esse nome.");
+      return;
+    }
+
+    createLocalBackup(`Antes de editar ${oldName}`);
+    const previous = state.sprintMeta[oldName] || { closed: false, closedAt: "", color: sprintColor(nextName) };
+    if (oldName !== nextName) {
+      state.stories.forEach((story) => {
+        if (story.sprint === oldName) story.sprint = nextName;
+      });
+      delete state.sprintMeta[oldName];
+      if (state.filters.sprint === oldName) state.filters.sprint = nextName;
+    }
+    state.sprintMeta[nextName] = {
+      ...previous,
+      start: String(formData.get("start") || "").trim(),
+      end: String(formData.get("end") || "").trim(),
+      goal: String(formData.get("goal") || "").trim() || "Objetivo a definir",
+      color: String(formData.get("color") || previous.color || sprintColor(nextName)),
+      closed: Boolean(previous.closed),
+      closedAt: previous.closedAt || "",
+    };
+    ensureSprintMeta();
+    persist("Sprint atualizada");
+    closeFormScreen();
+    render();
+  }
+
   function toggleSprintClosed(sprint) {
     if (!state.sprintMeta[sprint]) ensureSprintMeta();
     const meta = state.sprintMeta[sprint] || {};
@@ -1594,6 +1718,24 @@
       closedAt: new Date().toISOString(),
     };
     persist(moved ? `Sprint fechada; ${moved} US movida(s) para ${carryoverSprint}` : "Sprint fechada");
+    render();
+  }
+
+  function deleteSprint(sprint) {
+    const total = state.stories.filter((story) => story.sprint === sprint).length;
+    if (total > 0) {
+      alert(`Nao e possivel excluir ${sprint} porque existem ${total} US vinculada(s). Mova as US antes ou use Fechar Sprint.`);
+      return;
+    }
+    if (!state.sprintMeta[sprint]) {
+      alert("Sprint nao encontrada.");
+      return;
+    }
+    if (!confirm(`Excluir ${sprint}? Essa acao remove apenas o cadastro da sprint vazia.`)) return;
+    createLocalBackup(`Antes de excluir ${sprint}`);
+    delete state.sprintMeta[sprint];
+    if (state.filters.sprint === sprint) state.filters.sprint = "Todos";
+    persist("Sprint excluida");
     render();
   }
 
@@ -2510,9 +2652,21 @@
         return;
       }
 
+      const editSprintBtn = event.target.closest("[data-edit-sprint]");
+      if (editSprintBtn) {
+        openSprintEditScreen(editSprintBtn.dataset.editSprint);
+        return;
+      }
+
       const toggleSprintBtn = event.target.closest("[data-toggle-sprint]");
       if (toggleSprintBtn) {
         toggleSprintClosed(toggleSprintBtn.dataset.toggleSprint);
+        return;
+      }
+
+      const deleteSprintBtn = event.target.closest("[data-delete-sprint]");
+      if (deleteSprintBtn) {
+        deleteSprint(deleteSprintBtn.dataset.deleteSprint);
         return;
       }
 

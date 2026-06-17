@@ -18,6 +18,9 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, e possivel filtrar por periodo de planejamento usando as datas de inicio/fim do desenvolvimento.
 - No Dashboard, as US em `Em desenvolvimento` aparecem primeiro, os demais status ficam no meio e as concluidas ficam no final.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
+- Em `Gestao de Sprints`, use `Editar` para alterar nome, inicio, fim, cor e objetivo da sprint. Se renomear uma sprint com US, as US acompanham o novo nome.
+- Em `Gestao de Sprints`, os campos de inicio, fim, cor e objetivo tambem continuam editaveis direto na tabela.
+- Em `Gestao de Sprints`, use `Excluir` para remover uma sprint vazia criada por engano. Sprints com US vinculadas nao sao excluidas para evitar perda de dados.
 - Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: US com status diferente de `Concluido Homologacao` sao movidas automaticamente para a sprint posterior.
 - Se nao houver sprint posterior aberta, o sistema cria automaticamente a proxima sprint numerica para receber essas US.
 - Use `Reabrir` para devolver uma sprint fechada ao Roadmap.
@@ -28,6 +31,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Backups Locais`: lista pontos salvos automaticamente antes de publicar, carregar nuvem, importar JSON, restaurar base ou excluir itens.
 - Arraste uma US entre desenvolvedores ou dentro da mesma coluna para recalcular a prioridade automaticamente.
 - No Dashboard, o roadmap fica logo abaixo dos indicadores e organiza as sprints em grade sem rolagem horizontal.
+- No Dashboard, sprints vazias nao aparecem na visao geral dos graficos/roadmap para evitar espaco em branco; ao filtrar por uma sprint especifica, ela aparece mesmo sem US.
 - No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
 - Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.
 - No ultimo dia da sprint, US em `Em homologacao` tambem recebem alerta piscante.

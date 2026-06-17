@@ -1235,11 +1235,19 @@ body[data-page="dashboard"] .dashboard-workspace {
 }
 
 .sprint-manage-table {
-  min-width: 1080px;
+  min-width: 1180px;
 }
 
 .sprint-manage-table input[data-sprint-field="goal"] {
   min-width: 360px;
+}
+
+.sprint-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 228px;
 }
 
 .sprint-row-closed {
