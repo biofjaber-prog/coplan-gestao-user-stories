@@ -810,7 +810,7 @@
             <td>${count}</td>
             <td>
               <div class="action-menu ${actionsOpen ? "is-open" : ""}">
-                <button class="ghost-button mini-action action-menu-button" type="button" data-sprint-actions="${escapeHtml(sprint)}" aria-expanded="${actionsOpen ? "true" : "false"}">Acoes</button>
+                <button class="ghost-button mini-action action-menu-button" type="button" data-sprint-actions="${escapeHtml(sprint)}" aria-expanded="${actionsOpen ? "true" : "false"}">Ações</button>
                 <div class="action-menu-panel">
                   <button class="mini-button" type="button" data-edit-sprint="${escapeHtml(sprint)}">Editar</button>
                   <button class="mini-button" type="button" data-toggle-sprint="${escapeHtml(sprint)}">${closed ? "Reabrir" : "Fechar sprint"}</button>

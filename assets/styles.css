@@ -1284,8 +1284,13 @@ body[data-page="dashboard"] .dashboard-workspace {
 }
 
 .sprint-manage-table {
-  min-width: 760px;
+  min-width: 0;
   table-layout: fixed;
+}
+
+.sprint-manage-table th,
+.sprint-manage-table td {
+  padding: 9px 8px;
 }
 
 .sprint-manage-table td {
@@ -1302,27 +1307,27 @@ body[data-page="dashboard"] .dashboard-workspace {
 
 .sprint-manage-table th:nth-child(1),
 .sprint-manage-table td:nth-child(1) {
-  width: 120px;
+  width: 112px;
 }
 
 .sprint-manage-table th:nth-child(2),
 .sprint-manage-table td:nth-child(2) {
-  width: 132px;
+  width: 112px;
 }
 
 .sprint-manage-table th:nth-child(4),
 .sprint-manage-table td:nth-child(4) {
-  width: 88px;
+  width: 78px;
 }
 
 .sprint-manage-table th:nth-child(5),
 .sprint-manage-table td:nth-child(5) {
-  width: 44px;
+  width: 38px;
 }
 
 .sprint-manage-table th:nth-child(6),
 .sprint-manage-table td:nth-child(6) {
-  width: 88px;
+  width: 82px;
 }
 
 .sprint-name-cell {
@@ -1593,6 +1598,12 @@ body[data-page="dashboard"] .dashboard-workspace {
   display: grid;
   gap: 9px;
   padding: 14px;
+}
+
+#riskPanel {
+  max-height: 292px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .developer-manage-list {
