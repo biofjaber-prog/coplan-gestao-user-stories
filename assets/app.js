@@ -1080,23 +1080,43 @@
     const el = $("dependencyMap");
     if (!el) return;
     const map = storyMap();
-    const items = sortedStories(stories.filter((story) => parseDependencies(story).length > 0)).slice(0, 14);
+    const items = sortedStories(stories.filter((story) => parseDependencies(story).length > 0))
+      .flatMap((story) =>
+        parseDependencies(story).map((dependencyId) => {
+          const linked = map.get(dependencyId);
+          const blocked = !linked || !isDone(linked.status);
+          return { story, dependencyId, linked, blocked };
+        })
+      )
+      .sort((a, b) => Number(b.blocked) - Number(a.blocked) || sprintNumber(a.story.sprint) - sprintNumber(b.story.sprint) || Number(a.story.queue) - Number(b.story.queue))
+      .slice(0, 18);
     el.innerHTML =
       items.length
         ? items
-            .map((story) => {
-              const dep = dependencyInfo(story, map);
+            .map((item) => {
+              const targetLabel = item.linked ? `US ${item.linked.id}` : `US ${item.dependencyId}`;
+              const targetTitle = item.linked ? item.linked.title : "Dependencia nao encontrada na base";
+              const targetStatus = item.linked ? item.linked.status : "Nao cadastrada";
+              const targetMeta = item.linked ? `${item.linked.sprint} - ${item.linked.developer}` : "Verificar cadastro da US";
               return `
-        <article class="dependency-node ${dep.blocked ? "blocked" : "ok"}">
-          <div class="dependency-node-head">
-            <span>⚠ US ${escapeHtml(story.id)}</span>
-            ${priorityBadge(story)}
+        <article class="dependency-node ${item.blocked ? "blocked" : "ok"}">
+          <div class="dependency-status-line">
+            <span class="dependency-state ${item.blocked ? "blocked" : "ok"}">${item.blocked ? "Bloqueada" : "Liberada"}</span>
+            ${priorityBadge(item.story)}
           </div>
-          <div class="dependency-line">
-            <strong>Depende de</strong>
-            <span>${escapeHtml(dep.label)}</span>
+          <div class="dependency-flow">
+            <button class="dependency-box source" type="button" data-open-story="${escapeHtml(item.story.id)}">
+              <strong>US ${escapeHtml(item.story.id)}</strong>
+              <span>${escapeHtml(item.story.title)}</span>
+              <small>${escapeHtml(item.story.sprint)} - ${escapeHtml(item.story.developer)} - ${escapeHtml(item.story.status)}</small>
+            </button>
+            <div class="dependency-arrow" aria-hidden="true">depende de</div>
+            <button class="dependency-box target ${item.blocked ? "blocked" : "ok"}" type="button" ${item.linked ? `data-open-story="${escapeHtml(item.linked.id)}"` : ""}>
+              <strong>${escapeHtml(targetLabel)}</strong>
+              <span>${escapeHtml(targetTitle)}</span>
+              <small>${escapeHtml(targetMeta)} - ${escapeHtml(targetStatus)}</small>
+            </button>
           </div>
-          <div class="dependency-foot">${escapeHtml(story.sprint)} - ${escapeHtml(story.developer)}</div>
         </article>`;
             })
             .join("")

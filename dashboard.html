@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260617-gestao-render-fix">
+  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-dependency-map">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -157,26 +157,15 @@
             </section>
           </section>
 
-          <section class="chart-strip dashboard-chart-strip">
-            <section class="panel">
-              <div class="panel-head">
-                <div>
-                  <span class="eyebrow">Tendência</span>
-                  <h2>Evolução Planejada por Sprint</h2>
-                </div>
+          <section class="panel dependency-map-panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Dependências</span>
+                <h2>Mapa das Dependências</h2>
+                <p>Relações entre US, com bloqueios e dependências concluídas separados visualmente.</p>
               </div>
-              <div id="sprintTrendChart" class="line-chart"></div>
-            </section>
-
-            <section class="panel">
-              <div class="panel-head">
-                <div>
-                  <span class="eyebrow">Conclusão</span>
-                  <h2>Percentual Concluído por Sprint</h2>
-                </div>
-              </div>
-              <div id="completionChart" class="column-chart"></div>
-            </section>
+            </div>
+            <div id="dependencyMap" class="dependency-map"></div>
           </section>
 
         </div>
@@ -218,12 +207,21 @@
           <section class="panel">
             <div class="panel-head">
               <div>
-                <span class="eyebrow">Dependências</span>
-                <h2>Mapa das Dependências</h2>
-                <p>US que dependem de outras US para avançar.</p>
+                <span class="eyebrow">Tendência</span>
+                <h2>Evolução Planejada</h2>
               </div>
             </div>
-            <div id="dependencyMap" class="dependency-map"></div>
+            <div id="sprintTrendChart" class="line-chart compact-line-chart"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Conclusão</span>
+                <h2>Percentual por Sprint</h2>
+              </div>
+            </div>
+            <div id="completionChart" class="column-chart compact-column-chart"></div>
           </section>
         </div>
       </section>
@@ -269,7 +267,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260617-gestao-render-fix"></script>
-  <script src="assets/app.js?v=20260617-gestao-render-fix"></script>
+  <script src="assets/data.js?v=20260617-dashboard-dependency-map"></script>
+  <script src="assets/app.js?v=20260617-dashboard-dependency-map"></script>
 </body>
 </html>

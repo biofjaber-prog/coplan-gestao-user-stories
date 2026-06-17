@@ -36,6 +36,8 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - O painel `Conflitos e Bloqueios` tem rolagem interna para nao criar espaco vazio na coluna de sprints.
 - No Dashboard, o roadmap fica logo abaixo dos indicadores e organiza as sprints em grade sem rolagem horizontal.
 - No Dashboard, sprints vazias nao aparecem na visao geral dos graficos/roadmap para evitar espaco em branco; ao filtrar por uma sprint especifica, ela aparece mesmo sem US.
+- No Dashboard, o Mapa das Dependencias fica em painel amplo na coluna principal e mostra cada relacao como `US origem -> depende de -> US destino`.
+- No Dashboard, Tendencia e Conclusao ficam na coluna lateral para preencher melhor o espaco do painel.
 - No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
 - Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.
 - No ultimo dia da sprint, US em `Em homologacao` tambem recebem alerta piscante.
