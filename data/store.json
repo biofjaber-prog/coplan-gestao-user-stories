@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T03:14:41.336Z",
+  "updatedAt": "2026-06-17T03:26:32.106Z",
   "stories": [
     {
       "id": "6553",
@@ -19,7 +19,7 @@
       "id": "6641",
       "title": "ENCERRAMENTO DA ANÁLISE E INSTRUÇÃO DE PROCESSO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 23",
+      "sprint": "Sprint 24",
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
@@ -175,7 +175,7 @@
       "id": "6555",
       "title": "GERAR ARQUIVO EDITAL PARA REQUISIÇÃO DE DOCUMENTO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 23",
+      "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "6553",
       "queue": 3,
