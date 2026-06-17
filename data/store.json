@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T03:33:17.080Z",
+  "updatedAt": "2026-06-17T03:35:43.524Z",
   "stories": [
     {
       "id": "6553",
@@ -214,7 +214,7 @@
       "id": "6670",
       "title": "Encerramento de Fiscalização - Status Diferente de ATIVO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 27",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6669",
       "queue": 2,
@@ -448,7 +448,7 @@
       "id": "6669",
       "title": "Encerramento da Fiscalização - Suspensão de Cadastro",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 27",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
