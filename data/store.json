@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T01:24:31.901Z",
+  "updatedAt": "2026-06-17T01:26:06.597Z",
   "stories": [
     {
       "id": "6553",
@@ -23,8 +23,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-14",
+      "developmentEnd": "2026-06-21",
       "notes": "",
       "order": 3
     },
@@ -88,8 +88,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-17",
+      "developmentEnd": "2026-06-26",
       "notes": "",
       "order": 2
     },
@@ -283,8 +283,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 3,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-15",
+      "developmentEnd": "2026-06-20",
       "notes": "",
       "order": 26
     },
