@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T11:16:08.158Z",
+  "updatedAt": "2026-06-17T12:54:20.806Z",
   "stories": [
     {
       "id": "6553",
@@ -646,7 +646,7 @@
       "sprint": "Sprint 23",
       "status": "Concluído Homologação",
       "dependency": "",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
@@ -748,14 +748,6 @@
       "end": "31/07",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#d10000",
-      "closed": false,
-      "closedAt": ""
-    },
-    "Sprint 27": {
-      "start": "03/08",
-      "end": "14/08",
-      "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
-      "color": "#00ffbf",
       "closed": false,
       "closedAt": ""
     }
