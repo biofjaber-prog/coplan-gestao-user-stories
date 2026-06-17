@@ -2148,6 +2148,100 @@ body[data-page="dashboard"] .dashboard-workspace {
   text-transform: uppercase;
 }
 
+.dependency-insights {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.dependency-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dependency-insight-grid div {
+  min-height: 70px;
+  padding: 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: #fbfdff;
+}
+
+.dependency-insight-grid strong,
+.dependency-insight-grid span {
+  display: block;
+}
+
+.dependency-insight-grid strong {
+  color: var(--ink);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.dependency-insight-grid span {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.dependency-insight-section {
+  display: grid;
+  gap: 8px;
+}
+
+.dependency-insight-section h3 {
+  margin: 0;
+  color: var(--coplan-blue);
+  font-size: 0.78rem;
+}
+
+.dependency-mini-row,
+.dependency-action-item {
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.dependency-mini-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 10px;
+}
+
+.dependency-mini-row > span {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dependency-mini-row strong {
+  color: var(--red);
+  font-size: 0.88rem;
+}
+
+.dependency-action-item {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 10px;
+  color: var(--ink);
+  text-align: left;
+}
+
+.dependency-action-item strong {
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+
+.dependency-action-item span {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
 .execution-board,
 .developer-grid,
 .roadmap {

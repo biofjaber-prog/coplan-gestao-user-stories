@@ -592,6 +592,7 @@
     renderDeveloperLoadChart(filtered);
     renderBlockedSprintChart(filtered);
     renderDependencyMap(filtered);
+    renderDependencyInsights(filtered);
     renderSprintTrendChart(filtered);
     renderCompletionChart(filtered);
     renderExecutionBoard(filtered);
@@ -1076,11 +1077,9 @@
         : `<div class="empty-state">Nenhum ${escapeHtml(emptyLabel)} no filtro atual.</div>`;
   }
 
-  function renderDependencyMap(stories) {
-    const el = $("dependencyMap");
-    if (!el) return;
+  function dependencyRelations(stories) {
     const map = storyMap();
-    const items = sortedStories(stories.filter((story) => parseDependencies(story).length > 0))
+    return sortedStories(stories.filter((story) => parseDependencies(story).length > 0))
       .flatMap((story) =>
         parseDependencies(story).map((dependencyId) => {
           const linked = map.get(dependencyId);
@@ -1088,8 +1087,13 @@
           return { story, dependencyId, linked, blocked };
         })
       )
-      .sort((a, b) => Number(b.blocked) - Number(a.blocked) || sprintNumber(a.story.sprint) - sprintNumber(b.story.sprint) || Number(a.story.queue) - Number(b.story.queue))
-      .slice(0, 18);
+      .sort((a, b) => Number(b.blocked) - Number(a.blocked) || sprintNumber(a.story.sprint) - sprintNumber(b.story.sprint) || Number(a.story.queue) - Number(b.story.queue));
+  }
+
+  function renderDependencyMap(stories) {
+    const el = $("dependencyMap");
+    if (!el) return;
+    const items = dependencyRelations(stories).slice(0, 18);
     el.innerHTML =
       items.length
         ? items
@@ -1121,6 +1125,59 @@
             })
             .join("")
         : '<div class="empty-state">Nenhuma US com dependência no filtro atual.</div>';
+  }
+
+  function renderDependencyInsights(stories) {
+    const el = $("dependencyInsights");
+    if (!el) return;
+    const relations = dependencyRelations(stories);
+    const blocked = relations.filter((item) => item.blocked);
+    const released = relations.filter((item) => !item.blocked);
+    const missing = relations.filter((item) => !item.linked);
+    const affectedDevelopers = [...groupBy(blocked, (item) => item.story.developer).entries()]
+      .map(([developer, items]) => ({ developer, count: items.length }))
+      .sort((a, b) => b.count - a.count || a.developer.localeCompare(b.developer, "pt-BR"))
+      .slice(0, 5);
+    const critical = blocked.slice(0, 6);
+    el.innerHTML = `
+      <div class="dependency-insight-grid">
+        <div><strong>${relations.length}</strong><span>relações</span></div>
+        <div><strong>${blocked.length}</strong><span>bloqueadas</span></div>
+        <div><strong>${released.length}</strong><span>liberadas</span></div>
+        <div><strong>${missing.length}</strong><span>ausentes</span></div>
+      </div>
+      <div class="dependency-insight-section">
+        <h3>Responsáveis mais afetados</h3>
+        ${
+          affectedDevelopers.length
+            ? affectedDevelopers
+                .map(
+                  (item) => `
+          <div class="dependency-mini-row">
+            <span>${devChip(item.developer)}</span>
+            <strong>${item.count}</strong>
+          </div>`
+                )
+                .join("")
+            : '<div class="empty-state">Nenhum responsável bloqueado no filtro.</div>'
+        }
+      </div>
+      <div class="dependency-insight-section">
+        <h3>Bloqueios para atacar primeiro</h3>
+        ${
+          critical.length
+            ? critical
+                .map(
+                  (item) => `
+          <button class="dependency-action-item" type="button" data-open-story="${escapeHtml(item.story.id)}">
+            <strong>US ${escapeHtml(item.story.id)} depende de ${escapeHtml(item.linked ? item.linked.id : item.dependencyId)}</strong>
+            <span>${escapeHtml(item.story.sprint)} - ${escapeHtml(item.story.developer)}</span>
+          </button>`
+                )
+                .join("")
+            : '<div class="empty-state">Nenhum bloqueio crítico no filtro.</div>'
+        }
+      </div>`;
   }
 
   function renderDeadlineAlertsPanel(stories) {

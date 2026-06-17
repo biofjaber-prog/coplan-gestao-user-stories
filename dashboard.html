@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-dependency-map">
+  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-side-fill">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -223,6 +223,17 @@
             </div>
             <div id="completionChart" class="column-chart compact-column-chart"></div>
           </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">Dependências</span>
+                <h2>Leitura das Dependências</h2>
+                <p>Resumo executivo dos bloqueios que aparecem no mapa.</p>
+              </div>
+            </div>
+            <div id="dependencyInsights" class="dependency-insights"></div>
+          </section>
         </div>
       </section>
 
@@ -267,7 +278,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260617-dashboard-dependency-map"></script>
-  <script src="assets/app.js?v=20260617-dashboard-dependency-map"></script>
+  <script src="assets/data.js?v=20260617-dashboard-side-fill"></script>
+  <script src="assets/app.js?v=20260617-dashboard-side-fill"></script>
 </body>
 </html>
