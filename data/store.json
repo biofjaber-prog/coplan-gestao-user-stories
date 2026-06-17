@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T03:06:14.924Z",
+  "updatedAt": "2026-06-17T03:13:11.186Z",
   "stories": [
     {
       "id": "6553",
@@ -32,14 +32,14 @@
       "id": "6551",
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (PESSOAL)",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 23",
+      "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 3,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 3
+      "order": 2
     },
     {
       "id": "6552",
@@ -72,7 +72,7 @@
       "title": "FINALIZAÇÃO DE PLANTÃO FISCAL",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 23",
-      "status": "Em testes",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "",
@@ -87,33 +87,33 @@
       "sprint": "Sprint 24",
       "status": "Em desenvolvimento",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "developmentStart": "2026-06-17",
       "developmentEnd": "2026-06-26",
       "notes": "",
-      "order": 2
+      "order": 1
     },
     {
       "id": "6548",
       "title": "EMISSÃO REQUISIÇÃO DE DOCUMENTO (PDF DEFINITIVO)",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 1
+      "order": 2
     },
     {
       "id": "6673",
       "title": "PARAMETRO GESTOR SECFI NA SITUAÇÃO OPERACIONAL",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
@@ -123,14 +123,14 @@
       "id": "6674",
       "title": "NOTIFICAÇÃO GESTOR SECFI NO ENCERRAMENTO NÃO LOCALIZAÇÃO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6673",
-      "queue": 2,
+      "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 2
+      "order": 3
     },
     {
       "id": "6672",
@@ -188,10 +188,10 @@
       "id": "6556",
       "title": "GERAR ARQUIVO EM LOTE COM REQUISIÇÃO DE DOCUMENTO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6548",
-      "queue": 3,
+      "queue": 1,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
@@ -201,14 +201,14 @@
       "id": "6590",
       "title": "ASSINATURA DIGITAL - REQUISIÇÃO DE DOCUMENTO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6548",
       "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 2
+      "order": 4
     },
     {
       "id": "6670",
