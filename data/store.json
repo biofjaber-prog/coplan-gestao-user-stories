@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T03:26:32.106Z",
+  "updatedAt": "2026-06-17T03:30:33.448Z",
   "stories": [
     {
       "id": "6553",
@@ -214,7 +214,7 @@
       "id": "6670",
       "title": "Encerramento de Fiscalização - Status Diferente de ATIVO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
       "dependency": "6669",
       "queue": 2,
@@ -331,7 +331,7 @@
       "id": "6795",
       "title": "Parametrização Motivo da Fiscalização - Tela principal",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
@@ -344,7 +344,7 @@
       "id": "6796",
       "title": "Parametrização Motivo da Fiscalização - Tela de Cadastro",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6795",
       "queue": 2,
@@ -357,7 +357,7 @@
       "id": "6797",
       "title": "Resultado de Fiscalização para Contribuinte Fiscalizado",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796",
       "queue": 1,
@@ -370,7 +370,7 @@
       "id": "6798",
       "title": "Controle de Atividade Fiscal - Contribuinte Não Fiscalizado (ATIVIDADE E IMOBILIÁRIO)",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796 / 6797",
       "queue": 2,
@@ -448,7 +448,7 @@
       "id": "6669",
       "title": "Encerramento da Fiscalização - Suspensão de Cadastro",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
@@ -748,6 +748,14 @@
       "end": "31/07",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#d10000",
+      "closed": false,
+      "closedAt": ""
+    },
+    "Sprint 27": {
+      "start": "03/08",
+      "end": "14/08",
+      "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
+      "color": "#97a456",
       "closed": false,
       "closedAt": ""
     }
