@@ -228,6 +228,35 @@
     return colors[idx];
   }
 
+  function isHomologationDone(status) {
+    return normalizedStatus(status).includes("concluido homologacao");
+  }
+
+  function nextCarryoverSprintName(sourceSprint) {
+    const current = sprintNumber(sourceSprint);
+    const nextOpen = getAllSprints()
+      .filter((sprint) => sprint !== sourceSprint && !isSprintClosed(sprint) && sprintNumber(sprint) > current)
+      .sort((a, b) => sprintNumber(a) - sprintNumber(b) || a.localeCompare(b, "pt-BR"))[0];
+    if (nextOpen) return nextOpen;
+
+    const numbers = getAllSprints().map(sprintNumber).filter((number) => Number.isFinite(number) && number !== Number.MAX_SAFE_INTEGER);
+    let nextNumber = current !== Number.MAX_SAFE_INTEGER ? current + 1 : Math.max(0, ...numbers) + 1;
+    let nextName = `Sprint ${nextNumber}`;
+    while (getAllSprints().includes(nextName)) {
+      nextNumber += 1;
+      nextName = `Sprint ${nextNumber}`;
+    }
+    state.sprintMeta[nextName] = {
+      start: "",
+      end: "",
+      goal: `Continuação de ${sourceSprint}`,
+      color: sprintColor(nextName),
+      closed: false,
+      closedAt: "",
+    };
+    return nextName;
+  }
+
   function assignQueueDefaults() {
     const groups = groupBy(state.stories, (story) => `${story.sprint}::${story.developer}`);
     groups.forEach((items) => {
@@ -1543,7 +1572,6 @@
   function toggleSprintClosed(sprint) {
     if (!state.sprintMeta[sprint]) ensureSprintMeta();
     const meta = state.sprintMeta[sprint] || {};
-    const total = state.stories.filter((story) => story.sprint === sprint).length;
     if (isSprintClosed(sprint)) {
       if (!confirm(`Reabrir ${sprint}? Ela voltará para a fila operacional e para o Roadmap.`)) return;
       createLocalBackup(`Antes de reabrir ${sprint}`);
@@ -1553,8 +1581,11 @@
       return;
     }
 
-    if (!confirm(`Fechar ${sprint}? As ${total} US continuarão consultáveis, mas a sprint sairá do Roadmap operacional.`)) return;
+    const unfinished = state.stories.filter((story) => story.sprint === sprint && !isHomologationDone(story.status)).length;
+    if (!confirm(`Fechar ${sprint}? As US que nao estiverem em Concluido Homologacao serao movidas automaticamente para a sprint posterior.`)) return;
     createLocalBackup(`Antes de fechar ${sprint}`);
+    const carryoverSprint = unfinished ? nextCarryoverSprintName(sprint) : "";
+    const moved = carryoverSprint ? moveUnfinishedStoriesToNextSprint(sprint, carryoverSprint) : 0;
     const today = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
     state.sprintMeta[sprint] = {
       ...meta,
@@ -1562,11 +1593,8 @@
       closed: true,
       closedAt: new Date().toISOString(),
     };
-    persist("Sprint fechada");
+    persist(moved ? `Sprint fechada; ${moved} US movida(s) para ${carryoverSprint}` : "Sprint fechada");
     render();
-    if (PAGE === "management" && confirm(`${sprint} foi fechada. Deseja cadastrar a próxima sprint agora?`)) {
-      openNewSprintScreen();
-    }
   }
 
   function openNewDeveloperScreen() {
@@ -1849,6 +1877,27 @@
       story.queue = index + 1;
       story.order = index + 1;
     });
+  }
+
+  function moveUnfinishedStoriesToNextSprint(sourceSprint, targetSprint) {
+    const moved = sortedStories(
+      state.stories.filter((story) => story.sprint === sourceSprint && !isHomologationDone(story.status)),
+      "queue",
+      "asc"
+    );
+    const affectedDevelopers = new Set();
+    moved.forEach((story) => {
+      const targetCount = state.stories.filter((item) => item.sprint === targetSprint && item.developer === story.developer).length;
+      story.sprint = targetSprint;
+      story.queue = targetCount + 1;
+      story.order = targetCount + 1;
+      affectedDevelopers.add(story.developer);
+    });
+    affectedDevelopers.forEach((developer) => {
+      compactLane(sourceSprint, developer);
+      compactLane(targetSprint, developer);
+    });
+    return moved.length;
   }
 
   function moveStoryToQueue(storyId, targetSprint, targetDeveloper, beforeId) {

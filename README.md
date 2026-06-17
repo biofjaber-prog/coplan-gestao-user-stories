@@ -18,7 +18,8 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, e possivel filtrar por periodo de planejamento usando as datas de inicio/fim do desenvolvimento.
 - No Dashboard, as US em `Em desenvolvimento` aparecem primeiro, os demais status ficam no meio e as concluidas ficam no final.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
-- Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: ela continua consultavel nos filtros e no backlog, mas sai do Roadmap operacional.
+- Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: US com status diferente de `Concluido Homologacao` sao movidas automaticamente para a sprint posterior.
+- Se nao houver sprint posterior aberta, o sistema cria automaticamente a proxima sprint numerica para receber essas US.
 - Use `Reabrir` para devolver uma sprint fechada ao Roadmap.
 - `Novo Dev`: cadastra desenvolvedor em popup.
 - Em `Gestao de Desenvolvedores`, clique no card do desenvolvedor para editar nome/cor ou excluir.
