@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T03:30:33.448Z",
+  "updatedAt": "2026-06-17T03:33:17.080Z",
   "stories": [
     {
       "id": "6553",
@@ -755,7 +755,7 @@
       "start": "03/08",
       "end": "14/08",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
-      "color": "#97a456",
+      "color": "#00ffbf",
       "closed": false,
       "closedAt": ""
     }
