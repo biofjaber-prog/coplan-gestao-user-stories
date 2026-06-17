@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T00:40:49.608Z",
+  "updatedAt": "2026-06-17T01:24:31.901Z",
   "stories": [
     {
       "id": "6553",
@@ -10,6 +10,8 @@
       "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -21,6 +23,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -32,6 +36,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -43,6 +49,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -54,6 +62,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6552",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 7
     },
@@ -65,6 +75,8 @@
       "status": "Em testes",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -76,6 +88,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -87,6 +101,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -98,6 +114,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -109,6 +127,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6673",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -120,6 +140,8 @@
       "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 14
     },
@@ -131,6 +153,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 15
     },
@@ -142,6 +166,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 16
     },
@@ -153,6 +179,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6553",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 17
     },
@@ -164,6 +192,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6548",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -175,6 +205,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6548",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -186,6 +218,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6669",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -197,6 +231,8 @@
       "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -208,6 +244,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 23
     },
@@ -219,6 +257,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 24
     },
@@ -230,6 +270,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 25
     },
@@ -241,6 +283,8 @@
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 26
     },
@@ -252,6 +296,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6748",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 27
     },
@@ -263,6 +309,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6748",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 28
     },
@@ -274,6 +322,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 29
     },
@@ -285,6 +335,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 30
     },
@@ -296,6 +348,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6795",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 31
     },
@@ -307,6 +361,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 32
     },
@@ -318,6 +374,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6795 / 6796 / 6797",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 33
     },
@@ -329,6 +387,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6819",
       "queue": 4,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 4
     },
@@ -340,6 +400,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 37
     },
@@ -351,6 +413,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6812/6819",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -362,6 +426,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6812",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -373,6 +439,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -384,6 +452,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -395,6 +465,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -406,6 +478,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6826",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -417,6 +491,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -428,6 +504,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -439,6 +517,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -450,6 +530,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -461,6 +543,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6831",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 2
     },
@@ -472,6 +556,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 1
     },
@@ -483,6 +569,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 3
     },
@@ -494,6 +582,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 5,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 5
     },
@@ -505,6 +595,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6826/6827/6839",
       "queue": 7,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 7
     },
@@ -516,6 +608,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 10,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 10
     },
@@ -527,6 +621,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6826/6827",
       "queue": 11,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 11
     },
@@ -538,6 +634,8 @@
       "status": "Em homologação",
       "dependency": "",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 50
     },
@@ -549,6 +647,8 @@
       "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 51
     },
@@ -560,6 +660,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6831",
       "queue": 2,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "6831 - Filtro \"Condomínio?\" no Cadastro de Programação Fiscal",
       "order": 2
     },
@@ -571,6 +673,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 4,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 4
     },
@@ -582,6 +686,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 6,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 6
     },
@@ -593,6 +699,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6887",
       "queue": 8,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 8
     },
@@ -604,6 +712,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6887, 6888",
       "queue": 9,
+      "developmentStart": "",
+      "developmentEnd": "",
       "notes": "",
       "order": 9
     }
