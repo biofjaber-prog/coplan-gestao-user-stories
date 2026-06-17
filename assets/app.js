@@ -93,6 +93,8 @@
       status: String(story.status || story.st || "Apresentar e planejar").trim() || "Apresentar e planejar",
       dependency: cleanDependency(story.dependency || story.dep || ""),
       queue: toNumber(queueRaw, null),
+      developmentStart: String(story.developmentStart || story.planningStart || "").trim(),
+      developmentEnd: String(story.developmentEnd || story.planningEnd || "").trim(),
       notes: String(story.notes || "").trim(),
       order: Number.isFinite(Number(story.order)) ? Number(story.order) : index + 1,
     };
@@ -272,6 +274,37 @@
     return Number.isNaN(date.getTime()) ? null : date;
   }
 
+  function formatPlanningDate(value) {
+    const text = String(value || "").trim();
+    if (!text) return "";
+    const date = parseSprintDate(text);
+    if (!date) return text;
+    return date.toLocaleDateString("pt-BR");
+  }
+
+  function isDevelopmentStatus(status) {
+    return normalizedStatus(status).includes("desenvolvimento");
+  }
+
+  function hasPlanningDates(story) {
+    return Boolean(story.developmentStart || story.developmentEnd);
+  }
+
+  function planningPeriodLabel(story) {
+    const start = formatPlanningDate(story.developmentStart) || "DD/MM/AAAA";
+    const end = formatPlanningDate(story.developmentEnd) || "DD/MM/AAAA";
+    return `${start} - ${end}`;
+  }
+
+  function planningPeriodMarkup(story, compact = false) {
+    if (!isDevelopmentStatus(story.status) && !hasPlanningDates(story)) return "";
+    return `
+      <div class="planning-window ${compact ? "compact" : ""}">
+        <strong>Planejamento:</strong>
+        <span>${escapeHtml(planningPeriodLabel(story))}</span>
+      </div>`;
+  }
+
   function daysUntil(date, reference = new Date()) {
     const target = startOfDay(date);
     const today = startOfDay(reference);
@@ -304,7 +337,8 @@
     if (!context || story.sprint !== context.sprint || context.daysLeft === null) return null;
     const status = normalizedStatus(story.status);
     const lateStage = status.includes("homologacao");
-    const needsEarlierAction = status.includes("em teste") || status.includes("apresentar") || status.includes("planejar");
+    const inDevelopment = isDevelopmentStatus(story.status);
+    const needsEarlierAction = inDevelopment || status.includes("em teste") || status.includes("apresentar") || status.includes("planejar");
     if (context.daysLeft <= 0 && lateStage) {
       return {
         level: "critical",
@@ -314,6 +348,14 @@
     }
     if (context.daysLeft <= 4 && needsEarlierAction) {
       const label = context.daysLeft <= 0 ? "Vence hoje" : `Faltam ${context.daysLeft}d`;
+      const developmentTitle = `${context.sprint} encerra em ${context.daysLeft <= 0 ? "hoje" : `${context.daysLeft} dia(s)`}: US ainda esta em desenvolvimento.`;
+      if (inDevelopment) {
+        return {
+          level: context.daysLeft <= 1 ? "critical" : "warning",
+          label,
+          title: developmentTitle,
+        };
+      }
       return {
         level: context.daysLeft <= 1 ? "critical" : "warning",
         label,
@@ -607,6 +649,7 @@
           <button class="us-link" type="button" data-open-story="${escapeHtml(story.id)}">${escapeHtml(story.id)}</button>
           <div class="queue-item-title">${escapeHtml(story.title)}</div>
           <div class="queue-meta">${statusBadge(story.status)} ${dependencyBadge(story, map)}</div>
+          ${planningPeriodMarkup(story, true)}
         </div>
       </article>`;
   }
@@ -719,12 +762,14 @@
           <td><select data-update="${escapeHtml(story.id)}" data-field="developer" aria-label="Desenvolvedor da US ${escapeHtml(story.id)}">${optionsMarkup(developers, story.developer)}</select></td>
           <td><select data-update="${escapeHtml(story.id)}" data-field="sprint" aria-label="Sprint da US ${escapeHtml(story.id)}">${optionsMarkup(sprints, story.sprint)}</select></td>
           <td><select data-update="${escapeHtml(story.id)}" data-field="status" aria-label="Status da US ${escapeHtml(story.id)}">${optionsMarkup(statuses, story.status)}</select></td>
+          <td><input data-update="${escapeHtml(story.id)}" data-field="developmentStart" type="date" value="${escapeHtml(story.developmentStart)}" aria-label="Inicio do desenvolvimento da US ${escapeHtml(story.id)}"></td>
+          <td><input data-update="${escapeHtml(story.id)}" data-field="developmentEnd" type="date" value="${escapeHtml(story.developmentEnd)}" aria-label="Fim do desenvolvimento da US ${escapeHtml(story.id)}"></td>
           <td><input data-update="${escapeHtml(story.id)}" data-field="dependency" value="${escapeHtml(story.dependency)}" placeholder="Ex.: 6552, 6553" aria-label="Dependência da US ${escapeHtml(story.id)}"></td>
           <td><textarea data-update="${escapeHtml(story.id)}" data-field="notes" aria-label="Notas da US ${escapeHtml(story.id)}">${escapeHtml(story.notes)}</textarea></td>
         </tr>`
       )
       .join("");
-    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="8"><div class="empty-state">Nenhuma US encontrada para edição.</div></td></tr>';
+    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="10"><div class="empty-state">Nenhuma US encontrada para edição.</div></td></tr>';
   }
 
   function renderSprintChart(stories) {
@@ -1113,11 +1158,12 @@
           <td><button class="dev-link" type="button" data-open-dev="${escapeHtml(story.developer)}">${devChip(story.developer)}</button></td>
           <td>${escapeHtml(story.sprint)}</td>
           <td>${statusBadge(story.status)}</td>
+          <td>${planningPeriodMarkup(story, true) || '<span class="muted-cell">-</span>'}</td>
           <td>${dependencyBadge(story, map)}</td>
         </tr>`
       )
       .join("");
-    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="7"><div class="empty-state">Nenhuma US encontrada para os filtros atuais.</div></td></tr>';
+    table.querySelector("tbody").innerHTML = rows || '<tr><td colspan="8"><div class="empty-state">Nenhuma US encontrada para os filtros atuais.</div></td></tr>';
     renderBacklogPagination(sorted.length, totalPages, start);
   }
 
@@ -1183,6 +1229,7 @@
                   <div class="roadmap-us-main">
                     <div class="roadmap-us-title-line">${deadlineAlertMarkup(story)}${priorityBadge(story)} <button class="us-link" type="button" data-open-story="${escapeHtml(story.id)}">${escapeHtml(story.id)}</button> ${escapeHtml(story.title)}</div>
                     <div class="roadmap-us-meta">${statusBadge(story.status)} ${dependencyBadge(story)}</div>
+                    ${planningPeriodMarkup(story)}
                   </div>
                 </article>`
                       )
@@ -1245,6 +1292,14 @@
             <select id="storyStatus" name="status">${optionsMarkup(statuses, story.status)}</select>
           </div>
           <div class="form-field">
+            <label for="storyDevelopmentStart">Inicio desenvolvimento</label>
+            <input id="storyDevelopmentStart" name="developmentStart" type="date" value="${escapeHtml(story.developmentStart)}">
+          </div>
+          <div class="form-field">
+            <label for="storyDevelopmentEnd">Fim desenvolvimento</label>
+            <input id="storyDevelopmentEnd" name="developmentEnd" type="date" value="${escapeHtml(story.developmentEnd)}">
+          </div>
+          <div class="form-field">
             <label for="storyDependency">Dependência</label>
             <input id="storyDependency" name="dependency" value="${escapeHtml(story.dependency)}" placeholder="Ex.: 6552, 6553">
           </div>
@@ -1286,6 +1341,7 @@
           <div><dt>Desenvolvedor</dt><dd>${devChip(story.developer)}</dd></div>
           <div><dt>Sprint</dt><dd>${escapeHtml(story.sprint)}</dd></div>
           <div><dt>Prioridade</dt><dd>P${escapeHtml(story.queue)}</dd></div>
+          <div><dt>Planejamento</dt><dd>${escapeHtml(hasPlanningDates(story) ? planningPeriodLabel(story) : "Nao informado")}</dd></div>
           <div><dt>Dependência</dt><dd>${escapeHtml(dependencyInfo(story, storyMap()).label)}</dd></div>
           <div><dt>Notas</dt><dd>${escapeHtml(story.notes || "Sem notas")}</dd></div>
         </dl>
@@ -1360,6 +1416,14 @@
           <div class="form-field">
             <label for="storyStatus">Status</label>
             <select id="storyStatus" name="status">${optionsMarkup(statuses, "Apresentar e planejar")}</select>
+          </div>
+          <div class="form-field">
+            <label for="storyDevelopmentStart">Inicio desenvolvimento</label>
+            <input id="storyDevelopmentStart" name="developmentStart" type="date">
+          </div>
+          <div class="form-field">
+            <label for="storyDevelopmentEnd">Fim desenvolvimento</label>
+            <input id="storyDevelopmentEnd" name="developmentEnd" type="date">
           </div>
           <div class="form-field">
             <label for="storyDependency">Dependência</label>
@@ -1547,6 +1611,8 @@
       status: formData.get("status"),
       dependency: formData.get("dependency"),
       queue: formData.get("queue"),
+      developmentStart: formData.get("developmentStart"),
+      developmentEnd: formData.get("developmentEnd"),
       notes: formData.get("notes"),
       order: isNew ? state.stories.length + 1 : state.stories.find((story) => story.id === originalId)?.order,
     }, state.stories.length);
@@ -2199,10 +2265,10 @@
 
   function exportCsv() {
     const map = storyMap();
-    const headers = ["US", "Prioridade", "Descrição", "Desenvolvedor", "Sprint", "Status", "Dependência", "Bloqueada", "Notas"];
+    const headers = ["US", "Prioridade", "Descricao", "Desenvolvedor", "Sprint", "Status", "Inicio Desenvolvimento", "Fim Desenvolvimento", "Dependencia", "Bloqueada", "Notas"];
     const rows = sortedStories(getFilteredStories()).map((story) => {
       const dep = dependencyInfo(story, map);
-      return [story.id, `P${story.queue}`, story.title, story.developer, story.sprint, story.status, dep.label, dep.blocked ? "Sim" : "Não", story.notes];
+      return [story.id, `P${story.queue}`, story.title, story.developer, story.sprint, story.status, formatPlanningDate(story.developmentStart), formatPlanningDate(story.developmentEnd), dep.label, dep.blocked ? "Sim" : "Nao", story.notes];
     });
     const blob = makeXlsxBlob("Backlog", [headers, ...rows]);
     downloadBlob("backlog-user-stories.xlsx", blob);
@@ -2221,7 +2287,7 @@
   }
 
   function worksheetXml(rows) {
-    const widths = [12, 13, 58, 26, 14, 24, 22, 12, 36];
+    const widths = [12, 13, 58, 26, 14, 24, 18, 18, 22, 12, 36];
     const cols = widths.map((width, index) => `<col min="${index + 1}" max="${index + 1}" width="${width}" customWidth="1"/>`).join("");
     const body = rows
       .map((row, rowIndex) => `<row r="${rowIndex + 1}">${row.map((cell, colIndex) => {
@@ -2229,7 +2295,7 @@
         return `<c r="${ref}" t="inlineStr" s="${rowIndex === 0 ? 1 : 0}"><is><t>${xmlEscape(cell)}</t></is></c>`;
       }).join("")}</row>`)
       .join("");
-    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols>${cols}</cols><sheetData>${body}</sheetData><autoFilter ref="A1:I${Math.max(rows.length, 1)}"/></worksheet>`;
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols>${cols}</cols><sheetData>${body}</sheetData><autoFilter ref="A1:K${Math.max(rows.length, 1)}"/></worksheet>`;
   }
 
   function columnName(index) {

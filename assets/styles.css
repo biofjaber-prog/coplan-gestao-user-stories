@@ -1121,6 +1121,37 @@ body[data-page="dashboard"] .dashboard-workspace {
   margin-top: 6px;
 }
 
+.planning-window {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+  color: #dc2626;
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.planning-window strong {
+  color: #ef4444;
+  font-weight: 850;
+}
+
+.planning-window span {
+  color: #dc2626;
+  font-weight: 750;
+}
+
+.planning-window.compact {
+  margin-top: 4px;
+  font-size: 0.72rem;
+}
+
+.muted-cell {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .table-wrap {
   width: 100%;
   overflow: auto;
@@ -1151,7 +1182,7 @@ body[data-page="dashboard"] .dashboard-workspace {
 
 .data-table {
   width: 100%;
-  min-width: 1040px;
+  min-width: 1180px;
   border-collapse: collapse;
 }
 
@@ -1187,7 +1218,7 @@ body[data-page="dashboard"] .dashboard-workspace {
 }
 
 .manage-table {
-  min-width: 1380px;
+  min-width: 1540px;
 }
 
 .manage-wrap {

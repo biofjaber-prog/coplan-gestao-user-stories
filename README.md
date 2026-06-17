@@ -14,6 +14,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`, que abre em popup.
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
 - `Nova US`: cadastra uma User Story em popup.
+- US em `Em desenvolvimento` podem receber data de inicio e fim do desenvolvimento; o Dashboard mostra esse planejamento no card e no backlog.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: ela continua consultavel nos filtros e no backlog, mas sai do Roadmap operacional.
 - Use `Reabrir` para devolver uma sprint fechada ao Roadmap.
@@ -27,6 +28,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
 - Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.
 - No ultimo dia da sprint, US em `Em homologacao` tambem recebem alerta piscante.
+- Se a sprint estiver perto do fim e a US ainda estiver em `Em desenvolvimento`, o Dashboard tambem exibe alerta de prazo.
 - US em `Concluido Homologacao` nao exibem alerta de prazo.
 - No Dashboard, a area abaixo de `US por Sprint` traz `Saude por Sprint` e `Sprint x Desenvolvedor` para preencher a leitura executiva.
 - No Dashboard, o Backlog Completo mostra 10 registros por pagina.
