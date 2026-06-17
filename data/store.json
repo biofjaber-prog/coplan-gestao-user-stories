@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-17T02:32:35.052Z",
+  "updatedAt": "2026-06-17T03:06:14.924Z",
   "stories": [
     {
       "id": "6553",
@@ -84,7 +84,7 @@
       "id": "6547",
       "title": "EMISSÃO REQUISIÇÃO DE DOCUMENTO (PDF RASCUNHO)",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 23",
+      "sprint": "Sprint 24",
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
