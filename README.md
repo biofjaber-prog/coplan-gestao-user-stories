@@ -15,6 +15,8 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
 - `Nova US`: cadastra uma User Story em popup.
 - US em `Em desenvolvimento` podem receber data de inicio e fim do desenvolvimento; o Dashboard mostra esse planejamento no card e no backlog.
+- No Dashboard, e possivel filtrar por periodo de planejamento usando as datas de inicio/fim do desenvolvimento.
+- No Dashboard, as US em `Em desenvolvimento` aparecem primeiro, os demais status ficam no meio e as concluidas ficam no final.
 - `Nova Sprint`: cadastra sprint em popup, incluindo cor usada nos graficos.
 - Em `Gestao de Sprints`, use `Fechar` para arquivar a sprint: ela continua consultavel nos filtros e no backlog, mas sai do Roadmap operacional.
 - Use `Reabrir` para devolver uma sprint fechada ao Roadmap.

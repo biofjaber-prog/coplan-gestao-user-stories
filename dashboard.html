@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260616-planning-dates">
+  <link rel="stylesheet" href="assets/styles.css?v=20260616-planning-filter">
 </head>
 <body data-page="dashboard">
   <section class="login-screen" id="loginScreen" hidden>
@@ -71,6 +71,14 @@
         <div class="filter-field">
           <label for="filterStatus">Status</label>
           <select id="filterStatus"></select>
+        </div>
+        <div class="filter-field">
+          <label for="filterPlanningStart">Planejamento de</label>
+          <input id="filterPlanningStart" type="date">
+        </div>
+        <div class="filter-field">
+          <label for="filterPlanningEnd">Planejamento ate</label>
+          <input id="filterPlanningEnd" type="date">
         </div>
         <div class="filter-field compact">
           <label for="filterQueue">Prioridade</label>
@@ -261,7 +269,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260616-planning-dates"></script>
-  <script src="assets/app.js?v=20260616-planning-dates"></script>
+  <script src="assets/data.js?v=20260616-planning-filter"></script>
+  <script src="assets/app.js?v=20260616-planning-filter"></script>
 </body>
 </html>

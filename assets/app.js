@@ -41,6 +41,8 @@
       developer: "Todos",
       status: "Todos",
       queue: "Todos",
+      planningStart: "",
+      planningEnd: "",
     },
     sort: {
       field: "queue",
@@ -305,6 +307,18 @@
       </div>`;
   }
 
+  function planningMatchesFilter(story) {
+    const filterStart = parseSprintDate(state.filters.planningStart);
+    const filterEnd = parseSprintDate(state.filters.planningEnd);
+    if (!filterStart && !filterEnd) return true;
+    const storyStart = parseSprintDate(story.developmentStart);
+    const storyEnd = parseSprintDate(story.developmentEnd);
+    if (!storyStart && !storyEnd) return false;
+    const rangeStart = storyStart || storyEnd;
+    const rangeEnd = storyEnd || storyStart;
+    return (!filterStart || rangeEnd >= filterStart) && (!filterEnd || rangeStart <= filterEnd);
+  }
+
   function daysUntil(date, reference = new Date()) {
     const target = startOfDay(date);
     const today = startOfDay(reference);
@@ -419,7 +433,8 @@
         (state.filters.sprint === "Todos" || story.sprint === state.filters.sprint) &&
         (state.filters.developer === "Todos" || story.developer === state.filters.developer) &&
         (state.filters.status === "Todos" || story.status === state.filters.status) &&
-        (state.filters.queue === "Todos" || story.queue === Number(state.filters.queue))
+        (state.filters.queue === "Todos" || story.queue === Number(state.filters.queue)) &&
+        planningMatchesFilter(story)
       );
     });
   }
@@ -445,6 +460,27 @@
       return Number(a.id) - Number(b.id) || a.id.localeCompare(b.id, "pt-BR");
     }
     return String(a[field] || "").localeCompare(String(b[field] || ""), "pt-BR");
+  }
+
+  function dashboardStatusRank(story) {
+    if (isDevelopmentStatus(story.status)) return 0;
+    if (isDone(story.status)) return 2;
+    return 1;
+  }
+
+  function dashboardStoryCompare(a, b) {
+    return (
+      dashboardStatusRank(a) - dashboardStatusRank(b) ||
+      sprintNumber(a.sprint) - sprintNumber(b.sprint) ||
+      a.sprint.localeCompare(b.sprint, "pt-BR") ||
+      Number(a.queue) - Number(b.queue) ||
+      a.developer.localeCompare(b.developer, "pt-BR") ||
+      Number(a.order) - Number(b.order)
+    );
+  }
+
+  function sortedDashboardStories(stories) {
+    return [...stories].sort(dashboardStoryCompare);
   }
 
   function getDevColor(name) {
@@ -539,6 +575,10 @@
   function renderFilterOptions() {
     const search = $("filterSearch");
     if (search) search.value = state.filters.search;
+    const planningStart = $("filterPlanningStart");
+    if (planningStart) planningStart.value = state.filters.planningStart || "";
+    const planningEnd = $("filterPlanningEnd");
+    if (planningEnd) planningEnd.value = state.filters.planningEnd || "";
     fillSelect("filterSprint", getAllSprints(), state.filters.sprint, sprintOptionLabel);
     fillSelect("filterDeveloper", getAllDevelopers(), state.filters.developer);
     fillSelect("filterStatus", unique(state.stories.map((story) => story.status)).sort(), state.filters.status);
@@ -1143,7 +1183,7 @@
     const table = $("backlogTable");
     if (!table) return;
     const map = storyMap();
-    const sorted = sortedStories(stories);
+    const sorted = PAGE === "dashboard" ? sortedDashboardStories(stories) : sortedStories(stories);
     const totalPages = Math.max(1, Math.ceil(sorted.length / state.pagination.pageSize));
     state.pagination.backlogPage = Math.min(state.pagination.backlogPage, totalPages);
     const start = (state.pagination.backlogPage - 1) * state.pagination.pageSize;
@@ -1199,9 +1239,7 @@
     }
     el.innerHTML = sprints
       .map((sprint) => {
-        const items = [...stories.filter((story) => story.sprint === sprint)].sort(
-          (a, b) => Number(a.queue) - Number(b.queue) || a.developer.localeCompare(b.developer, "pt-BR") || Number(a.order) - Number(b.order)
-        );
+        const items = sortedDashboardStories(stories.filter((story) => story.sprint === sprint));
         const done = items.filter((story) => isDone(story.status)).length;
         const pct = items.length ? Math.round((done / items.length) * 100) : 0;
         const meta = state.sprintMeta[sprint] || {};
@@ -1761,13 +1799,19 @@
   }
 
   function clearFilters() {
-    state.filters = { search: "", sprint: "Todos", developer: "Todos", status: "Todos", queue: "Todos" };
+    state.filters = { search: "", sprint: "Todos", developer: "Todos", status: "Todos", queue: "Todos", planningStart: "", planningEnd: "" };
     state.pagination.backlogPage = 1;
     render();
   }
 
   function setFilter(name, value) {
     state.filters[name] = value || "Todos";
+    state.pagination.backlogPage = 1;
+    render();
+  }
+
+  function setDateFilter(name, value) {
+    state.filters[name] = value || "";
     state.pagination.backlogPage = 1;
     render();
   }
@@ -2526,6 +2570,8 @@
     bind("filterDeveloper", "change", (event) => setFilter("developer", event.target.value));
     bind("filterStatus", "change", (event) => setFilter("status", event.target.value));
     bind("filterQueue", "change", (event) => setFilter("queue", event.target.value));
+    bind("filterPlanningStart", "change", (event) => setDateFilter("planningStart", event.target.value));
+    bind("filterPlanningEnd", "change", (event) => setDateFilter("planningEnd", event.target.value));
     bind("clearFiltersBtn", "click", clearFilters);
     bind("githubPanelBtn", "click", openGithubPanel);
     bind("githubPanelCloseBtn", "click", closeGithubPanel);
