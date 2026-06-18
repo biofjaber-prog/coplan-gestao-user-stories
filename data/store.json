@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-18T01:35:13.230Z",
+  "updatedAt": "2026-06-18T12:08:05.282Z",
   "stories": [
     {
       "id": "6553",
@@ -334,7 +334,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 1,
+      "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
@@ -347,7 +347,7 @@
       "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6795",
-      "queue": 2,
+      "queue": 4,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
