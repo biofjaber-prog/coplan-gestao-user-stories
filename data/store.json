@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-18T12:08:05.282Z",
+  "updatedAt": "2026-06-18T18:26:15.963Z",
   "stories": [
     {
       "id": "6553",
@@ -72,7 +72,7 @@
       "title": "FINALIZAÇÃO DE PLANTÃO FISCAL",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 23",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "",
