@@ -79,20 +79,3 @@ O token nao fica no codigo do site. Ele fica somente no navegador onde foi confi
 Esta versao continua funcionando em GitHub Pages com `data/store.json`. Nenhum banco ou hospedagem nova foi adicionada.
 
 Antes de operacoes criticas, o sistema cria backup local automatico no navegador. Para recuperar, abra `GitHub / Publicar` e clique em `Backups Locais`.
-
-## Envio de PDF por e-mail
-
-Esta versão inclui a área `Enviar PDF` dentro da Gestão, com:
-
-- nome e e-mail do destinatário;
-- e-mail em cópia opcional;
-- processo ou referência;
-- assunto e mensagem;
-- upload de PDF com validação e limite de 8 MB;
-- histórico dos últimos envios no navegador.
-
-O GitHub Pages não envia e-mail sozinho. Para manter a chave do provedor protegida, a pasta `email-worker` contém uma API pronta para publicar no Cloudflare Workers usando a Resend.
-
-Depois de publicar a API, copie a URL gerada e informe em `Gestão > Enviar PDF > Configuração da integração`.
-
-Importante: o login atual da Gestão funciona apenas no navegador e não é autenticação adequada para documentos reais. Antes de colocar dados pessoais ou processos em produção, use autenticação no servidor, controle de acesso, rate limiting e política de retenção dos documentos.

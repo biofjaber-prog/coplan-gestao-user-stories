@@ -6,8 +6,6 @@
   const AUTH_KEY = "coplan-us-auth";
   const CLOUD_KEY = "coplan-us-github-cloud-v1";
   const LOCAL_BACKUP_KEY = "coplan-us-local-backups-v1";
-  const EMAIL_CONFIG_KEY = "coplan-email-api-config-v1";
-  const EMAIL_HISTORY_KEY = "coplan-email-send-history-v1";
   const AUTH_USER = "coplan";
   const AUTH_PASS = "coplan123";
   const PAGE = document.body.dataset.page || "management";
@@ -60,7 +58,6 @@
     cloudSaveTimer: null,
     cloudLoading: false,
     cloudSaving: false,
-    emailSending: false,
     expandedSprints: new Set(),
     openSprintActions: "",
   };
@@ -604,212 +601,12 @@
     renderRoadmap(filtered);
     renderDeadlineAlertsPanel(filtered);
     renderSideStats();
-    renderEmailIntegration();
   }
 
   function renderSideStats() {
     if ($("sideStoriesCount")) $("sideStoriesCount").textContent = String(state.stories.length);
     if ($("sideSprintsCount")) $("sideSprintsCount").textContent = String(getAllSprints().length);
     if ($("sideDevelopersCount")) $("sideDevelopersCount").textContent = String(getAllDevelopers().length);
-  }
-
-  function defaultEmailConfig() {
-    const configured = window.COPLAN_EMAIL_CONFIG || {};
-    return {
-      apiUrl: String(configured.apiUrl || "").trim(),
-      maxPdfBytes: Number(configured.maxPdfBytes) || 8 * 1024 * 1024,
-    };
-  }
-
-  function loadEmailConfig() {
-    const defaults = defaultEmailConfig();
-    try {
-      const saved = JSON.parse(localStorage.getItem(EMAIL_CONFIG_KEY) || "null");
-      return {
-        apiUrl: String(saved?.apiUrl || defaults.apiUrl || "").trim().replace(/\/+$/, ""),
-        maxPdfBytes: defaults.maxPdfBytes,
-      };
-    } catch (error) {
-      console.warn("Nao foi possivel carregar a configuracao de e-mail.", error);
-      return defaults;
-    }
-  }
-
-  function loadEmailHistory() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(EMAIL_HISTORY_KEY) || "[]");
-      return Array.isArray(saved) ? saved.slice(0, 10) : [];
-    } catch (error) {
-      return [];
-    }
-  }
-
-  function saveEmailHistory(entry) {
-    const history = [entry, ...loadEmailHistory()].slice(0, 10);
-    localStorage.setItem(EMAIL_HISTORY_KEY, JSON.stringify(history));
-    renderEmailHistory();
-  }
-
-  function formatFileSize(bytes) {
-    if (!Number.isFinite(Number(bytes))) return "";
-    if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1).replace(".", ",")} MB`;
-  }
-
-  function renderEmailIntegration() {
-    const apiInput = $("emailApiUrl");
-    if (!apiInput) return;
-    const config = loadEmailConfig();
-    if (document.activeElement !== apiInput) apiInput.value = config.apiUrl;
-    const badge = $("emailIntegrationBadge");
-    if (badge) {
-      badge.textContent = config.apiUrl ? "API configurada" : "API não configurada";
-      badge.classList.toggle("is-ready", Boolean(config.apiUrl));
-    }
-    renderEmailHistory();
-  }
-
-  function renderEmailHistory() {
-    const el = $("emailSendHistory");
-    if (!el) return;
-    const history = loadEmailHistory();
-    el.innerHTML =
-      history
-        .map(
-          (item) => `
-          <article class="email-history-item">
-            <div>
-              <strong>${escapeHtml(item.to)}</strong>
-              <span>${escapeHtml(item.filename)}</span>
-            </div>
-            <small>${escapeHtml(item.sentAt)}${item.id ? ` · protocolo ${escapeHtml(item.id)}` : ""}</small>
-          </article>`
-        )
-        .join("") || '<div class="empty-state compact">Nenhum envio registrado neste navegador.</div>';
-  }
-
-  function setDocumentEmailStatus(message, type) {
-    const el = $("documentEmailStatus");
-    if (!el) return;
-    el.textContent = message;
-    el.classList.toggle("is-success", type === "success");
-    el.classList.toggle("is-error", type === "error");
-    el.classList.toggle("is-loading", type === "loading");
-  }
-
-  function saveEmailApiConfig() {
-    const apiUrl = String($("emailApiUrl")?.value || "").trim().replace(/\/+$/, "");
-    if (apiUrl && !/^https?:\/\//i.test(apiUrl)) {
-      setDocumentEmailStatus("Informe uma URL completa, começando com https://.", "error");
-      return;
-    }
-    localStorage.setItem(EMAIL_CONFIG_KEY, JSON.stringify({ apiUrl }));
-    renderEmailIntegration();
-    setDocumentEmailStatus(apiUrl ? "URL da API salva neste navegador." : "URL removida.", "success");
-  }
-
-  async function testEmailApi() {
-    const savedConfig = loadEmailConfig();
-    const apiUrl = String($("emailApiUrl")?.value || savedConfig.apiUrl || "").trim().replace(/\/+$/, "");
-    if (!apiUrl) {
-      setDocumentEmailStatus("Configure e salve a URL da API antes do teste.", "error");
-      return;
-    }
-    setDocumentEmailStatus("Testando conexão com a API...", "loading");
-    try {
-      const response = await fetch(apiUrl, { headers: { Accept: "application/json" } });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
-      setDocumentEmailStatus("Conexão com a API de e-mail confirmada.", "success");
-    } catch (error) {
-      setDocumentEmailStatus(`Não foi possível acessar a API: ${error.message}`, "error");
-    }
-  }
-
-  async function sendDocumentEmail(event) {
-    event.preventDefault();
-    if (state.emailSending) return;
-    const form = $("documentEmailForm");
-    const config = loadEmailConfig();
-    if (!config.apiUrl) {
-      setDocumentEmailStatus("Configure a URL da API antes de enviar.", "error");
-      $("emailApiUrl")?.focus();
-      return;
-    }
-
-    const file = $("documentPdf")?.files?.[0];
-    if (!file) {
-      setDocumentEmailStatus("Selecione o arquivo PDF.", "error");
-      return;
-    }
-    if (!/\.pdf$/i.test(file.name) || (file.type && file.type !== "application/pdf")) {
-      setDocumentEmailStatus("O arquivo selecionado precisa ser um PDF.", "error");
-      return;
-    }
-    if (file.size > config.maxPdfBytes) {
-      setDocumentEmailStatus(`O PDF excede o limite de ${formatFileSize(config.maxPdfBytes)}.`, "error");
-      return;
-    }
-
-    const formData = new FormData(form);
-    const button = $("sendDocumentEmailBtn");
-    const originalLabel = button?.textContent || "Enviar documento";
-    state.emailSending = true;
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Enviando...";
-    }
-    setDocumentEmailStatus(`Enviando ${file.name} para ${formData.get("recipientEmail")}...`, "loading");
-
-    try {
-      const response = await fetch(config.apiUrl, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
-      });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(payload.error || `Falha no envio (HTTP ${response.status}).`);
-      const now = new Date().toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
-      saveEmailHistory({
-        to: String(formData.get("recipientEmail") || ""),
-        filename: file.name,
-        sentAt: now,
-        id: String(payload.id || ""),
-      });
-      form.reset();
-      $("documentSubject").value = "Encaminhamento de documento";
-      $("documentPdfInfo").textContent = `Somente PDF, com até ${formatFileSize(config.maxPdfBytes)}.`;
-      setDocumentEmailStatus(`Documento enviado com sucesso para ${formData.get("recipientEmail")}.`, "success");
-    } catch (error) {
-      setDocumentEmailStatus(`Não foi possível enviar: ${error.message}`, "error");
-    } finally {
-      state.emailSending = false;
-      if (button) {
-        button.disabled = false;
-        button.textContent = originalLabel;
-      }
-    }
-  }
-
-  function clearEmailHistory() {
-    if (!confirm("Limpar o histórico local de envios deste navegador?")) return;
-    localStorage.removeItem(EMAIL_HISTORY_KEY);
-    renderEmailHistory();
-  }
-
-  function updatePdfInfo() {
-    const file = $("documentPdf")?.files?.[0];
-    const config = loadEmailConfig();
-    const info = $("documentPdfInfo");
-    if (!info) return;
-    info.textContent = file ? `${file.name} · ${formatFileSize(file.size)}` : `Somente PDF, com até ${formatFileSize(config.maxPdfBytes)}.`;
-  }
-
-  function openEmailComposer() {
-    const section = $("documentEmailSection");
-    if (!section) return;
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.setTimeout(() => $("documentRecipientEmail")?.focus(), 350);
   }
 
   function fillSelect(id, values, selected, formatter) {
@@ -3157,12 +2954,6 @@
     bind("newSprintBtnPanel", "click", openNewSprintScreen);
     bind("newDeveloperBtn", "click", openNewDeveloperScreen);
     bind("newDeveloperBtnPanel", "click", openNewDeveloperScreen);
-    bind("openEmailComposerBtn", "click", openEmailComposer);
-    bind("documentEmailForm", "submit", sendDocumentEmail);
-    bind("saveEmailConfigBtn", "click", saveEmailApiConfig);
-    bind("testEmailApiBtn", "click", testEmailApi);
-    bind("clearEmailHistoryBtn", "click", clearEmailHistory);
-    bind("documentPdf", "change", updatePdfInfo);
     bind("closeFormScreenBtn", "click", closeFormScreen);
     bind("closeDrawerBtn", "click", closeDrawer);
     bind("printDashboardBtn", "click", () => window.print());
