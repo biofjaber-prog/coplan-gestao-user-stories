@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-19T19:25:26.554Z",
+  "updatedAt": "2026-06-19T23:49:26.662Z",
   "stories": [
     {
       "id": "6553",
@@ -465,8 +465,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-29",
+      "developmentEnd": "2026-07-09",
       "notes": "",
       "order": 1
     },
@@ -501,11 +501,11 @@
       "title": "Períodos ao copiar vigência do imóvel para apuração do IPTU/TRSD",
       "developer": "Rui Barbosa",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-22",
+      "developmentEnd": "2026-06-26",
       "notes": "",
       "order": 1
     },
@@ -527,11 +527,11 @@
       "title": "Filtro \"Condomínio?\"",
       "developer": "Miquéias",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-22",
+      "developmentEnd": "2026-06-27",
       "notes": "",
       "order": 1
     },
