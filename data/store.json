@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-19T19:24:20.353Z",
+  "updatedAt": "2026-06-19T19:25:26.554Z",
   "stories": [
     {
       "id": "6553",
@@ -436,7 +436,7 @@
       "title": "Texto padrão TAF Imobiliário",
       "developer": "José Valmir",
       "sprint": "Sprint 23",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-20",
@@ -725,7 +725,7 @@
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#0c006b",
       "closed": true,
-      "closedAt": "2026-06-19T15:26:44.228Z"
+      "closedAt": "2026-06-19T19:25:23.826Z"
     },
     "Sprint 24": {
       "start": "22/06",
