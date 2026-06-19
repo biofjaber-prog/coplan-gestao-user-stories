@@ -1,0 +1,10 @@
+name = "coplan-email-pdf"
+main = "src/index.js"
+compatibility_date = "2026-06-19"
+
+[vars]
+EMAIL_FROM = "Coplan <documentos@seudominio.gov.br>"
+ALLOWED_ORIGIN = "https://seu-usuario.github.io"
+
+[observability]
+enabled = true

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestão de User Stories | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-no-backlog">
+  <link rel="stylesheet" href="assets/styles.css?v=20260619-email-pdf">
 </head>
 <body data-page="management">
   <section class="login-screen" id="loginScreen" hidden>
@@ -57,6 +57,7 @@
         <button class="side-nav-link" type="button" data-scroll-target="queueSection">User Stories <span id="sideStoriesCount">0</span></button>
         <button class="side-nav-link" type="button" data-scroll-target="sprintSection">Sprints <span id="sideSprintsCount">0</span></button>
         <button class="side-nav-link" type="button" data-scroll-target="developerSection">Desenvolvedores <span id="sideDevelopersCount">0</span></button>
+        <button class="side-nav-link" type="button" data-scroll-target="documentEmailSection">Enviar PDF</button>
         <a class="side-nav-link" id="dashboardLink" href="dashboard.html?v=20260617-dashboard-no-backlog" target="_blank" rel="noopener">Dashboard</a>
         <span class="side-section">Configurações</span>
         <button class="side-nav-link" id="githubPanelBtn" type="button">GitHub / Publicar</button>
@@ -76,6 +77,7 @@
           <button class="primary-button" id="newStoryBtnManage" type="button">Nova US</button>
           <button class="ghost-button" id="newSprintBtn" type="button">Nova Sprint</button>
           <button class="ghost-button" id="newDeveloperBtn" type="button">Novo Dev</button>
+          <button class="ghost-button" id="openEmailComposerBtn" type="button">Enviar PDF</button>
           <button class="ghost-button" id="exportCsvBtn" type="button">Exportar XLSX</button>
         </div>
       </section>
@@ -174,6 +176,78 @@
         <button class="ghost-button" id="clearFiltersBtn" type="button">Limpar</button>
       </section>
 
+      <section class="panel document-email-panel" id="documentEmailSection">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Comunicação</span>
+            <h2>Enviar documento por e-mail</h2>
+            <p>Anexe um PDF, informe o destinatário e encaminhe o documento sem sair da Gestão.</p>
+          </div>
+          <span class="integration-badge" id="emailIntegrationBadge">API não configurada</span>
+        </div>
+
+        <div class="email-integration-grid">
+          <form id="documentEmailForm" class="document-email-form">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="documentRecipientName">Nome da pessoa</label>
+                <input id="documentRecipientName" name="recipientName" autocomplete="name" placeholder="Ex.: Maria da Silva">
+              </div>
+              <div class="form-field">
+                <label for="documentRecipientEmail">E-mail do destinatário</label>
+                <input id="documentRecipientEmail" name="recipientEmail" type="email" autocomplete="email" placeholder="pessoa@exemplo.com" required>
+              </div>
+              <div class="form-field">
+                <label for="documentReference">Processo ou referência</label>
+                <input id="documentReference" name="reference" placeholder="Ex.: Processo 12345/2026">
+              </div>
+              <div class="form-field">
+                <label for="documentCcEmail">E-mail em cópia</label>
+                <input id="documentCcEmail" name="ccEmail" type="email" placeholder="Opcional">
+              </div>
+              <div class="form-field full">
+                <label for="documentSubject">Assunto</label>
+                <input id="documentSubject" name="subject" value="Encaminhamento de documento" required>
+              </div>
+              <div class="form-field full">
+                <label for="documentMessage">Mensagem</label>
+                <textarea id="documentMessage" name="message" rows="5" placeholder="Digite a mensagem que acompanhará o documento." required></textarea>
+              </div>
+              <div class="form-field full pdf-upload-field">
+                <label for="documentPdf">Arquivo PDF</label>
+                <input id="documentPdf" name="pdf" type="file" accept="application/pdf,.pdf" required>
+                <small id="documentPdfInfo">Somente PDF, com até 8 MB.</small>
+              </div>
+            </div>
+            <div class="document-email-actions">
+              <div class="email-send-status" id="documentEmailStatus" role="status" aria-live="polite">Preencha os dados e selecione o PDF.</div>
+              <button class="primary-button" id="sendDocumentEmailBtn" type="submit">Enviar documento</button>
+            </div>
+          </form>
+
+          <aside class="email-integration-side">
+            <details class="email-config-card" open>
+              <summary>Configuração da integração</summary>
+              <p>A chave de e-mail fica protegida na API. Aqui é informada apenas a URL pública do serviço.</p>
+              <label for="emailApiUrl">URL da API de envio</label>
+              <input id="emailApiUrl" type="url" placeholder="https://coplan-email.seu-usuario.workers.dev">
+              <div class="email-config-actions">
+                <button class="ghost-button" id="testEmailApiBtn" type="button">Testar</button>
+                <button class="ghost-button" id="saveEmailConfigBtn" type="button">Salvar URL</button>
+              </div>
+            </details>
+
+            <section class="email-history-card">
+              <div class="email-history-head">
+                <h3>Últimos envios neste navegador</h3>
+                <button class="text-button" id="clearEmailHistoryBtn" type="button">Limpar</button>
+              </div>
+              <div id="emailSendHistory" class="email-send-history"></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+
       <section class="panel queue-panel" id="queueSection">
         <div class="panel-head">
           <div>
@@ -252,7 +326,8 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260617-dashboard-no-backlog"></script>
-  <script src="assets/app.js?v=20260617-dashboard-no-backlog"></script>
+  <script src="assets/data.js?v=20260619-email-pdf"></script>
+  <script src="assets/email-config.js?v=20260619-email-pdf"></script>
+  <script src="assets/app.js?v=20260619-email-pdf"></script>
 </body>
 </html>
