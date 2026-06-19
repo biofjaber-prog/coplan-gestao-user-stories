@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-19T15:27:08.601Z",
+  "updatedAt": "2026-06-19T15:30:56.275Z",
   "stories": [
     {
       "id": "6553",
@@ -436,7 +436,7 @@
       "title": "Texto padrão TAF Imobiliário",
       "developer": "José Valmir",
       "sprint": "Sprint 26",
-      "status": "Em testes",
+      "status": "Testes concluídos",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-20",
