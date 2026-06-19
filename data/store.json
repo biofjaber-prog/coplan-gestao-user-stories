@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-19T15:26:05.684Z",
+  "updatedAt": "2026-06-19T15:27:08.601Z",
   "stories": [
     {
       "id": "6553",
@@ -724,8 +724,8 @@
       "end": "19/06",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#0c006b",
-      "closed": false,
-      "closedAt": ""
+      "closed": true,
+      "closedAt": "2026-06-19T15:26:44.228Z"
     },
     "Sprint 24": {
       "start": "22/06",
