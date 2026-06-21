@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-20T17:34:07.490Z",
+  "updatedAt": "2026-06-21T02:36:39.988Z",
   "stories": [
     {
       "id": "6553",
@@ -85,7 +85,7 @@
       "title": "EMISSÃO REQUISIÇÃO DE DOCUMENTO (PDF RASCUNHO)",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 24",
-      "status": "Em desenvolvimento",
+      "status": "Em testes",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-17",
@@ -716,6 +716,71 @@
       "developmentEnd": "",
       "notes": "",
       "order": 9
+    },
+    {
+      "id": "6919",
+      "title": "Quadro de Instrução e Emissão do Despacho do Processo - 6329",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 30,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "Gestão de Mudança da US 6329",
+      "order": 56
+    },
+    {
+      "id": "6925",
+      "title": "Reprocessar Resultado do Cálculo da TRSD por meio do botão “Calcular”",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 50,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "",
+      "order": 57
+    },
+    {
+      "id": "6926",
+      "title": "Organizar Exibição dos Componentes e Exercícios na aba Resultado do Cálculo da TRSD para NFL",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "",
+      "queue": 51,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "",
+      "order": 58
+    },
+    {
+      "id": "6927",
+      "title": "\"Imprimir Demonstrativo\" para emissão do Demonstrativo de Cálculo da TRSD para Apuração",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6926",
+      "queue": 52,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "",
+      "order": 59
+    },
+    {
+      "id": "6928",
+      "title": "Alertar usuário sobre necessidade de recálculo do IPTU e/ou TRSD após alteração de campos impactantes",
+      "developer": "Definir Desenvolvedor",
+      "sprint": "Sprint 26",
+      "status": "Apresentar e planejar",
+      "dependency": "6925",
+      "queue": 53,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "",
+      "order": 60
     }
   ],
   "sprintMeta": {
