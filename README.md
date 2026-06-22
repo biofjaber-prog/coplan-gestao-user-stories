@@ -13,6 +13,10 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Abrir Dashboard`: abre o painel em uma nova aba.
 - O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`, que abre em popup.
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
+- O Dashboard abre na aba `Backlog`, com filtros e tabela ampla das User Stories.
+- `Acesse os Indicadores` alterna para a aba `Business Intelligence`, que concentra KPIs, gráficos, alertas, capacidade, riscos e dependências.
+- Os filtros são compartilhados pelas duas abas, permitindo analisar o mesmo recorte no Backlog e nos indicadores.
+- A tela de login do Dashboard usa a comunicação `Business Intelligence` e `Backlog, Indicadores e User Stories`.
 - `Nova US`: cadastra uma User Story em popup.
 - US em `Em desenvolvimento` podem receber data de inicio e fim do desenvolvimento; o Dashboard mostra esse planejamento no card e no backlog.
 - No Dashboard, e possivel filtrar por periodo de planejamento usando as datas de inicio/fim do desenvolvimento.

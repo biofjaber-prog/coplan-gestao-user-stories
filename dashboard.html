@@ -1,24 +1,25 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard de User Stories | Coplan</title>
+  <title>Business Intelligence | Coplan</title>
   <link rel="icon" href="assets/coplan-symbol.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260617-dashboard-no-backlog">
+  <link rel="stylesheet" href="assets/styles.css?v=20260622-dashboard-tabs">
 </head>
-<body data-page="dashboard">
-  <section class="login-screen" id="loginScreen" hidden>
-    <div class="login-card">
+<body data-page="dashboard" data-dashboard-view="backlog">
+  <section class="login-screen dashboard-login-screen" id="loginScreen" hidden>
+    <div class="login-card dashboard-login-card">
       <div class="login-brand">
         <div class="brand-symbol"><img src="assets/coplan-symbol.png" alt="Coplan"></div>
         <div>
           <strong>Coplan</strong>
-          <span>Dashboard de User Stories</span>
+          <span>Inteligência que Transforma a Gestão Pública</span>
         </div>
       </div>
-      <h1>Entrar no dashboard</h1>
-      <p>Use o mesmo acesso da Gestão para consultar os indicadores.</p>
+      <span class="login-eyebrow">Módulo Fiscalização</span>
+      <h1>Business Intelligence</h1>
+      <p>Backlog, Indicadores e User Stories</p>
       <form id="loginForm" class="login-form">
         <label for="loginUser">Login</label>
         <input id="loginUser" name="login" autocomplete="username" required>
@@ -48,14 +49,46 @@
     </header>
 
     <main class="workspace dashboard-workspace">
-      <section class="page-hero dashboard-hero">
+      <nav class="dashboard-view-tabs" aria-label="Áreas do dashboard">
+        <button class="dashboard-tab is-active" type="button" data-dashboard-view="backlog" aria-selected="true">
+          <span class="dashboard-tab-icon">01</span>
+          <span><strong>Backlog</strong><small>Fila de User Stories</small></span>
+        </button>
+        <button class="dashboard-tab" type="button" data-dashboard-view="intelligence" aria-selected="false">
+          <span class="dashboard-tab-icon">02</span>
+          <span><strong>Business Intelligence</strong><small>Indicadores do módulo</small></span>
+        </button>
+      </nav>
+
+      <section class="page-hero dashboard-hero dashboard-backlog-hero" id="backlogHero">
         <div>
-          <span class="eyebrow">Dashboard</span>
-          <h2>O que está acontecendo no backlog agora</h2>
+          <span class="eyebrow">Backlog do Desenvolvimento</span>
+          <h2>Visualize a fila completa de User Stories</h2>
+          <p>Consulte prioridades, responsáveis, sprints, planejamento, status e dependências em uma única visão operacional.</p>
+        </div>
+        <div class="dashboard-hero-actions">
+          <button class="dashboard-hero-button" type="button" data-dashboard-view="intelligence">
+            <span>Acesse os Indicadores</span>
+            <b>→</b>
+          </button>
         </div>
       </section>
 
-      <section class="filters" aria-label="Filtros do dashboard">
+      <section class="page-hero dashboard-hero dashboard-intelligence-hero" id="intelligenceHero" hidden>
+        <div>
+          <span class="eyebrow">Business Intelligence</span>
+          <h2>Veja os indicadores do Módulo Fiscalização</h2>
+          <p>Acompanhe capacidade, andamento, prioridades, riscos, prazos e dependências das User Stories.</p>
+        </div>
+        <div class="dashboard-hero-actions">
+          <button class="dashboard-hero-button secondary" type="button" data-dashboard-view="backlog">
+            <b>←</b>
+            <span>Voltar ao Backlog</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="filters dashboard-filters" aria-label="Filtros do dashboard">
         <div class="filter-field wide">
           <label for="filterSearch">Buscar</label>
           <input id="filterSearch" type="search" placeholder="US, descrição, sprint, responsável ou status">
@@ -77,164 +110,206 @@
           <input id="filterPlanningStart" type="date">
         </div>
         <div class="filter-field">
-          <label for="filterPlanningEnd">Planejamento ate</label>
+          <label for="filterPlanningEnd">Planejamento até</label>
           <input id="filterPlanningEnd" type="date">
         </div>
         <div class="filter-field compact">
           <label for="filterQueue">Prioridade</label>
           <select id="filterQueue"></select>
         </div>
-        <button class="ghost-button" id="clearFiltersBtn" type="button">Limpar</button>
+        <button class="ghost-button" id="clearFiltersBtn" type="button">Limpar filtros</button>
       </section>
 
-      <section class="kpi-grid" id="kpiGrid" aria-label="Indicadores principais"></section>
+      <section class="dashboard-view dashboard-backlog-view" id="backlogView">
+        <section class="backlog-summary-strip" aria-label="Resumo do backlog filtrado">
+          <article>
+            <span>User Stories no filtro</span>
+            <strong id="backlogTotalCount">0</strong>
+          </article>
+          <article>
+            <span>Em andamento</span>
+            <strong id="backlogProgressCount">0</strong>
+          </article>
+          <article>
+            <span>Sprints envolvidas</span>
+            <strong id="backlogSprintCount">0</strong>
+          </article>
+          <article class="backlog-summary-message">
+            <span>Ordem de exibição</span>
+            <strong>Em desenvolvimento primeiro, concluídas ao final</strong>
+          </article>
+        </section>
 
-      <section class="panel roadmap-panel-top">
-        <div class="panel-head">
-          <div>
-            <span class="eyebrow">Planejamento</span>
-            <h2>Backlog do Desenvolvimento</h2>
-            <p>US ordenadas pela prioridade definida na Gestão.</p>
+        <section class="panel dashboard-backlog-panel">
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Visão operacional</span>
+              <h2>Backlog Completo</h2>
+              <p>Clique em uma US para consultar todos os detalhes.</p>
+            </div>
+            <div class="backlog-panel-note">
+              <span>Atualização automática</span>
+              <strong>Dados sincronizados com a Gestão</strong>
+            </div>
           </div>
-        </div>
-        <div id="roadmap" class="roadmap roadmap-list"></div>
+          <div class="table-wrap dashboard-backlog-table-wrap">
+            <table class="data-table dashboard-backlog-table" id="backlogTable">
+              <thead>
+                <tr>
+                  <th data-sort="id">US</th>
+                  <th data-sort="queue">Prioridade</th>
+                  <th data-sort="title">Descrição</th>
+                  <th data-sort="developer">Desenvolvedor</th>
+                  <th data-sort="sprint">Sprint</th>
+                  <th data-sort="status">Status</th>
+                  <th>Planejamento</th>
+                  <th>Dependência</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
       </section>
 
-      <section class="dashboard-grid">
-        <div class="dashboard-main-col">
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Volume</span>
-                <h2>US por Sprint</h2>
-                <p>Mostra todas as sprints existentes na base, com concluídas e abertas.</p>
-              </div>
-            </div>
-            <div id="sprintChart" class="bar-chart"></div>
-          </section>
+      <section class="dashboard-view dashboard-intelligence-view" id="intelligenceView" hidden>
+        <section class="kpi-grid" id="kpiGrid" aria-label="Indicadores principais"></section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Operação</span>
-                <h2>Saúde por Sprint</h2>
-                <p>Abertas, em andamento, bloqueadas e prioridades críticas por ciclo.</p>
-              </div>
-            </div>
-            <div id="sprintHealthPanel" class="sprint-health-grid"></div>
-          </section>
-
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Capacidade</span>
-                <h2>Sprint x Desenvolvedor</h2>
-                <p>Distribuição das US por responsável em cada sprint.</p>
-              </div>
-            </div>
-            <div id="sprintDeveloperMatrix" class="sprint-dev-matrix"></div>
-          </section>
-
-          <section class="chart-strip dashboard-chart-strip">
+        <section class="dashboard-grid">
+          <div class="dashboard-main-col">
             <section class="panel">
               <div class="panel-head">
                 <div>
-                  <span class="eyebrow">Responsáveis</span>
-                  <h2>Carga por Desenvolvedor</h2>
+                  <span class="eyebrow">Volume</span>
+                  <h2>US por Sprint</h2>
+                  <p>Mostra todas as sprints existentes na base, com concluídas e abertas.</p>
                 </div>
               </div>
-              <div id="developerLoadChart" class="metric-chart"></div>
+              <div id="sprintChart" class="bar-chart"></div>
             </section>
 
             <section class="panel">
               <div class="panel-head">
                 <div>
-                  <span class="eyebrow">Risco</span>
-                  <h2>Bloqueios por Sprint</h2>
+                  <span class="eyebrow">Operação</span>
+                  <h2>Saúde por Sprint</h2>
+                  <p>Abertas, em andamento, bloqueadas e prioridades críticas por ciclo.</p>
                 </div>
               </div>
-              <div id="blockedSprintChart" class="metric-chart"></div>
+              <div id="sprintHealthPanel" class="sprint-health-grid"></div>
             </section>
-          </section>
 
-          <section class="panel dependency-map-panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Dependências</span>
-                <h2>Mapa das Dependências</h2>
-                <p>Relações entre US, com bloqueios e dependências concluídas separados visualmente.</p>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Capacidade</span>
+                  <h2>Sprint x Desenvolvedor</h2>
+                  <p>Distribuição das US por responsável em cada sprint.</p>
+                </div>
               </div>
-            </div>
-            <div id="dependencyMap" class="dependency-map"></div>
-          </section>
+              <div id="sprintDeveloperMatrix" class="sprint-dev-matrix"></div>
+            </section>
 
-        </div>
+            <section class="chart-strip dashboard-chart-strip">
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <span class="eyebrow">Responsáveis</span>
+                    <h2>Carga por Desenvolvedor</h2>
+                  </div>
+                </div>
+                <div id="developerLoadChart" class="metric-chart"></div>
+              </section>
 
-        <div class="dashboard-side-col">
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Prazo da Sprint</span>
-                <h2>Alertas da Sprint Atual</h2>
-                <p>US que precisam avançar antes do encerramento da sprint.</p>
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <span class="eyebrow">Risco</span>
+                    <h2>Bloqueios por Sprint</h2>
+                  </div>
+                </div>
+                <div id="blockedSprintChart" class="metric-chart"></div>
+              </section>
+            </section>
+
+            <section class="panel dependency-map-panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Dependências</span>
+                  <h2>Mapa das Dependências</h2>
+                  <p>Relações entre US, com bloqueios e dependências concluídas separados visualmente.</p>
+                </div>
               </div>
-            </div>
-            <div id="deadlineAlerts" class="deadline-list"></div>
-          </section>
+              <div id="dependencyMap" class="dependency-map"></div>
+            </section>
+          </div>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Status</span>
-                <h2>Saúde do Backlog</h2>
-                <p>Distribuição por status e percentual concluído.</p>
+          <div class="dashboard-side-col">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Prazo da Sprint</span>
+                  <h2>Alertas da Sprint Atual</h2>
+                  <p>US que precisam avançar antes do encerramento da sprint.</p>
+                </div>
               </div>
-            </div>
-            <div id="statusChart" class="donut-layout"></div>
-          </section>
+              <div id="deadlineAlerts" class="deadline-list"></div>
+            </section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Prioridades</span>
-                <h2>Fila de Execução</h2>
-                <p>Distribuição das US por prioridade.</p>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Status</span>
+                  <h2>Saúde do Backlog</h2>
+                  <p>Distribuição por status e percentual concluído.</p>
+                </div>
               </div>
-            </div>
-            <div id="priorityChart" class="metric-chart"></div>
-          </section>
+              <div id="statusChart" class="donut-layout"></div>
+            </section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Tendência</span>
-                <h2>Evolução Planejada</h2>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Prioridades</span>
+                  <h2>Fila de Execução</h2>
+                  <p>Distribuição das US por prioridade.</p>
+                </div>
               </div>
-            </div>
-            <div id="sprintTrendChart" class="line-chart compact-line-chart"></div>
-          </section>
+              <div id="priorityChart" class="metric-chart"></div>
+            </section>
 
-          <section class="panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Conclusão</span>
-                <h2>Percentual por Sprint</h2>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Tendência</span>
+                  <h2>Evolução Planejada</h2>
+                </div>
               </div>
-            </div>
-            <div id="completionChart" class="column-chart compact-column-chart"></div>
-          </section>
+              <div id="sprintTrendChart" class="line-chart compact-line-chart"></div>
+            </section>
 
-          <section class="panel side-fill-panel">
-            <div class="panel-head">
-              <div>
-                <span class="eyebrow">Dependências</span>
-                <h2>Leitura das Dependências</h2>
-                <p>Resumo executivo dos bloqueios que aparecem no mapa.</p>
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Conclusão</span>
+                  <h2>Percentual por Sprint</h2>
+                </div>
               </div>
-            </div>
-            <div id="dependencyInsights" class="dependency-insights"></div>
-          </section>
-        </div>
+              <div id="completionChart" class="column-chart compact-column-chart"></div>
+            </section>
+
+            <section class="panel side-fill-panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Dependências</span>
+                  <h2>Leitura das Dependências</h2>
+                  <p>Resumo executivo dos bloqueios que aparecem no mapa.</p>
+                </div>
+              </div>
+              <div id="dependencyInsights" class="dependency-insights"></div>
+            </section>
+          </div>
+        </section>
       </section>
     </main>
 
@@ -252,7 +327,7 @@
     </aside>
   </div>
 
-  <script src="assets/data.js?v=20260617-dashboard-no-backlog"></script>
-  <script src="assets/app.js?v=20260617-dashboard-no-backlog"></script>
+  <script src="assets/data.js?v=20260622-dashboard-tabs"></script>
+  <script src="assets/app.js?v=20260622-dashboard-tabs"></script>
 </body>
 </html>

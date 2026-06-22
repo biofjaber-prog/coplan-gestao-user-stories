@@ -50,8 +50,9 @@
     },
     pagination: {
       backlogPage: 1,
-      pageSize: 10,
+      pageSize: PAGE === "dashboard" ? 20 : 10,
     },
+    dashboardView: "backlog",
     dragStoryId: null,
     booted: false,
     eventsReady: false,
@@ -601,12 +602,43 @@
     renderRoadmap(filtered);
     renderDeadlineAlertsPanel(filtered);
     renderSideStats();
+    renderDashboardBacklogSummary(filtered);
   }
 
   function renderSideStats() {
     if ($("sideStoriesCount")) $("sideStoriesCount").textContent = String(state.stories.length);
     if ($("sideSprintsCount")) $("sideSprintsCount").textContent = String(getAllSprints().length);
     if ($("sideDevelopersCount")) $("sideDevelopersCount").textContent = String(getAllDevelopers().length);
+  }
+
+  function renderDashboardBacklogSummary(stories) {
+    if (PAGE !== "dashboard") return;
+    const progress = stories.filter((story) => isInProgress(story.status)).length;
+    const sprints = unique(stories.map((story) => story.sprint)).length;
+    if ($("backlogTotalCount")) $("backlogTotalCount").textContent = String(stories.length);
+    if ($("backlogProgressCount")) $("backlogProgressCount").textContent = String(progress);
+    if ($("backlogSprintCount")) $("backlogSprintCount").textContent = String(sprints);
+  }
+
+  function setDashboardView(view, shouldScroll = true) {
+    if (PAGE !== "dashboard") return;
+    const nextView = view === "intelligence" ? "intelligence" : "backlog";
+    const backlogActive = nextView === "backlog";
+    state.dashboardView = nextView;
+    document.body.dataset.dashboardView = nextView;
+
+    if ($("backlogHero")) $("backlogHero").hidden = !backlogActive;
+    if ($("intelligenceHero")) $("intelligenceHero").hidden = backlogActive;
+    if ($("backlogView")) $("backlogView").hidden = !backlogActive;
+    if ($("intelligenceView")) $("intelligenceView").hidden = backlogActive;
+
+    document.querySelectorAll(".dashboard-tab").forEach((tab) => {
+      const active = tab.dataset.dashboardView === nextView;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
+    });
+
+    if (shouldScroll) window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function fillSelect(id, values, selected, formatter) {
@@ -2760,6 +2792,12 @@
     state.eventsReady = true;
 
     document.addEventListener("click", (event) => {
+      const dashboardViewBtn = event.target.closest("[data-dashboard-view]");
+      if (dashboardViewBtn && PAGE === "dashboard") {
+        setDashboardView(dashboardViewBtn.dataset.dashboardView);
+        return;
+      }
+
       const storyBtn = event.target.closest("[data-open-story]");
       if (storyBtn) {
         openStoryDrawer(storyBtn.dataset.openStory);
@@ -3009,6 +3047,7 @@
     }
     setSaveState(PAGE === "dashboard" ? "Dashboard carregado" : "Gestão carregada");
     render();
+    setDashboardView("backlog", false);
     populateCloudForm();
     loadCloudData(false);
   }
