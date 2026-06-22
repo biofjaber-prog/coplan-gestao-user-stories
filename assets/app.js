@@ -2792,7 +2792,7 @@
     state.eventsReady = true;
 
     document.addEventListener("click", (event) => {
-      const dashboardViewBtn = event.target.closest("[data-dashboard-view]");
+      const dashboardViewBtn = event.target.closest("button[data-dashboard-view]");
       if (dashboardViewBtn && PAGE === "dashboard") {
         setDashboardView(dashboardViewBtn.dataset.dashboardView);
         return;

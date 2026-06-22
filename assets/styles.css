@@ -2415,6 +2415,7 @@ body[data-page="dashboard"] .dashboard-workspace {
   border: 1px solid var(--line-soft);
   border-radius: 12px;
   background: #fff;
+  cursor: pointer;
   transition: border-color 0.16s ease, transform 0.16s ease;
 }
 
