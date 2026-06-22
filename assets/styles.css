@@ -3000,6 +3000,36 @@ body[data-dashboard-view="intelligence"] .dashboard-tab[data-dashboard-view="bac
   animation: dashboard-view-enter 0.22s ease;
 }
 
+.dashboard-sprint-backlog-panel {
+  overflow: hidden;
+}
+
+.dashboard-roadmap-full {
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  padding: 18px;
+  background:
+    linear-gradient(rgba(33, 92, 128, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 92, 128, 0.035) 1px, transparent 1px),
+    #f8fbfd;
+  background-size: 38px 38px;
+}
+
+.dashboard-roadmap-full .sprint-lane {
+  box-shadow: 0 12px 26px rgba(27, 63, 89, 0.08);
+}
+
+.dashboard-roadmap-full .sprint-list {
+  max-height: none;
+  overflow: visible;
+}
+
+.dashboard-execution-board,
+.dashboard-developer-summary {
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  background: #f8fbfd;
+}
+
 @keyframes dashboard-view-enter {
   from {
     opacity: 0;
@@ -3099,6 +3129,11 @@ body[data-dashboard-view="intelligence"] .dashboard-tab[data-dashboard-view="bac
   .dashboard-backlog-table-wrap {
     max-height: none;
     min-height: 0;
+  }
+
+  .dashboard-roadmap-full {
+    grid-template-columns: 1fr;
+    padding: 12px;
   }
 
   .pagination-bar {

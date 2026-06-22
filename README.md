@@ -13,7 +13,7 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - `Abrir Dashboard`: abre o painel em uma nova aba.
 - O menu lateral da Gestao concentra navegacao e o acesso `GitHub / Publicar`, que abre em popup.
 - No Dashboard, o topo exibe apenas `Exportar XLSX` e `Sair`.
-- O Dashboard abre na aba `Backlog`, com filtros e tabela ampla das User Stories.
+- O Dashboard abre na aba `Backlog`, com filtros e as demandas organizadas visualmente por sprint.
 - `Acesse os Indicadores` alterna para a aba `Business Intelligence`, que concentra KPIs, gráficos, alertas, capacidade, riscos e dependências.
 - Os filtros são compartilhados pelas duas abas, permitindo analisar o mesmo recorte no Backlog e nos indicadores.
 - A tela de login do Dashboard usa a comunicação `Business Intelligence` e `Backlog, Indicadores e User Stories`.
@@ -38,12 +38,12 @@ Sistema de gestao do Modulo Fiscalizacao com login, fila de prioridade por sprin
 - O Editor Completo em tabela foi retirado da tela principal para reduzir espaco e barras de rolagem; edicoes continuam pelo clique na US e pelas telas de cadastro.
 - Os cards de indicadores foram retirados da tela de Gestao para deixar a edicao mais direta; eles continuam no Dashboard.
 - O painel `Conflitos e Bloqueios` tem rolagem interna para nao criar espaco vazio na coluna de sprints.
-- No Dashboard, o roadmap fica logo abaixo dos indicadores e organiza as sprints em grade sem rolagem horizontal.
+- Na aba `Backlog`, as sprints ocupam a tela em grade e mostram suas demandas, responsáveis, prioridades, status e dependências.
 - No Dashboard, sprints vazias nao aparecem na visao geral dos graficos/roadmap para evitar espaco em branco; ao filtrar por uma sprint especifica, ela aparece mesmo sem US.
 - No Dashboard, o Mapa das Dependencias fica em painel amplo na coluna principal e mostra cada relacao como `US origem -> depende de -> US destino`.
 - No Dashboard, Tendencia e Conclusao ficam na coluna lateral para preencher melhor o espaco do painel.
 - No Dashboard, a lateral tambem traz `Leitura das Dependencias`, com total de relacoes, bloqueadas, liberadas, ausentes, responsaveis afetados e bloqueios prioritarios.
-- No Dashboard, o painel `Backlog Completo` foi removido para reduzir altura e evitar espaco vazio desnecessario.
+- No Dashboard, a tabela de backlog completo foi removida; a visão operacional voltou ao formato de sprints e demandas.
 - No Dashboard, `Leitura das Dependencias` ocupa a lateral restante com sprints bloqueadas, US que mais travam outras e bloqueios prioritarios.
 - No Dashboard, `Alertas da Sprint Atual` compara a data de hoje com o fim da sprint aberta atual.
 - Faltando 4 dias para o fim da sprint, US em `Em testes` ou `Apresentar e planejar` recebem alerta piscante.

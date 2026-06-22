@@ -63,8 +63,8 @@
       <section class="page-hero dashboard-hero dashboard-backlog-hero" id="backlogHero">
         <div>
           <span class="eyebrow">Backlog do Desenvolvimento</span>
-          <h2>Visualize a fila completa de User Stories</h2>
-          <p>Consulte prioridades, responsáveis, sprints, planejamento, status e dependências em uma única visão operacional.</p>
+          <h2>O que acontece no backlog agora</h2>
+          <p>Fila de desenvolvimento</p>
         </div>
         <div class="dashboard-hero-actions">
           <button class="dashboard-hero-button" type="button" data-dashboard-view="intelligence">
@@ -121,54 +121,19 @@
       </section>
 
       <section class="dashboard-view dashboard-backlog-view" id="backlogView">
-        <section class="backlog-summary-strip" aria-label="Resumo do backlog filtrado">
-          <article>
-            <span>User Stories no filtro</span>
-            <strong id="backlogTotalCount">0</strong>
-          </article>
-          <article>
-            <span>Em andamento</span>
-            <strong id="backlogProgressCount">0</strong>
-          </article>
-          <article>
-            <span>Sprints envolvidas</span>
-            <strong id="backlogSprintCount">0</strong>
-          </article>
-          <article class="backlog-summary-message">
-            <span>Ordem de exibição</span>
-            <strong>Em desenvolvimento primeiro, concluídas ao final</strong>
-          </article>
-        </section>
-
-        <section class="panel dashboard-backlog-panel">
+        <section class="panel dashboard-sprint-backlog-panel">
           <div class="panel-head">
             <div>
-              <span class="eyebrow">Visão operacional</span>
-              <h2>Backlog Completo</h2>
-              <p>Clique em uma US para consultar todos os detalhes.</p>
+              <span class="eyebrow">Planejamento por ciclo</span>
+              <h2>Sprints e demandas em andamento</h2>
+              <p>Acompanhe a fila de cada sprint, seus responsáveis, prioridades, status e dependências.</p>
             </div>
             <div class="backlog-panel-note">
-              <span>Atualização automática</span>
-              <strong>Dados sincronizados com a Gestão</strong>
+              <span>Visão operacional</span>
+              <strong>Clique em uma US para consultar os detalhes</strong>
             </div>
           </div>
-          <div class="table-wrap dashboard-backlog-table-wrap">
-            <table class="data-table dashboard-backlog-table" id="backlogTable">
-              <thead>
-                <tr>
-                  <th data-sort="id">US</th>
-                  <th data-sort="queue">Prioridade</th>
-                  <th data-sort="title">Descrição</th>
-                  <th data-sort="developer">Desenvolvedor</th>
-                  <th data-sort="sprint">Sprint</th>
-                  <th data-sort="status">Status</th>
-                  <th>Planejamento</th>
-                  <th>Dependência</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+          <div id="roadmap" class="roadmap roadmap-list dashboard-roadmap-full"></div>
         </section>
       </section>
 
@@ -241,6 +206,28 @@
                 </div>
               </div>
               <div id="dependencyMap" class="dependency-map"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Execução</span>
+                  <h2>Foco atual da equipe</h2>
+                  <p>Demandas abertas de maior prioridade organizadas por responsável.</p>
+                </div>
+              </div>
+              <div id="executionBoard" class="execution-board dashboard-execution-board"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Equipe</span>
+                  <h2>Visão por Desenvolvedor</h2>
+                  <p>Carga aberta, prioridades críticas, bloqueios e avanço individual.</p>
+                </div>
+              </div>
+              <div id="developerSummary" class="developer-grid dashboard-developer-summary"></div>
             </section>
           </div>
 
