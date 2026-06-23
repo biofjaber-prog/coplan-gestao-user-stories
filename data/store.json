@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-22T15:32:41.654Z",
+  "updatedAt": "2026-06-23T00:46:02.734Z",
   "stories": [
     {
       "id": "6553",
@@ -781,6 +781,19 @@
       "developmentEnd": "",
       "notes": "",
       "order": 60
+    },
+    {
+      "id": "6931",
+      "title": "Anexar Arquivo no Acervo do Contribuinte da Ação Fiscal",
+      "developer": "Lucas Bonifácio",
+      "sprint": "Sprint 24",
+      "status": "Em homologação",
+      "dependency": "",
+      "queue": 1,
+      "developmentStart": "2026-06-21",
+      "developmentEnd": "2026-06-22",
+      "notes": "",
+      "order": 61
     }
   ],
   "sprintMeta": {
