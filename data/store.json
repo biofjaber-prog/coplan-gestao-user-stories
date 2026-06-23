@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-23T12:33:04.612Z",
+  "updatedAt": "2026-06-23T12:34:15.273Z",
   "stories": [
     {
       "id": "6553",
@@ -280,7 +280,7 @@
       "title": "Criar parâmetro de quantitativo de dias + Geração do Processo de Alteração Cadastral",
       "developer": "Rafaela Piedade",
       "sprint": "Sprint 24",
-      "status": "Em testes",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-15",
