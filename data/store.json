@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-23T00:46:02.734Z",
+  "updatedAt": "2026-06-23T12:33:04.612Z",
   "stories": [
     {
       "id": "6553",
@@ -36,8 +36,8 @@
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-22",
+      "developmentEnd": "2026-07-03",
       "notes": "",
       "order": 2
     },
@@ -293,11 +293,11 @@
       "title": "Envio do Processo de Alteração Cadastral para o Portal do Contribuinte",
       "developer": "Rafaela Piedade",
       "sprint": "Sprint 24",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6748",
       "queue": 2,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-23",
+      "developmentEnd": "2026-06-29",
       "notes": "",
       "order": 2
     },
