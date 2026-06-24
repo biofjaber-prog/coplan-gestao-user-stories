@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-23T12:34:15.273Z",
+  "updatedAt": "2026-06-24T00:57:19.373Z",
   "stories": [
     {
       "id": "6553",
@@ -46,11 +46,11 @@
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (AR)",
       "developer": "Fábio Satoru",
       "sprint": "Sprint 24",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-23",
+      "developmentEnd": "2026-06-29",
       "notes": "",
       "order": 1
     },
