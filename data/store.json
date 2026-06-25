@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-24T11:38:39.099Z",
+  "updatedAt": "2026-06-25T20:29:40.298Z",
   "stories": [
     {
       "id": "6553",
@@ -35,11 +35,11 @@
       "sprint": "Sprint 24",
       "status": "Apresentar e planejar",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "developmentStart": "2026-06-22",
       "developmentEnd": "2026-07-03",
       "notes": "",
-      "order": 2
+      "order": 1
     },
     {
       "id": "6552",
@@ -87,11 +87,11 @@
       "sprint": "Sprint 24",
       "status": "Em homologação",
       "dependency": "",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "2026-06-17",
       "developmentEnd": "2026-06-26",
       "notes": "",
-      "order": 1
+      "order": 2
     },
     {
       "id": "6548",
@@ -397,11 +397,11 @@
       "title": "Filtros de CGA, Inscrição Imobiliária e CIB na consulta de Fiscalizações e exibição do CIB no cabeçalho do Painel de Execução",
       "developer": "Miquéias",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-06-27",
+      "developmentEnd": "2026-06-30",
       "notes": "",
       "order": 37
     },
@@ -527,7 +527,7 @@
       "title": "Filtro \"Condomínio?\"",
       "developer": "Miquéias",
       "sprint": "Sprint 26",
-      "status": "Em desenvolvimento",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-22",
