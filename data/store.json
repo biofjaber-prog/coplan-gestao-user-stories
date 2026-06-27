@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-27T14:15:30.899Z",
+  "updatedAt": "2026-06-27T14:18:09.654Z",
   "stories": [
     {
       "id": "6553",
@@ -97,7 +97,7 @@
       "id": "6548",
       "title": "EMISSÃO REQUISIÇÃO DE DOCUMENTO (PDF DEFINITIVO)",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 24",
       "status": "Em homologação",
       "dependency": "",
       "queue": 1,
@@ -201,7 +201,7 @@
       "id": "6590",
       "title": "ASSINATURA DIGITAL - REQUISIÇÃO DE DOCUMENTO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 24",
       "status": "Em homologação",
       "dependency": "6548",
       "queue": 2,
