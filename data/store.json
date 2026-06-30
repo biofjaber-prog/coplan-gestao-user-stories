@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-30T14:08:53.998Z",
+  "updatedAt": "2026-06-30T19:33:40.037Z",
   "stories": [
     {
       "id": "6553",
@@ -305,7 +305,7 @@
       "id": "6750",
       "title": "Envio do Processo de Alteração cadastral via DEC",
       "developer": "Rafaela Piedade",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6748",
       "queue": 3,
