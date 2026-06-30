@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-27T14:18:09.654Z",
+  "updatedAt": "2026-06-30T14:08:53.998Z",
   "stories": [
     {
       "id": "6553",
@@ -192,8 +192,8 @@
       "status": "Apresentar e planejar",
       "dependency": "6548",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-02",
+      "developmentEnd": "2026-07-04",
       "notes": "",
       "order": 3
     },
