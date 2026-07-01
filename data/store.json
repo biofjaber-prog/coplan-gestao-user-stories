@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-01T11:38:39.135Z",
+  "updatedAt": "2026-07-01T11:50:11.788Z",
   "stories": [
     {
       "id": "6553",
@@ -396,7 +396,7 @@
       "id": "6821",
       "title": "Filtros de CGA, Inscrição Imobiliária e CIB na consulta de Fiscalizações e exibição do CIB no cabeçalho do Painel de Execução",
       "developer": "Miquéias",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 24",
       "status": "Em homologação",
       "dependency": "",
       "queue": 2,
