@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-01T20:49:12.241Z",
+  "updatedAt": "2026-07-02T19:46:50.759Z",
   "stories": [
     {
       "id": "6553",
@@ -59,11 +59,11 @@
       "title": "EMITIR ETIQUETA AR PARA REQUISIÇÃO DE DOCUMENTO",
       "developer": "Fábio Satoru",
       "sprint": "Sprint 25",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6552",
       "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-02",
+      "developmentEnd": "2026-07-05",
       "notes": "",
       "order": 7
     },
