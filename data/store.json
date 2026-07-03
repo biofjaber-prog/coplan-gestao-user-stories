@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-03T14:26:48.085Z",
+  "updatedAt": "2026-07-03T14:28:09.601Z",
   "stories": [
     {
       "id": "6553",
@@ -543,8 +543,8 @@
       "status": "Em desenvolvimento",
       "dependency": "6831",
       "queue": 3,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-02",
+      "developmentEnd": "2026-07-05",
       "notes": "",
       "order": 2
     },
