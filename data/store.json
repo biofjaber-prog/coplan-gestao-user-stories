@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-03T14:28:09.601Z",
+  "updatedAt": "2026-07-03T20:04:43.326Z",
   "stories": [
     {
       "id": "6553",
@@ -19,7 +19,7 @@
       "id": "6641",
       "title": "ENCERRAMENTO DA ANÁLISE E INSTRUÇÃO DE PROCESSO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 24",
+      "sprint": "Sprint 25",
       "status": "Em testes",
       "dependency": "",
       "queue": 2,
@@ -280,7 +280,7 @@
       "title": "Criar parâmetro de quantitativo de dias + Geração do Processo de Alteração Cadastral",
       "developer": "Rafaela Piedade",
       "sprint": "Sprint 24",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-15",
