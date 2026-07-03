@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-03T20:12:01.678Z",
+  "updatedAt": "2026-07-03T20:13:21.303Z",
   "stories": [
     {
       "id": "6553",
@@ -204,7 +204,7 @@
       "sprint": "Sprint 24",
       "status": "Concluído Homologação",
       "dependency": "6548",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "2026-06-27",
       "developmentEnd": "2026-06-30",
       "notes": "",
