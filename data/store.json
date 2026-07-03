@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-02T19:46:50.759Z",
+  "updatedAt": "2026-07-03T14:26:48.085Z",
   "stories": [
     {
       "id": "6553",
@@ -540,7 +540,7 @@
       "title": "Acesso ao cadatro de Condominio no Painel de Fiscalização",
       "developer": "Miquéias",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6831",
       "queue": 3,
       "developmentStart": "",
