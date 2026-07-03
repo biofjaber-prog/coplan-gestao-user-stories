@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-03T20:04:43.326Z",
+  "updatedAt": "2026-07-03T20:12:01.678Z",
   "stories": [
     {
       "id": "6553",
@@ -35,7 +35,7 @@
       "sprint": "Sprint 24",
       "status": "Concluído Homologação",
       "dependency": "",
-      "queue": 2,
+      "queue": 1,
       "developmentStart": "2026-06-22",
       "developmentEnd": "2026-07-03",
       "notes": "",
@@ -87,7 +87,7 @@
       "sprint": "Sprint 24",
       "status": "Concluído Homologação",
       "dependency": "",
-      "queue": 1,
+      "queue": 3,
       "developmentStart": "2026-06-17",
       "developmentEnd": "2026-06-26",
       "notes": "",
@@ -100,7 +100,7 @@
       "sprint": "Sprint 24",
       "status": "Concluído Homologação",
       "dependency": "",
-      "queue": 1,
+      "queue": 4,
       "developmentStart": "2026-06-27",
       "developmentEnd": "2026-06-30",
       "notes": "",
@@ -204,7 +204,7 @@
       "sprint": "Sprint 24",
       "status": "Concluído Homologação",
       "dependency": "6548",
-      "queue": 2,
+      "queue": 1,
       "developmentStart": "2026-06-27",
       "developmentEnd": "2026-06-30",
       "notes": "",
