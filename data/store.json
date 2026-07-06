@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-06T16:43:07.130Z",
+  "updatedAt": "2026-07-06T20:52:55.417Z",
   "stories": [
     {
       "id": "6553",
@@ -410,11 +410,11 @@
       "title": "Impressão dos Dados do Imóvel no TAF, mapeamento do CIB e Texto Padrão Imobiliário",
       "developer": "José Valmir",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6812/6819",
       "queue": 3,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-08",
+      "developmentEnd": "2026-07-13",
       "notes": "",
       "order": 3
     },
@@ -657,11 +657,11 @@
       "title": "[CONDOMINIO] Distribuição Aleatória de Unidades Imobiliárias do Mesmo Proprietário para o Mesmo Auditor",
       "developer": "Miquéias",
       "sprint": "Sprint 25",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6831",
       "queue": 31,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-08",
+      "developmentEnd": "2026-07-12",
       "notes": "6831 - Filtro \"Condomínio?\" no Cadastro de Programação Fiscal",
       "order": 2
     },
