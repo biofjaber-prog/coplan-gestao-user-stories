@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-05T12:06:50.176Z",
+  "updatedAt": "2026-07-06T11:13:30.225Z",
   "stories": [
     {
       "id": "6553",
@@ -655,8 +655,8 @@
     {
       "id": "6885",
       "title": "[CONDOMINIO] Distribuição Aleatória de Unidades Imobiliárias do Mesmo Proprietário para o Mesmo Auditor",
-      "developer": "Definir Desenvolvedor",
-      "sprint": "Sprint 26",
+      "developer": "Miquéias",
+      "sprint": "Sprint 25",
       "status": "Apresentar e planejar",
       "dependency": "6831",
       "queue": 31,
