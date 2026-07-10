@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-10T11:59:31.203Z",
+  "updatedAt": "2026-07-10T19:13:49.690Z",
   "stories": [
     {
       "id": "6553",
@@ -410,7 +410,7 @@
       "title": "Impressão dos Dados do Imóvel no TAF, mapeamento do CIB e Texto Padrão Imobiliário",
       "developer": "José Valmir",
       "sprint": "Sprint 26",
-      "status": "Em desenvolvimento",
+      "status": "Concluído Homologação",
       "dependency": "6812/6819",
       "queue": 2,
       "developmentStart": "2026-07-08",
@@ -423,7 +423,7 @@
       "title": "Geração do TAF com seleção de vínculo (Contribuinte / Proprietário / Responsável)",
       "developer": "José Valmir",
       "sprint": "Sprint 26",
-      "status": "Em testes",
+      "status": "Concluído Homologação",
       "dependency": "6812",
       "queue": 1,
       "developmentStart": "2026-06-23",
@@ -501,7 +501,7 @@
       "title": "Períodos ao copiar vigência do imóvel para apuração do IPTU/TRSD",
       "developer": "Rui Barbosa",
       "sprint": "Sprint 26",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-22",
@@ -540,7 +540,7 @@
       "title": "Acesso ao cadatro de Condominio no Painel de Fiscalização",
       "developer": "Miquéias",
       "sprint": "Sprint 25",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "6831",
       "queue": 1,
       "developmentStart": "2026-07-02",
