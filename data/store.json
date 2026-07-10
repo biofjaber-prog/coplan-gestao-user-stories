@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-10T19:16:37.895Z",
+  "updatedAt": "2026-07-10T19:17:38.778Z",
   "stories": [
     {
       "id": "6553",
@@ -409,7 +409,7 @@
       "id": "6820",
       "title": "Impressão dos Dados do Imóvel no TAF, mapeamento do CIB e Texto Padrão Imobiliário",
       "developer": "José Valmir",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 25",
       "status": "Concluído Homologação",
       "dependency": "6812/6819",
       "queue": 2,
@@ -422,7 +422,7 @@
       "id": "6819",
       "title": "Geração do TAF com seleção de vínculo (Contribuinte / Proprietário / Responsável)",
       "developer": "José Valmir",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 25",
       "status": "Concluído Homologação",
       "dependency": "6812",
       "queue": 1,
@@ -500,7 +500,7 @@
       "id": "6828",
       "title": "Períodos ao copiar vigência do imóvel para apuração do IPTU/TRSD",
       "developer": "Rui Barbosa",
-      "sprint": "Sprint 26",
+      "sprint": "Sprint 25",
       "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
