@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-10T19:17:38.778Z",
+  "updatedAt": "2026-07-13T14:54:36.356Z",
   "stories": [
     {
       "id": "6553",
@@ -19,8 +19,8 @@
       "id": "6641",
       "title": "ENCERRAMENTO DA ANÁLISE E INSTRUÇÃO DE PROCESSO",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
-      "status": "Em testes",
+      "sprint": "Sprint 26",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 2,
       "developmentStart": "2026-06-14",
@@ -58,14 +58,14 @@
       "id": "6554",
       "title": "EMITIR ETIQUETA AR PARA REQUISIÇÃO DE DOCUMENTO",
       "developer": "Fábio Satoru",
-      "sprint": "Sprint 25",
-      "status": "Em desenvolvimento",
+      "sprint": "Sprint 26",
+      "status": "Em testes",
       "dependency": "6552",
       "queue": 1,
       "developmentStart": "2026-07-02",
       "developmentEnd": "2026-07-05",
       "notes": "",
-      "order": 7
+      "order": 1
     },
     {
       "id": "6258",
@@ -117,14 +117,14 @@
       "developmentStart": "2026-07-06",
       "developmentEnd": "2026-07-08",
       "notes": "",
-      "order": 1
+      "order": 2
     },
     {
       "id": "6674",
       "title": "NOTIFICAÇÃO GESTOR SECFI NO ENCERRAMENTO NÃO LOCALIZAÇÃO",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 25",
-      "status": "Apresentar e planejar",
+      "status": "Em homologação",
       "dependency": "6673",
       "queue": 3,
       "developmentStart": "",
@@ -148,28 +148,28 @@
     {
       "id": "6549",
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (DEC)",
-      "developer": "Fábio Satoru",
-      "sprint": "Sprint 25",
+      "developer": "Andrei Falbot",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 15
+      "order": 2
     },
     {
       "id": "6550",
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (EMAIL)",
-      "developer": "Fábio Satoru",
-      "sprint": "Sprint 25",
+      "developer": "Andrei Falbot",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "",
       "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 16
+      "order": 3
     },
     {
       "id": "6555",
@@ -195,7 +195,7 @@
       "developmentStart": "2026-07-02",
       "developmentEnd": "2026-07-04",
       "notes": "",
-      "order": 3
+      "order": 1
     },
     {
       "id": "6590",
@@ -213,15 +213,15 @@
     {
       "id": "6670",
       "title": "Encerramento de Fiscalização - Status Diferente de ATIVO",
-      "developer": "Fábio Satoru",
+      "developer": "Andrei Falbot",
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6669",
-      "queue": 1,
+      "queue": 4,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 2
+      "order": 4
     },
     {
       "id": "6724",
@@ -318,7 +318,7 @@
       "id": "6764",
       "title": "Composição do Inteiro Teor a partir do Despacho e Quadro de Instrução - Painel de Análise e Instrução de Processo",
       "developer": "Rafaela Piedade",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 2,
@@ -331,8 +331,8 @@
       "id": "6795",
       "title": "Parametrização Motivo da Fiscalização - Tela principal",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
-      "status": "Apresentar e planejar",
+      "sprint": "Sprint 26",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 3,
       "developmentStart": "",
@@ -344,7 +344,7 @@
       "id": "6796",
       "title": "Parametrização Motivo da Fiscalização - Tela de Cadastro",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6795",
       "queue": 4,
@@ -448,8 +448,8 @@
       "id": "6669",
       "title": "Encerramento da Fiscalização - Suspensão de Cadastro",
       "developer": "Lucas Bonifácio",
-      "sprint": "Sprint 25",
-      "status": "Em desenvolvimento",
+      "sprint": "Sprint 26",
+      "status": "Em testes",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-07-06",
@@ -806,7 +806,7 @@
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 62
+      "order": 1
     }
   ],
   "sprintMeta": {
