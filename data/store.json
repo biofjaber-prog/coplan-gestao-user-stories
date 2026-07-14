@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-13T14:54:36.356Z",
+  "updatedAt": "2026-07-14T00:08:45.562Z",
   "stories": [
     {
       "id": "6553",
@@ -123,7 +123,7 @@
       "id": "6674",
       "title": "NOTIFICAÇÃO GESTOR SECFI NO ENCERRAMENTO NÃO LOCALIZAÇÃO",
       "developer": "Andrei Falbot",
-      "sprint": "Sprint 25",
+      "sprint": "Sprint 26",
       "status": "Em homologação",
       "dependency": "6673",
       "queue": 3,
@@ -241,7 +241,7 @@
       "title": "Inclusão de procedimentos da ação fiscal via dropdown pesquisável com cadastro inline na aba \"Proc. e Docs da Ação Fiscal\"",
       "developer": "Rafaela Piedade",
       "sprint": "Sprint 25",
-      "status": "Em homologação",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "",
@@ -461,8 +461,8 @@
       "id": "6826",
       "title": "Demonstrativo Geral de Vigências",
       "developer": "Julierson",
-      "sprint": "Sprint 26",
-      "status": "Em desenvolvimento",
+      "sprint": "Sprint 25",
+      "status": "Concluído Homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-06-29",
@@ -477,11 +477,11 @@
       "sprint": "Sprint 26",
       "status": "Em desenvolvimento",
       "dependency": "6826",
-      "queue": 2,
+      "queue": 1,
       "developmentStart": "2026-07-11",
       "developmentEnd": "2026-07-17",
       "notes": "",
-      "order": 2
+      "order": 1
     },
     {
       "id": "6829",
@@ -594,11 +594,11 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827/6839",
-      "queue": 3,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 7
+      "order": 2
     },
     {
       "id": "6844",
@@ -620,11 +620,11 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6826/6827",
-      "queue": 4,
+      "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 11
+      "order": 3
     },
     {
       "id": "6329",
