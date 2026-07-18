@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-15T16:44:17.078Z",
+  "updatedAt": "2026-07-18T11:07:33.754Z",
   "stories": [
     {
       "id": "6553",
@@ -332,7 +332,7 @@
       "title": "Parametrização Motivo da Fiscalização - Tela principal",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 26",
-      "status": "Em desenvolvimento",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 3,
       "developmentStart": "",
@@ -345,7 +345,7 @@
       "title": "Parametrização Motivo da Fiscalização - Tela de Cadastro",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 4,
       "developmentStart": "",
@@ -449,7 +449,7 @@
       "title": "Encerramento da Fiscalização - Suspensão de Cadastro",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 26",
-      "status": "Em testes",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "2026-07-06",
@@ -800,7 +800,7 @@
       "title": "Estornar Plantão por Ciclo/Linha e Controle de Acesso",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 1,
       "developmentStart": "",
@@ -961,8 +961,8 @@
       "end": "17/07",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#006652",
-      "closed": false,
-      "closedAt": ""
+      "closed": true,
+      "closedAt": "2026-07-18T11:02:36.709Z"
     },
     "Sprint 26": {
       "start": "20/07",
