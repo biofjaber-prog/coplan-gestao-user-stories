@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-20T13:17:21.961Z",
+  "updatedAt": "2026-07-27T18:16:49.700Z",
   "stories": [
     {
       "id": "6553",
@@ -150,7 +150,7 @@
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (DEC)",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 2,
       "developmentStart": "",
@@ -163,7 +163,7 @@
       "title": "ENVIO DA REQUISIÇÃO DE DOCUMENTO (EMAIL)",
       "developer": "Andrei Falbot",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em homologação",
       "dependency": "",
       "queue": 3,
       "developmentStart": "",
@@ -358,13 +358,13 @@
       "title": "Resultado de Fiscalização para Contribuinte Fiscalizado",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6796",
-      "queue": 3,
+      "queue": 1,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 3
+      "order": 1
     },
     {
       "id": "6798",
@@ -373,11 +373,11 @@
       "sprint": "Sprint 26",
       "status": "Apresentar e planejar",
       "dependency": "6796 / 6797",
-      "queue": 1,
+      "queue": 2,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 1
+      "order": 2
     },
     {
       "id": "6822",
@@ -451,11 +451,11 @@
       "sprint": "Sprint 26",
       "status": "Em homologação",
       "dependency": "",
-      "queue": 2,
+      "queue": 3,
       "developmentStart": "2026-07-06",
       "developmentEnd": "2026-07-09",
       "notes": "",
-      "order": 2
+      "order": 3
     },
     {
       "id": "6826",
@@ -553,7 +553,7 @@
       "title": "Implementação de Regras para CIB na Programação Fiscal Imobiliária e P.A NSAT",
       "developer": "Miquéias",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "",
       "queue": 3,
       "developmentStart": "",
@@ -592,7 +592,7 @@
       "title": "Demarcação de Campos com Fórmula e Campos Não Editáveis no Demonstrativo de Vigência",
       "developer": "Julierson",
       "sprint": "Sprint 26",
-      "status": "Em desenvolvimento",
+      "status": "Em homologação",
       "dependency": "6826/6827/6839",
       "queue": 3,
       "developmentStart": "",
@@ -668,9 +668,9 @@
     {
       "id": "6886",
       "title": "Reprocessar Resultado do Cálculo do IPTU por meio do botão “Calcular”",
-      "developer": "Definir Desenvolvedor",
+      "developer": "Julierson",
       "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6829",
       "queue": 1,
       "developmentStart": "",
