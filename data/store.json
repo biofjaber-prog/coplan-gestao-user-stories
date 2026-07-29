@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-29T22:46:04.013Z",
+  "updatedAt": "2026-07-29T22:56:17.344Z",
   "stories": [
     {
       "id": "6553",
@@ -684,11 +684,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6829",
+      "dependency": "NSAT-6886",
       "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886",
       "order": 3
     },
     {
@@ -697,11 +697,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6887",
+      "dependency": "6886/6887",
       "queue": 6,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886/6887",
       "order": 6
     },
     {
@@ -710,11 +710,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6886, 6887, 6888",
+      "dependency": "6886/6887/6888",
       "queue": 7,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886/6887/6888",
       "order": 7
     },
     {
@@ -749,11 +749,11 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6829, 6925",
+      "dependency": "6925",
       "queue": 6,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6925",
       "order": 6
     },
     {
@@ -762,11 +762,11 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6829, 6926, 6927",
+      "dependency": "6925/6926",
       "queue": 7,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6925/6926",
       "order": 7
     },
     {
@@ -775,11 +775,11 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6829, 6886, 6887, 6925, 6926",
+      "dependency": "6925/6926/6927",
       "queue": 8,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6925/6926/6927",
       "order": 8
     },
     {
@@ -827,11 +827,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "6886/6887/6888",
       "queue": 10,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886/6887/6888",
       "order": 10
     },
     {
@@ -840,11 +840,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6959",
+      "dependency": "6886/6887/6888/6959",
       "queue": 11,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886/6887/6888/6959",
       "order": 11
     },
     {
@@ -853,11 +853,11 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6959 / 6960",
+      "dependency": "6886/6887/6888/6959/6960",
       "queue": 12,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
+      "notes": "6886/6887/6888/6959/6960",
       "order": 12
     },
     {
@@ -866,12 +866,12 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6959 / 6960 / 6961",
-      "queue": 11,
+      "dependency": "6925/6927/6926",
+      "queue": 9,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
-      "order": 11
+      "notes": "6925/6927/6926",
+      "order": 9
     },
     {
       "id": "6984",
@@ -879,12 +879,12 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6959 / 6960 / 6961 / 6983",
-      "queue": 9,
+      "dependency": "6925/6927/6926/6983",
+      "queue": 10,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
-      "order": 9
+      "notes": "6925/6927/6926/6983",
+      "order": 10
     },
     {
       "id": "6985",
@@ -892,12 +892,12 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6959 / 6960 / 6961 / 6983 / 6984",
-      "queue": 10,
+      "dependency": "6925/6927/6926/6983/6984",
+      "queue": 11,
       "developmentStart": "",
       "developmentEnd": "",
-      "notes": "",
-      "order": 10
+      "notes": "6925/6927/6926/6983/6984",
+      "order": 11
     },
     {
       "id": "6986",
@@ -905,7 +905,7 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "6986 / 6987 / 6988 / 6925 / 6926 / 6927 / 6959 / 6960 / 6961 / 6983 / 6984 / 6985",
+      "dependency": "6886/6887/6888/6959/6960/6961",
       "queue": 13,
       "developmentStart": "",
       "developmentEnd": "",
@@ -968,19 +968,6 @@
       "id": "7021",
       "title": "TERMO DE INTIMAÇÃO – NFL TRSD",
       "developer": "Julierson",
-      "sprint": "Sprint 26",
-      "status": "Apresentar e planejar",
-      "dependency": "",
-      "queue": 1,
-      "developmentStart": "",
-      "developmentEnd": "",
-      "notes": "",
-      "order": 75
-    },
-    {
-      "id": "7022",
-      "title": "TABELA DE RECEITA",
-      "developer": "Julierson",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
       "dependency": "",
@@ -988,6 +975,19 @@
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
+      "order": 1
+    },
+    {
+      "id": "7022",
+      "title": "TABELA DE RECEITA",
+      "developer": "Julierson",
+      "sprint": "Sprint 27",
+      "status": "Apresentar e planejar",
+      "dependency": "7021/6986/7023",
+      "queue": 4,
+      "developmentStart": "",
+      "developmentEnd": "",
+      "notes": "7020",
       "order": 4
     },
     {
@@ -996,7 +996,7 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "6925/6926/6927/6983/6984/6985",
       "queue": 12,
       "developmentStart": "",
       "developmentEnd": "",
@@ -1009,7 +1009,7 @@
       "developer": "Andrei Falbot",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "6886/6887/6888/6925/6926/6927/6984/6983/6985/7019/7020",
       "queue": 5,
       "developmentStart": "",
       "developmentEnd": "",
@@ -1022,12 +1022,12 @@
       "developer": "Miquéias",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "6925/6927/6926/6983/6984/7021/7022/7023",
       "queue": 13,
       "developmentStart": "",
       "developmentEnd": "",
       "notes": "",
-      "order": 79
+      "order": 13
     },
     {
       "id": "7026",
@@ -1061,7 +1061,7 @@
       "developer": "Vinicius",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "7027",
       "queue": 3,
       "developmentStart": "",
       "developmentEnd": "",
@@ -1074,7 +1074,7 @@
       "developer": "Vinicius",
       "sprint": "Sprint 27",
       "status": "Apresentar e planejar",
-      "dependency": "",
+      "dependency": "7028",
       "queue": 4,
       "developmentStart": "",
       "developmentEnd": "",
