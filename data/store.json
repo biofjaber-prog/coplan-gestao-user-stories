@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-31T18:04:34.694Z",
+  "updatedAt": "2026-07-31T18:05:34.994Z",
   "stories": [
     {
       "id": "6553",
@@ -358,7 +358,7 @@
       "title": "Resultado de Fiscalização para Contribuinte Fiscalizado",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 27",
-      "status": "Em testes",
+      "status": "Testes concluídos",
       "dependency": "6796",
       "queue": 2,
       "developmentStart": "",
@@ -371,11 +371,11 @@
       "title": "Controle de Atividade Fiscal - Contribuinte Não Fiscalizado (ATIVIDADE E IMOBILIÁRIO)",
       "developer": "Lucas Bonifácio",
       "sprint": "Sprint 27",
-      "status": "Apresentar e planejar",
+      "status": "Em desenvolvimento",
       "dependency": "6796 / 6797",
       "queue": 3,
-      "developmentStart": "",
-      "developmentEnd": "",
+      "developmentStart": "2026-07-30",
+      "developmentEnd": "2026-08-05",
       "notes": "",
       "order": 3
     },
