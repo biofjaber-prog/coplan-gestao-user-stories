@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-02T21:05:41.247Z",
+  "updatedAt": "2026-08-03T11:49:47.125Z",
   "stories": [
     {
       "id": "6553",
@@ -1120,6 +1120,30 @@
       "end": "14/08",
       "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
       "color": "#ffea00",
+      "closed": false,
+      "closedAt": ""
+    },
+    "Sprint 28": {
+      "start": "17/08",
+      "end": "28/08",
+      "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
+      "color": "#00fbff",
+      "closed": false,
+      "closedAt": ""
+    },
+    "Sprint 29": {
+      "start": "31/08",
+      "end": "11/09",
+      "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
+      "color": "#ffae00",
+      "closed": false,
+      "closedAt": ""
+    },
+    "Sprint 30": {
+      "start": "14/09",
+      "end": "25/09",
+      "goal": "Evoluir o produto com foco, colaboração e qualidade, entregando valor real ao cliente e fortalecendo o compromisso do time.",
+      "color": "#000000",
       "closed": false,
       "closedAt": ""
     }
